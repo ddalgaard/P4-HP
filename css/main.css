@@ -1,0 +1,111 @@
+* {
+    margin:0;
+    padding:0;
+}
+
+body {
+    font-family: "Helvetica";
+    font-size:1em;
+    background:#ededed;
+}
+
+a {
+    text-decoration:none;   
+}
+
+#main {
+    background:#fdfdfd;
+    width:1000px;
+    margin:0 auto;
+    padding:20px;
+    border:2px solid #e3e3e3;
+    overflow: auto;
+}
+
+#menu {
+    background:#f2f2f2;
+    list-style:none;
+    border:1px solid #e6e6e6;
+    overflow:auto;
+}
+
+#menu li {
+    height:20px;
+    line-height:20px;
+    border-right:1px solid #e6e6e6;
+	float:left;
+	padding:10px 30px 10px 30px;
+    text-align: center;
+}
+
+#menu li:hover {
+    background:#fff;
+}
+
+#menu li a {
+    text-transform: uppercase;
+    color:#444;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.shifts_table {
+    width:490px;   
+    border-collapse:collapse;
+    float:left;
+    margin:0 5px 0 0;
+}
+
+.shifts_table tbody tr td {
+    padding:10px;
+    font-size: 12px;
+}
+ 
+.shifts_table thead tr {
+    background:#eee;
+    height:70px;
+}
+
+.shifts_table tbody tr:nth-child(even){
+    background:#F8F8F8;
+}
+
+.shifts_table tbody tr:nth-child(odd){
+    background:#F4F4F4;
+}
+
+#free_shifts tbody tr td:nth-child(5){
+    border-left:1px #999 solid;
+    min-width:100px;
+}
+
+.button {
+    background:#12B9DB;
+    padding:10px;
+    border-radius:5px;
+    color:#fff;
+    font-weight:bold;
+    
+}
+
+#hello_user {
+    float:right;
+    margin-right:20%;
+    background:#CFDE5C;
+    color:#fff;
+    font-weight: bold;
+    padding:10px 0 10px 10px;
+    display: inline-block;
+    border-radius:3px;
+    font-size:13px;
+}
+
+#hello_user:after {
+    content: "<a href=''>logud</a>";
+    background:#444;
+    width:10px;
+    padding:12px;
+    margin-left:10px;
+    border-radius:0 3px 3px 0;
+    font-size:11px;
+}
