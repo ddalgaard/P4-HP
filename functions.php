@@ -279,7 +279,7 @@ function returnEventsOnID($username){
 function returnFreeEvents(){
 
 
-    $sql_query ="select shift_id, shift_start, shift_end, skill_name, note from shift, skill where shift_emp_id is null and skill.skill_id = shift.skill_id group by shift_start asc;";
+    $sql_query ="select shift_id, shift_start, shift_end, skill_name, note from shift, skill where shift_emp_id is null and skill.skill_id = shift.skill_id order by shift_start asc;";
 				
     // Use query function (executeQuery()) to return result of query
     $query_result = executeQuery($sql_query);
