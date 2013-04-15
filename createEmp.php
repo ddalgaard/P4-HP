@@ -18,7 +18,7 @@ if(isset($_POST['btnRegister']))
 {
     $query    =     "INSERT INTO emp(first_name,last_name,email) VALUES ('$userFirstName','$userLastName','$userEmail')";
                     "INSERT INTO address(emp_id,street,zip_code)values(LAST_INSERT_ID(),'$userAddress','$userZip')";
-                    "INSERT INTO phone(emp_id,phone_no)values(LAST_INSERT_ID(),'$userPhone')"
+                    "INSERT INTO phone(emp_id,phone_no)values(LAST_INSERT_ID(),'$userPhone')";
                     "INSERT INTO emp_skill(emp_id, skill_id)";
     $res      =    mysql_query($query);
 
