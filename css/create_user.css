@@ -1,0 +1,48 @@
+* {
+margin:0;
+padding:0;	
+	
+}
+
+body {
+    font-family: Arial ,"Helvetica";
+    font-size:1em;
+    background:#ededed;
+}
+
+fieldset {
+	float: left;
+	margin: 5px 0 0 5px;
+	
+}
+legend{
+
+    text-transform: uppercase;
+    color:#444;
+    font-weight: bold;
+    font-size: 12px;	
+	
+}
+
+label{
+	
+	text-transform: uppercase;
+    color:#444;
+    font-weight: bold;
+    font-size: 10px;
+    float: left;
+    margin: 0 30px 0 0;
+    width: 100px;
+   
+}
+
+input, select {
+	display: block;
+	margin: 5px 5px 5px 0;
+	
+}
+
+#deleteuser{
+	
+	
+}
