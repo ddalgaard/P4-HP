@@ -1,5 +1,26 @@
 <?php
 require_once "functions.php";
+
+
+// If all fields are set, add the employee
+if(isset($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3'])){
+
+    addEmp($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3']);
+}
+
+if(isset($_GET['deleteEmp']) == 'yes'){
+    
+    $emp_id = $_POST['selectEmpToDelete'];
+    
+    deleteEmp($emp_id);
+
+$url = 'http://localhost/www/P4-HP/createuser.php?deleteEmp=yes';//example url
+
+    $url = strtok($url, '?');
+    echo $url;
+}
+ 
+
 ?>
 <html>
 <head>
@@ -9,7 +30,7 @@ require_once "functions.php";
 
 <body>
 <table width="300" border="0" >
-    <form id="form1" name="form1" method="post" action="createEmp.php">
+    <form id="form1" name="form1" method="post">
         <tr>
             <td colspan="3"><b>Create employee:</b></td>
         </tr>
@@ -57,8 +78,7 @@ require_once "functions.php";
                     $sql_query = "SELECT skill_name, skill_id FROM skill";
                     $query_result = executeQuery($sql_query);
                     while($row = mysql_fetch_array($query_result)){
-                        $skill=$row['skill_name'];
-                        echo "<option value=\"" . $row['skill_id'] . "\">" . $skill ."</option>";
+                        echo "<option value='" . $row['skill_id'] . "'>" . $row['skill_name'] ."</option>";
                     }
                     ?>
                 </select>
@@ -74,8 +94,7 @@ require_once "functions.php";
                     $query_result = executeQuery($sql_query);
                     while($row = mysql_fetch_array($query_result))
                     {
-                        $skill=$row['skill_name'];
-                        echo "<option value=\"" . $row['skill_id'] . "\">" . $skill ."</option>";
+                        echo "<option value='" . $row['skill_id'] . "'>" . $row['skill_name'] ."</option>";
                     }
                     ?>
                 </select>
@@ -90,8 +109,7 @@ require_once "functions.php";
                     $sql_query = "SELECT skill_name, skill_id FROM skill";
                     $query_result = executeQuery($sql_query);
                     while($row = mysql_fetch_array($query_result)){
-                        $skill=$row['skill_name'];
-                        echo "<option value=\"" . $row['skill_id'] . "\">" . $skill ."</option>";
+                        echo "<option value='" . $row['skill_id'] . "'>" . $row['skill_name'] ."</option>";
                     }
                     ?>
                 </select>
@@ -104,18 +122,17 @@ require_once "functions.php";
         </tr>
 
     </form>
-    <form id="deleteForm" name="delForm" method="post" action="delEmp.php">
+    <form id="deleteForm" name="delForm" method="post" action="?deleteEmp=yes">
         <td>Select employee:</td>
         <td>
-            <select name="selectEmpName">
+            <select name="selectEmpToDelete">
                 <option value="-1"> None </option>
                 <?php
                 $sql_query = "SELECT emp_id, CONCAT(first_name, ' ', last_name) as full_name FROM emp";
                 $query_result = executeQuery($sql_query);
                 while($row = mysql_fetch_array($query_result))
                 {
-                    $name=$row['full_name'];
-                    echo "<option value=\"" . $row['emp_id'] . "\">" . $name ."</option>";
+                    echo "<option value='" . $row['emp_id'] . "'>" . $row['full_name'] ."</option>";
                 }
                 ?>
             </select>
