@@ -28,7 +28,7 @@ if(isset($_GET['deleteEmp']) == 'yes'){
 
 <div id="createuser">
 	<table width="300">
-    	<form id="form1" name="form1" method="post" action="createEmp.php">
+    	<form id="form1" name="form1" method="post">
 	    	<fieldset>
        			<legend>Create employee</legend>
        				<label>First name:</label><input type="text" name="txtFirstName"/>
@@ -78,9 +78,9 @@ if(isset($_GET['deleteEmp']) == 'yes'){
     <div id="deleteuser">  
 	    <fieldset>
 		    <legend>Delete employee</legend>
-		    	<form id="deleteForm" name="delForm" method="post" action="delEmp.php">
+		    	<form id="deleteForm" name="delForm" method="post" action="?deleteEmp=yes">
 			    	<label>Select employee:</label>
-			    	<select name="selectEmpName">
+			    	<select name="selectEmpToDelete">
 				    <option value="-1"> None </option>
 
                 <?php
