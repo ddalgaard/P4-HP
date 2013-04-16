@@ -82,11 +82,13 @@ fieldset {
 
 #create_shift_popup #overview {
         width:500px;
+        border-radius:4px;
 }
 
 #create_shift_popup #overview table {
         border-spacing:0;
         border-collapse:collapse;
+        border-radius:4px;
 }
 
 #create_shift_popup #overview table th {
@@ -99,6 +101,7 @@ fieldset {
 #create_shift_popup #overview table tr, #create_shift_popup #overview table td {
         border:1px solid #ccc; 
         padding:5px;
+        border-radius:4px;
 
 }
 

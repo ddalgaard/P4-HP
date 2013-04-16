@@ -1,10 +1,10 @@
 ﻿<?php
 session_start();
 require_once "functions.php";
-
+/*
 checkLogin();
 if($_SESSION['loggedin'] == TRUE){
-
+*/
 // Set default value of the $month variable to be the current month
 $month = "current";
 
@@ -59,7 +59,9 @@ $month = $_POST['select_month'];
             $year = date('Y');
             // Add a calendar for the specified month and year
             echo createCalendar($month, $year);
-        }}
+        }
+
+        //}
 
     ?>
 
