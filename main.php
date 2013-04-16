@@ -46,6 +46,12 @@ if($_SESSION['loggedin'] == TRUE){
 				</tr>
 			</thead>
 			<tbody>
+				<tr class="table_boldtext"> 
+					<td>Start time</td>
+					<td>End time</td>
+					<td>Function</td>
+					<td colspan="2">Notes</td>
+				</tr>
                     <?php 
                     	echo returnFreeEvents();
                     ?>
@@ -60,6 +66,12 @@ if($_SESSION['loggedin'] == TRUE){
 				</tr>
 			</thead>
 			<tbody>
+				<tr class="table_boldtext"> 
+					<td>Start time</td>
+					<td>End time</td>
+					<td>Function</td>
+					<td>Notes</td>
+				</tr>				
                     <?php 
                     	// spans 4 rows
                     	echo returnEventsOnID($username); 

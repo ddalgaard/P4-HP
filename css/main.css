@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family: "Helvetica";
+    font-family: Arial ,"Helvetica";
     font-size:1em;
     background:#ededed;
 }
@@ -53,7 +53,8 @@ a {
     width:490px;   
     border-collapse:collapse;
     float:left;
-    margin:0 5px 0 0;
+    margin:5px 5px 0 5px;
+    border:1px solid #ddd;
 }
 
 .shifts_table tbody tr td {
@@ -74,15 +75,29 @@ a {
     background:#F4F4F4;
 }
 
+
+.shifts_table tbody tr {
+    border-bottom:1px dashed #ddd;
+}
+
 #free_shifts tbody tr td:nth-child(5){
-    border-left:1px #999 solid;
+    border-left:1px #ddd dashed;
     min-width:100px;
+}
+
+.table_boldtext {
+    font-weight: bold;
+    color:#555;
+}
+
+.button_row {
+    text-align: center;
 }
 
 .button {
     background:#12B9DB;
-    padding:10px;
-    border-radius:5px;
+    padding:5px;
+    border-radius:3px;
     color:#fff;
     font-weight:bold;
     
@@ -90,22 +105,21 @@ a {
 
 #hello_user {
     float:right;
-    margin-right:20%;
+    margin:15px 20% 15px 0;
     background:#CFDE5C;
     color:#fff;
-    font-weight: bold;
-    padding:10px 0 10px 10px;
+    padding:8px 10px 10px 0;
     display: inline-block;
     border-radius:3px;
     font-size:13px;
 }
 
-#hello_user:after {
-    content: "<a href=''>logud</a>";
-    background:#444;
-    width:10px;
-    padding:12px;
-    margin-left:10px;
-    border-radius:0 3px 3px 0;
+#hello_user:before {
+    content: url('../img/profile.png');
+    background:#666;
+    padding:10px 4px 10px 4px;
+    height:inherit;
+    border-radius:3px 0 0 3px;
+    margin-right:6px;
     font-size:11px;
 }

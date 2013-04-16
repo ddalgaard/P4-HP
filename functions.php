@@ -15,7 +15,7 @@ function checkLogin() {
 }
 
 function executeQuery($sql_query){
-        
+
     // Add query result to variable
     $result = mysql_query($sql_query);
     
@@ -36,6 +36,7 @@ function addShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $end
     $sql_query ="INSERT INTO shift (shift_start, shift_end, skill_id, note) VALUES ('$shiftStart', '$shiftEnd', '$workFunction', '$notes')";
     
     executeQuery($sql_query); 
+
 }
 
 // Function to delete shift by shift-id (which is unique)
@@ -45,24 +46,19 @@ function deleteShift($shift_id){
     executeQuery($sql_query);
 }
 
+/*
 // Function to update shift by shift-id (which is unique)
-
 function updateShift($shift_id){
 	echo $shiftupdate;
     $sql_query = "UPDATE shift set shift_start='$shiftStart' , shift_end='$shiftEnd', skill_id='$workFunction', note='$notes' where shift_id = '$shift_id'";
     executeQuery($sql_query);
 }
-
-
+*/
 
 
 // Function to check if there is any shifts that starts or ends on the specified date
 function checkIfEventExistOnDate($year, $month, $day){
-    
-    /*
-    INSERT INTO shifts values('1','2013-03-14 12:15:00', '2013-03-14 15:15:00', "Dato 1");
-    INSERT INTO shifts values('2','2013-03-15 10:00:00', '2013-03-16 01:00:00', "Dato 2 - spænder over to dage");
-    */
+
     
     // Create the date-variable from the function inputs
     $date = $year.'-'.$month.'-'.$day;
@@ -82,16 +78,21 @@ function checkIfEventExistOnDate($year, $month, $day){
     
 }
 
+
 // Function to return any shifts that starts or ends on the specified date
 function returnEventsOnDate($year, $month, $day){
     
     // Create the date-variable from the function inputs
     $date = $year.'-'.$month.'-'.$day;
+
+    ################################################################################
+    ### HER SKAL RETTES, SÅ EVENTS IKKE KUN KOMMER UD NÅR DER ER EN EMP ASSIGNED ###
+    ################################################################################
     
     //http://www.w3schools.com/sql/func_datediff_mysql.asp
     //http://www.stillnetstudios.com/comparing-dates-without-times-in-sql-server/comment-page-1/
     // HUSK at rette, så vi selecter de aktuelle felter og ikke bruger '*' - det gør man kun i testmiljø. 
-    $sql_query ="SELECT shift_start, shift_end, skill_name, note, first_name, last_name FROM shift, skill, emp WHERE 
+    $sql_query ="SELECT shift_start, shift_end, skill_name, note, first_name, last_name, shift_id FROM shift, skill, emp WHERE 
    DATEDIFF(shift_start, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id 
    
    OR DATEDIFF(shift_end, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id";
@@ -115,31 +116,31 @@ function returnEventsOnDate($year, $month, $day){
     } 
 }
 
+
 // Function to display workfunctions
 function workfunction(){
-$sql_query = "SELECT skill_name, skill_id FROM `skill`";
-$query_result = executeQuery($sql_query);
-while($row = mysql_fetch_array($query_result)){
-        
-        echo "<tr>
-                <td>".$row['skill_name']."</td><br>
-              </tr>";
+    $sql_query = "SELECT skill_name, skill_id FROM skill";
+    $query_result = executeQuery($sql_query);
+    while($row = mysql_fetch_array($query_result)){
+            
+            echo "<tr>
+                    <td>".$row['skill_name']."</td><br>
+                  </tr>";
+        }
+}
 
-}}
 
 function selectWorkfunction(){
 
-$sql_query = "SELECT skill_name, skill_id FROM `skill`";
-$query_result = executeQuery($sql_query);
-while($row = mysql_fetch_array($query_result)){
-        
-$skill=$row['skill_name'];
-              echo "<option>  $skill   </option>";
-					 }
-					 }
-					 
-					 
-			 
+    $sql_query = "SELECT skill_id, skill_name FROM skill";
+
+    $query_result = executeQuery($sql_query);
+    while($row = mysql_fetch_array($query_result)){
+            
+        echo "<option value='".$row['skill_id']."'>".$row['skill_name']."</option>";
+    }
+}
+					 	 
 
 // Function to create calendar
 function createCalendar($month, $year){  
@@ -223,19 +224,19 @@ function createCalendar($month, $year){
     return $calendar;
     
 }
-
+/*
 function returnHelloUser($username){
 
 		$username = $_SESSION['username']; 
 		$userid = mysql_query("SELECT first_name, last_name FROM login, emp WHERE username = '$username' and login.emp_id = emp.emp_id");
 		while($row_id = mysql_fetch_array($userid)){
-		echo "Hej ".$row_id['first_name']." ".$row_id['last_name'];
+		echo "Hej <b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
 		$ID = $row_id["emp_id"];
 	}}
 
 
 
-// Function to return any shifts that starts or ends on the specified date
+// KOMMENTER FUNKTION!!!
 function returnEventsOnID($username){
 
 		$username = $_SESSION['username']; 
@@ -252,56 +253,46 @@ function returnEventsOnID($username){
     // Extract information for each entry in the table
 	//echo"<tr>My Shifts</td><br>";
     while($row = mysql_fetch_array($query_result)){
-       /* $shift_id = $row['shift_id'] ;
-		$shift_start = $row['shift_start'] ;
-		$shift_end = $row['shift_end'] ;
-		$skill_name = $row['skill_name'] ;
-		$note = $row['note'] ;
-        echo "<tr>
-                <td>".$row['shift_id']."</td><br>
-                <td>".$row['shift_start']."</td><br>
-                <td>".$row['shift_end']."</td><br>
-				<td>".$row['skill_name']."</td><br>
-                <td>".$row['note']."</td><br><br>
-              </tr>";*/
 
               //<tr> closes in function returnFreeEvents();
         echo "<tr> 
-                <td>".$row['shift_start']."</td>
-                <td>".$row['shift_end']."</td>
+                <td>".returnFormattedDateTime($row['shift_start'])."</td>
+                <td>".returnFormattedDateTime($row['shift_end'])."</td>
                 <td>".$row['skill_name']."</td>
                 <td>".$row['note']."</td>
             ";
     }
 }
+*/
 
+// Function to format a datetime-string from the database to a more readable format.
+// See PHP Manual for formatting options: http://php.net/manual/en/datetime.createfromformat.php
+function returnFormattedDateTime($dateTimeString){
 
-function returnFreeEvents(){
+    // Use newline-character (\n) to break line after month.
+    // 't' needs to be double-escaped, otherwise it is interpreted as \t which is the horizontal tab character.
+    $formattedDateTime = date("F j \n \a\\t G:i", strtotime($dateTimeString));
 
+    // Use the nl2br php function to add a html linebreak(<br/>) before all newlines (\n) in a string
+    return nl2br($formattedDateTime);
+} 
+    
+/* 
+function returnFreeEvents(){ 
 
-    $sql_query ="select shift_id, shift_start, shift_end, skill_name, note from shift, skill where shift_emp_id is null and skill.skill_id = shift.skill_id order by shift_start asc;";
+    $sql_query ="select shift_id, shift_start, shift_end, skill_name, note from shift, skill where shift_emp_id is null and skill.skill_id = shift.skill_id group by shift_start asc;";
 				
     // Use query function (executeQuery()) to return result of query
     $query_result = executeQuery($sql_query);
     
     // Extract information for each entry in the table
     while($row = mysql_fetch_array($query_result)){
-        
-       /* echo "<tr>
-                <td>".$row['shift_id']."</td><br>
-                <td>".$row['shift_start']."</td><br>
-                <td>".$row['shift_end']."</td><br>
-				<td>".$row['skill_name']."</td><br>
-                <td>".$row['note']."</td><br>
-				<TD><INPUT TYPE=BUTTON OnClick="?> <?php //takeshift();?> <?php echo "NAME='Take Shift!' VALUE='Take Shift!'></TD>
-				</td><br><br>				
-              </tr>";*/
 
-      echo "    <td>".$row['shift_start']."</td>
-                <td>".$row['shift_end']."</td>
+      echo "    <td>".returnFormattedDateTime($row['shift_start'])."</td>
+                <td>".returnFormattedDateTime($row['shift_end'])."</td>
                 <td>".$row['skill_name']."</td>
                 <td>".$row['note']."</td>
-                <td><a href='' class='button'>take shift</a></td>
+                <td class='button_row'><a href='' class='button'>take shift</a></td>
             </tr>";
 
 			  		  
@@ -315,6 +306,6 @@ $query_result = executeQuery($sql_query);
     // Use query function (executeQuery()) to return result of query
 
 }
-
+*/
 
 ?>

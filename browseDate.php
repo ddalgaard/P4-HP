@@ -1,10 +1,8 @@
 ﻿<?php
 session_start();
 require_once "functions.php";
-checkLogin();
-if($_SESSION['loggedin'] == TRUE){
-
-$workFunction = 1;
+/*checkLogin();
+if($_SESSION['loggedin'] == TRUE){*/
 
 
 // Retrieve values in the URL parsed from the calendar dates link
@@ -41,7 +39,7 @@ if(isset($_GET['deleteShift']) == 'yes'){
 		<div id="create">
             
             <!-- When the form is submitted, the query in the URL gets cleared. Therefore, we insert them again on submit in order to make the shifts on the current day show -->
-			<form action=<?php echo "\"?year=$year&month=$month&day=$day\"" ?> method="post">
+			<form action=<?php echo "'?year=$year&month=$month&day=$day'"; ?> method="post">
 				<fieldset>
 					<legend>Shift start</legend>
                     <div><!-- &nbsp;/&nbsp; = adds a slash with a non-breaking space on each side - to seperate day and month fields -->
@@ -74,9 +72,9 @@ if(isset($_GET['deleteShift']) == 'yes'){
                     </div>
 				</fieldset>
 
-				<label for="select_work_function">Work function</label>
+			    <label for="select_work_function">Work function</label>
 				<select id="select_work_function" name="shift_work_function">
-					<?php  selectWorkfunction(); ?>
+					<?php selectWorkfunction(); ?>
 				</select>
 
 				<label for="shift_notes">Notes</label>
@@ -120,7 +118,6 @@ if(isset($_GET['deleteShift']) == 'yes'){
 
 
 
-
 <?php
 
 if(isset($_GET['updateShift']) == 'yes'){
@@ -138,5 +135,5 @@ if(isset($_GET['updateShift']) == 'yes'){
 
 
 
-}
+/*}*/
 ?>
