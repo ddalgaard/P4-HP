@@ -88,16 +88,33 @@ function returnEventsOnDate($year, $month, $day){
     //http://www.w3schools.com/sql/func_datediff_mysql.asp
     //http://www.stillnetstudios.com/comparing-dates-without-times-in-sql-server/comment-page-1/
     // HUSK at rette, så vi selecter de aktuelle felter og ikke bruger '*' - det gør man kun i testmiljø. 
-    $sql_query ="SELECT shift_start, shift_end, skill_name, note, first_name, last_name, shift_id FROM shift, skill, emp WHERE 
+    
+   /* $sql_query ="SELECT shift_start, shift_end, skill_name, note, first_name, last_name, shift_id FROM shift, skill, emp WHERE 
    DATEDIFF(shift_start, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id 
    
-   OR DATEDIFF(shift_end, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id";
+   OR DATEDIFF(shift_end, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id"; */
+   
+   //NEW STUF!!!!!!!!!!!!!!!!!!!!!!
+   $sql_query1="SELECT shift_start, shift_end, skill_name, note, shift_emp_id, shift_id FROM shift, skill WHERE 
+   DATEDIFF(shift_start, '$date') = 0 and skill.skill_id = shift.skill_id 
+   
+   OR DATEDIFF(shift_end, '$date') = 0 and skill.skill_id = shift.skill_id";
+   
+   $query_result1 = executeQuery($sql_query1);
+   
+   $sql_query2="SELECT first_name, last_name FROM shift, emp WHERE 
+   DATEDIFF(shift_start, '$date') = 0 and shift.shift_emp_id = emp.emp_id 
+   
+   OR DATEDIFF(shift_end, '$date') = 0 and shift.shift_emp_id = emp.emp_id";
     
     // Use query function (executeQuery()) to return result of query
-    $query_result = executeQuery($sql_query);
+    $query_result2 = executeQuery($sql_query2);
+    
+    
+    
     
     // Extract information for each entry in the table
-    while($row = mysql_fetch_array($query_result)){
+    while($row = mysql_fetch_array($query_result1, $query_result2)){
         
         echo "<tr>
                 <td>".$row['shift_start']."</td>
