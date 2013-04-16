@@ -13,6 +13,7 @@ body {
 fieldset {
 	float: left;
 	margin: 5px 0 0 5px;
+	border: 0;
 	
 	
 }
@@ -32,18 +33,41 @@ label{
     font-weight: bold;
     font-size: 10px;
     float: left;
-    margin: 0 30px 0 0;
-    width: 100px;
+    width: 110px;
+    margin-top: 5px;
+    
    
 }
 
 input, select {
 	display: block;
-	margin: 5px 5px 5px 0;
+	margin: 2px 0 5px 0;
 	
 }
 
-#deleteuser{
+.createuser{
+	margin: 10px 100px 0 20px;
+}
+
+#deleteuser label {
+	margin-bottom: 5px;
+}
+
+
+.button {
+    background:#12B9DB;
+    padding:5px;
+    border-radius:3px;
+    color:#fff;
+    font-weight:bold;
+    
+}
+
+.deletebutton {
 	
-	
+	background:#666;
+    padding:5px;
+    border-radius:3px;
+    color:#fff;
+    font-weight:bold;
 }

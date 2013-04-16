@@ -26,10 +26,10 @@ if(isset($_GET['deleteEmp']) == 'yes'){
 
 <body>
 
-<div id="createuser">
+<div>
 	<table width="300">
     	<form id="form1" name="form1" method="post">
-	    	<fieldset>
+	    	<fieldset class="createuser">
        			<legend>Create employee</legend>
        				<label>First name:</label><input type="text" name="txtFirstName"/>
        				<label>Last name:</label><input type="text" name="txtLastName"/>
@@ -68,15 +68,15 @@ if(isset($_GET['deleteEmp']) == 'yes'){
                     }
                     ?>
                     </select>
-                    <input type="submit" name="createUser" id="createUser" value="Create" />
+                    <input class="button" type="submit" name="createUser" id="createUser" value="Create" />
 	    	</fieldset>
 
 
 	    </form>
     </div>
   
-    <div id="deleteuser">  
-	    <fieldset>
+    <div>  
+	    <fieldset id="deleteuser">
 		    <legend>Delete employee</legend>
 		    	<form id="deleteForm" name="delForm" method="post" action="?deleteEmp=yes">
 			    	<label>Select employee:</label>
@@ -92,7 +92,7 @@ if(isset($_GET['deleteEmp']) == 'yes'){
                 }
                 ?>
                 	</select>
-                	<input type="submit" name="delEmp" id="delEmp" value="Delete Employee" />
+                	<input class="deletebutton" type="submit" name="delEmp" id="delEmp" value="Delete Employee" />
   
         </form>
 
