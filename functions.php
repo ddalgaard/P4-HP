@@ -7,11 +7,11 @@
 <?php
 
 function checkLogin() {
-	
-	if(!isset($_SESSION['loggedin'])) {
-	header("location:index.php");
-	} else {	
-			}
+    
+    if(!isset($_SESSION['loggedin'])) {
+    header("location:index.php");
+    } else {    
+            }
 }
 
 function executeQuery($sql_query){
@@ -46,14 +46,14 @@ function deleteShift($shift_id){
     executeQuery($sql_query);
 }
 
-/*
+
 // Function to update shift by shift-id (which is unique)
 function updateShift($shift_id){
-	echo $shiftupdate;
+    echo $shiftupdate;
     $sql_query = "UPDATE shift set shift_start='$shiftStart' , shift_end='$shiftEnd', skill_id='$workFunction', note='$notes' where shift_id = '$shift_id'";
     executeQuery($sql_query);
 }
-*/
+
 
 
 // Function to check if there is any shifts that starts or ends on the specified date
@@ -110,8 +110,8 @@ function returnEventsOnDate($year, $month, $day){
                 <td>".$row['first_name']." ".$row['last_name']."</td>
                 <td>".$row['note']."</td>
                 <td><a href='browseDate.php?year=".$year."&month=".$month."&day=".$day."&shift_id=".$row['shift_id']."&deleteShift=yes'><img src='img/trashcan.png' alt='Delete shift' title='Delete this shift' /></a>
-				<td><a href='browseDate.php?year=".$year."&month=".$month."&day=".$day."&shift_id=".$row['shift_id']."&updateShift=yes'><img src='img/update.png' alt='Update shift' title='Update shift' /></a>
-				
+                <td><a href='browseDate.php?year=".$year."&month=".$month."&day=".$day."&shift_id=".$row['shift_id']."&updateShift=yes'><img src='img/update.png' alt='Update shift' title='Update shift' /></a>
+                
               </tr>";
     } 
 }
@@ -140,7 +140,7 @@ function selectWorkfunction(){
         echo "<option value='".$row['skill_id']."'>".$row['skill_name']."</option>";
     }
 }
-					 	 
+                         
 
 // Function to create calendar
 function createCalendar($month, $year){  
@@ -224,34 +224,34 @@ function createCalendar($month, $year){
     return $calendar;
     
 }
-/*
+
 function returnHelloUser($username){
 
-		$username = $_SESSION['username']; 
-		$userid = mysql_query("SELECT first_name, last_name FROM login, emp WHERE username = '$username' and login.emp_id = emp.emp_id");
-		while($row_id = mysql_fetch_array($userid)){
-		echo "Hej <b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
-		$ID = $row_id["emp_id"];
-	}}
+        $username = $_SESSION['username']; 
+        $userid = mysql_query("SELECT first_name, last_name FROM login, emp WHERE username = '$username' and login.emp_id = emp.emp_id");
+        while($row_id = mysql_fetch_array($userid)){
+        echo "Hej <b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
+        $ID = $row_id["emp_id"];
+    }}
 
 
 
 // KOMMENTER FUNKTION!!!
 function returnEventsOnID($username){
 
-		$username = $_SESSION['username']; 
-		$userid = mysql_query("SELECT emp_id FROM login WHERE username = '$username'");
-		while($row_id = mysql_fetch_array($userid)){
-		$ID = $row_id["emp_id"]; 
-	}
+        $username = $_SESSION['username']; 
+        $userid = mysql_query("SELECT emp_id FROM login WHERE username = '$username'");
+        while($row_id = mysql_fetch_array($userid)){
+        $ID = $row_id["emp_id"]; 
+    }
 
     $sql_query ="SELECT shift_id, shift_start, shift_end, skill_name, note FROM shift, skill WHERE shift_emp_id = $ID and shift.skill_id = skill.skill_id GROUP by shift_start asc;";
-				
+                
     // Use query function (executeQuery()) to return result of query
     $query_result = executeQuery($sql_query);
     
     // Extract information for each entry in the table
-	//echo"<tr>My Shifts</td><br>";
+    //echo"<tr>My Shifts</td><br>";
     while($row = mysql_fetch_array($query_result)){
 
               //<tr> closes in function returnFreeEvents();
@@ -263,7 +263,7 @@ function returnEventsOnID($username){
             ";
     }
 }
-*/
+
 
 // Function to format a datetime-string from the database to a more readable format.
 // See PHP Manual for formatting options: http://php.net/manual/en/datetime.createfromformat.php
@@ -277,11 +277,11 @@ function returnFormattedDateTime($dateTimeString){
     return nl2br($formattedDateTime);
 } 
     
-/* 
+ 
 function returnFreeEvents(){ 
 
     $sql_query ="select shift_id, shift_start, shift_end, skill_name, note from shift, skill where shift_emp_id is null and skill.skill_id = shift.skill_id group by shift_start asc;";
-				
+                
     // Use query function (executeQuery()) to return result of query
     $query_result = executeQuery($sql_query);
     
@@ -295,17 +295,69 @@ function returnFreeEvents(){
                 <td class='button_row'><a href='' class='button'>take shift</a></td>
             </tr>";
 
-			  		  
+                      
     }
 }
 
 function takeshift(){
 
 $sql_query ="UPDATE `shift` SET `shift_emp_id`='$ID';";
-$query_result = executeQuery($sql_query);				
+$query_result = executeQuery($sql_query);               
     // Use query function (executeQuery()) to return result of query
 
 }
-*/
 
+
+
+
+// Function to create new employee
+function addEmp($firstName, $lastName, $email, $adress, $zip_code, $phone_no, $workfunction1, $workfunction2, $workfunction3){
+    if (mysqli_connect_errno())
+        {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+    $sql_1="INSERT INTO `emp`(`first_name`, `last_name`, `email`) VALUES ('$firstName','$lastName','$email')";
+    $sql_2="INSERT INTO `address`(`emp_id`, `street`, `zip_code`) VALUES (LAST_INSERT_ID(),'$adress','$zip_code')";
+    $sql_3="INSERT INTO `phone`(`emp_id`,`phone_no`) VALUES (LAST_INSERT_ID(),'$phone_no')";
+    $sql_4="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workfunction1')";
+    $sql_5="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workfunction2')";
+    $sql_6="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workfunction3')";
+
+    $checkWorkFunction2 = mysql_real_escape_string($workfunction2);
+    $checkWorkFunction3 = mysql_real_escape_string($workfunction3);
+
+    mysql_query($sql_1);
+    mysql_query($sql_2);
+    mysql_query($sql_3);
+    mysql_query($sql_4);
+        if ($checkWorkFunction2 > 0)
+        {
+            mysql_query($sql_5);
+        }
+        if ($checkWorkFunction3 > 0)
+        {
+            mysql_query($sql_6);
+        }
+}
+
+// Function to delete an employee
+function deleteEmp($emp_id){
+    $sql_del1="DELETE FROM `emp_skill` WHERE emp_id = $emp_id";
+    $sql_del2="DELETE FROM `phone` WHERE emp_id = $emp_id";
+    $sql_del3="DELETE FROM `address` WHERE emp_id = $emp_id";
+    $sql_del4="DELETE FROM `emp` WHERE emp_id = $emp_id";
+    $sql_del5="UPDATE `shift` SET shift_emp_id = NULL WHERE shift_emp_id = $emp_id";
+
+    $checkEmp = mysql_real_escape_string($emp_id);
+
+    if ($checkEmp > 0)
+    {
+        mysql_query($sql_del1);
+        mysql_query($sql_del2);
+        mysql_query($sql_del3);
+        mysql_query($sql_del4);
+        mysql_query($sql_del5);
+    }
+}
+ 
 ?>
