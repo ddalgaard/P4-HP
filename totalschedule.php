@@ -26,12 +26,12 @@ require_once 'functions.php';
 		</ul>
 		
 		<div id="weeklywork">
-		<table border="4px solid black">
+
 		
 		<?php 
 		
 
-		echo "<tr>";
+		
 			$week_number = date("W");
 			$year = date("Y");
 			$month = date("M");
@@ -39,15 +39,12 @@ require_once 'functions.php';
 			
 			$todaysdate = date("Y-m-d");
 			
-			echo $todaysdate;
+			
 			
 			$date = strtotime(date("Y-m-d", strtotime($todaysdate))."+1 day");
-			echo "<br />";
+		;
 			$tomorrowsdate = date("Y-m-d", $date);
-			
-			echo $tomorrowsdate;
-			
-			// Function to format a datetime-string from the database to a more readable format.
+						// Function to format a datetime-string from the database to a more readable format.
 // See PHP Manual for formatting options: http://php.net/manual/en/datetime.createfromformat.php
 function returnFormattedTimeForWeeklySchedule($dateTimeString){
 
@@ -59,55 +56,82 @@ function returnFormattedTimeForWeeklySchedule($dateTimeString){
     return nl2br($formattedDateTime);
 } 
 			
-			
+			//http://www.w3schools.com/sql/func_datediff_mysql.asp
+					//http://www.stillnetstudios.com/comparing-dates-without-times-in-sql-server/comment-page-1/
+					// HUSK at rette, så vi selecter de aktuelle felter og ikke bruger '*' - det gør man kun i testmiljø. 
+					
+				
+    
+					// Use query function (executeQuery()) to return result of query
+					$query_result = executeQuery($sql_query);
+					$n = 0;
+
+		
 			for($day=1; $day<=7; $day++) {
-				echo " <td>".date('l d/m', strtotime($year."W".$week_number.$day))." "."</td>";
+				echo "<td>".date('l d/m', strtotime($year."W".$week_number.$day))." "."</td>";
 				
-				
-
 				}
-
-				echo "</tr><tr>";
-
-
-
+			
+		
+				
+					
 				for($day=1; $day<=7; $day++) {
+						
 						$date = date('Y-m-d', strtotime($year."W".$week_number.$day));
-						echo $date;
+						
+					
+					
 					
 					//http://www.w3schools.com/sql/func_datediff_mysql.asp
 					//http://www.stillnetstudios.com/comparing-dates-without-times-in-sql-server/comment-page-1/
 					// HUSK at rette, så vi selecter de aktuelle felter og ikke bruger '*' - det gør man kun i testmiljø. 
-					
+				
 					$sql_query ="SELECT extract(hour_minute FROM shift_start) as start_time, extract(hour_minute FROM shift_end) as end_time, skill_name, first_name, last_name 								 FROM shift, skill, emp WHERE 
 								 DATEDIFF(shift_start, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id 
-								 OR DATEDIFF(shift_end, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id";	
+								 OR DATEDIFF(shift_end, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id order by start_time ";	
 				
 								 
     
 					// Use query function (executeQuery()) to return result of query
 					$query_result = executeQuery($sql_query);
-    
+					
+					
 					// Extract information for each entry in the table
-					if($row = mysql_fetch_array($query_result)){
-        
+				$colno = 0;
 				
-						
-					echo "
-							<td>".returnFormattedTimeForWeeklySchedule($row['start_time'])." - ".returnFormattedTimeForWeeklySchedule($row['end_time'])."<br />".$row['first_name']." ".$row['last_name']."<br />".$row['skill_name']."</td> ";
+				if(executeQuery($sql_query) > 0 && $colno <= 7) {
+					
+						while($row = mysql_fetch_array($query_result)){
 							
-						} else {
-							echo "<td></td>";
-							
+
+							echo  "
+							<br />".returnFormattedTimeForWeeklySchedule($row['start_time'])." - ".returnFormattedTimeForWeeklySchedule($row['end_time'])."<br />".$row['first_name']." ".$row['last_name']."<br />".$row['skill_name']." <br />"; 
 						}
+						
+						$colno++;
+						
+						} else  {
+							echo "";
+							$colno++;
+						}
+						
+						
+						
+						
+							
+        } 
+        
+							
+						
+						
 
+					
+				
 
-					}
-
-					echo "</tr>"
+					
 	?>
-		</table>
-		
+	
+	</table>
 		</div></div>
 	
 	
