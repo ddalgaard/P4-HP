@@ -13,11 +13,6 @@ if(isset($_GET['deleteEmp']) == 'yes'){
     $emp_id = $_POST['selectEmpToDelete'];
     
     deleteEmp($emp_id);
-
-$url = 'http://localhost/www/P4-HP/createuser.php?deleteEmp=yes';//example url
-
-    $url = strtok($url, '?');
-    echo $url;
 }
  
 
@@ -30,7 +25,7 @@ $url = 'http://localhost/www/P4-HP/createuser.php?deleteEmp=yes';//example url
 </head>
 
 <body>
-<<<<<<< HEAD
+
 <div id="createuser">
 	<table width="300">
     	<form id="form1" name="form1" method="post" action="createEmp.php">
@@ -43,53 +38,7 @@ $url = 'http://localhost/www/P4-HP/createuser.php?deleteEmp=yes';//example url
        				<label>Email:</label><input type="text" name="txtEmail"/>
 	       			<label>Phone:</label><input type="text" name="txtPhone"/>
 	       			<label>Work function 1:</label><select name="selectWorkFunction1">
-=======
-<table width="300" border="0" >
-    <form id="form1" name="form1" method="post">
-        <tr>
-            <td colspan="3"><b>Create employee:</b></td>
-        </tr>
-        <tr>
-            <td>First name:</td>
-            <td>
-                <input type="text" name="txtFirstName"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Last name:</td>
-            <td>
-                <input type="text" name="txtLastName"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Address:</td>
-            <td>
-                <input type="text" name="txtAddress"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Zip code:</td>
-            <td>
-                <input type="text" name="txtZip"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td>
-                <input type="text" name="txtEmail"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Phone:</td>
-            <td>
-                <input type="text" name="txtPhone"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Work function 1:</td>
-            <td>
-                <select name="selectWorkFunction1">
->>>>>>> 2edfdff91ce70dfe981322d92ddab9c6e60b001e
+
                     <?php
                     $sql_query = "SELECT skill_name, skill_id FROM skill";
                     $query_result = executeQuery($sql_query);
@@ -122,7 +71,7 @@ $url = 'http://localhost/www/P4-HP/createuser.php?deleteEmp=yes';//example url
                     <input type="submit" name="createUser" id="createUser" value="Create" />
 	    	</fieldset>
 
-<<<<<<< HEAD
+
 	    </form>
     </div>
   
@@ -133,14 +82,7 @@ $url = 'http://localhost/www/P4-HP/createuser.php?deleteEmp=yes';//example url
 			    	<label>Select employee:</label>
 			    	<select name="selectEmpName">
 				    <option value="-1"> None </option>
-=======
-    </form>
-    <form id="deleteForm" name="delForm" method="post" action="?deleteEmp=yes">
-        <td>Select employee:</td>
-        <td>
-            <select name="selectEmpToDelete">
-                <option value="-1"> None </option>
->>>>>>> 2edfdff91ce70dfe981322d92ddab9c6e60b001e
+
                 <?php
                 $sql_query = "SELECT emp_id, CONCAT(first_name, ' ', last_name) as full_name FROM emp";
                 $query_result = executeQuery($sql_query);
