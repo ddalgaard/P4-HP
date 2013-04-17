@@ -1,8 +1,8 @@
 ﻿<?php
 session_start();
 require_once "functions.php";
-/*checkLogin();
-if($_SESSION['loggedin'] == TRUE){*/
+checkLogin();
+if($_SESSION['loggedin'] == TRUE){
 
 
 // Retrieve values in the URL parsed from the calendar dates link
@@ -10,10 +10,11 @@ $year = $_GET['year'];
 $month = $_GET['month'];
 $day = $_GET['day'];
 
+
 // If all fields are set (and not null) and the URL contains 'addShift=yes', add the shift
 if(isset($_GET['addShift']) == 'yes' && isset($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'])){
 
-    addShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $_POST['shift_notes']);
+    addShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $_POST['emp_function'], $_POST['shift_notes']);
 }
 
 // If the URL contains 'deleteshift=yes', retreive its id from the url and delete it
@@ -89,6 +90,13 @@ if(isset($_GET['updateShift']) == 'yes'){
 					<?php selectWorkfunction(); ?>
 				</select>
 
+				<label for="select_emp_function">Employee</label>
+				<select id="select_emp_function" name="emp_function">
+					<option value="">Free</option>
+					<?php selectEmpfunction(); ?>
+				</select>
+				
+				
 				<label for="shift_notes">Notes</label>
 				<textarea id="shift_notes" name="shift_notes" maxlength="1000">Notes
 				</textarea>
@@ -109,8 +117,6 @@ if(isset($_GET['updateShift']) == 'yes'){
                         <th>Notes</th>
                         <th>Delete</th>
 						<th>Update Shift</th>
-						
-						
                     </tr>
                 </thead>
                 <tbody>
@@ -131,6 +137,5 @@ if(isset($_GET['updateShift']) == 'yes'){
 
 
 <?php
-
-/*}*/
+}
 ?>
