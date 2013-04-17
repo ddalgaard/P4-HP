@@ -81,46 +81,27 @@ function returnEventsOnDate($year, $month, $day){
     // Create the date-variable from the function inputs
     $date = $year.'-'.$month.'-'.$day;
 
-    ################################################################################
-    ### HER SKAL RETTES, SÅ EVENTS IKKE KUN KOMMER UD NÅR DER ER EN EMP ASSIGNED ###
-    ################################################################################
-    
     //http://www.w3schools.com/sql/func_datediff_mysql.asp
     //http://www.stillnetstudios.com/comparing-dates-without-times-in-sql-server/comment-page-1/
-    // HUSK at rette, så vi selecter de aktuelle felter og ikke bruger '*' - det gør man kun i testmiljø. 
-    
-   /* $sql_query ="SELECT shift_start, shift_end, skill_name, note, first_name, last_name, shift_id FROM shift, skill, emp WHERE 
-   DATEDIFF(shift_start, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id 
+
+   // The following select statement uses 2 left join because it works 3 different tables where the main table is shift. The joins helps to clarify the information in the shift table by adding skill name and employee name from skill and emp table.
+    $sql_query="SELECT shift.shift_start, shift.shift_end, shift.note, shift.shift_id, CONCAT(emp.first_name, ' ', emp.last_name) AS name , skill.skill_name
+               FROM (shift LEFT JOIN skill ON skill.skill_id = shift.skill_id)
+               LEFT JOIN emp
+               ON emp.emp_id = shift.shift_emp_id
+               WHERE DATEDIFF(shift_start, '$date')=0
+               OR DATEDIFF(shift_end, '$date')=0";
    
-   OR DATEDIFF(shift_end, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id"; */
-   
-   //NEW STUF!!!!!!!!!!!!!!!!!!!!!!
-   $sql_query1="SELECT shift_start, shift_end, skill_name, note, shift_emp_id, shift_id FROM shift, skill WHERE 
-   DATEDIFF(shift_start, '$date') = 0 and skill.skill_id = shift.skill_id 
-   
-   OR DATEDIFF(shift_end, '$date') = 0 and skill.skill_id = shift.skill_id";
-   
-   $query_result1 = executeQuery($sql_query1);
-   
-   $sql_query2="SELECT first_name, last_name FROM shift, emp WHERE 
-   DATEDIFF(shift_start, '$date') = 0 and shift.shift_emp_id = emp.emp_id 
-   
-   OR DATEDIFF(shift_end, '$date') = 0 and shift.shift_emp_id = emp.emp_id";
-    
-    // Use query function (executeQuery()) to return result of query
-    $query_result2 = executeQuery($sql_query2);
-    
-    
-    
-    
+   $query_result = executeQuery($sql_query);
+
     // Extract information for each entry in the table
-    while($row = mysql_fetch_array($query_result1, $query_result2)){
+    while($row = mysql_fetch_array($query_result)){
         
         echo "<tr>
                 <td>".$row['shift_start']."</td>
                 <td>".$row['shift_end']."</td>
                 <td>".$row['skill_name']."</td>
-                <td>".$row['first_name']." ".$row['last_name']."</td>
+                <td>".$row['name']."</td>
                 <td>".$row['note']."</td>
                 <td><a href='browseDate.php?year=".$year."&month=".$month."&day=".$day."&shift_id=".$row['shift_id']."&deleteShift=yes'><img src='img/trashcan.png' alt='Delete shift' title='Delete this shift' /></a>
                 <td><a href='browseDate.php?year=".$year."&month=".$month."&day=".$day."&shift_id=".$row['shift_id']."&updateShift=yes'><img src='img/update.png' alt='Update shift' title='Update shift' /></a>
@@ -128,7 +109,6 @@ function returnEventsOnDate($year, $month, $day){
               </tr>";
     } 
 }
-
 
 // Function to display workfunctions
 function workfunction(){
