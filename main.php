@@ -47,26 +47,6 @@ if($_SESSION['loggedin'] == TRUE){
 			<li><a href="">About</a></li>
 			<li><a href="http://swps-dev.cgasberg.dk/log_out.php">Logout</a></li>
 		</ul> 
-
-		<table id="free_shifts" class="shifts_table">
-			<thead>
-				<tr>
-					<th colspan="5"> Free Shifts </th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="table_boldtext"> 
-					<td>Start time</td>
-					<td>End time</td>
-					<td>Function</td>
-					<td colspan="2">Notes</td>
-				</tr>
-                    <?php 
-                    	echo returnFreeEvents();
-                    ?>
-			</tbody>
-		</table>
-		
         
 		<table id="my_shifts" class="shifts_table">
 			<thead>
@@ -84,6 +64,25 @@ if($_SESSION['loggedin'] == TRUE){
                     <?php 
                     	// spans 4 rows
                     	echo returnEventsOnID();
+                    ?>
+			</tbody>
+		</table>
+
+		<table id="free_shifts" class="shifts_table">
+			<thead>
+				<tr>
+					<th colspan="5"> Free Shifts </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="table_boldtext"> 
+					<td>Start time</td>
+					<td>End time</td>
+					<td>Function</td>
+					<td colspan="2">Notes</td>
+				</tr>
+                    <?php 
+                    	echo returnFreeEvents();
                     ?>
 			</tbody>
 		</table>
