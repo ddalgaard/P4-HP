@@ -115,6 +115,7 @@ function returnEventsOnDate($year, $month, $day){
         $endTime = date('G:i', strtotime($row['shift_end']));
         $workFunction = $row['skill_name'];
         $notes = $row['note'];
+        $name = $row['name'];
         
         echo "<tr>
                 <td>".returnFormattedDateTime($row['shift_start'])."</td>
@@ -123,7 +124,7 @@ function returnEventsOnDate($year, $month, $day){
                 <td>".$row['name']."</td>
                 <td>".$row['note']."</td>
                 <td><a href='browseDate.php?year=".$year."&month=".$month."&day=".$day."&shift_id=".$row['shift_id']."&deleteShift=yes'><img src='img/trashcan.png' alt='Delete shift' title='Delete this shift' /></a>
-                <td><a href='updateShift.php?year=".$year."&month=".$month."&day=".$day."&startMonth=".$startMonth."&endMonth=".$endMonth."&startDay=".$startDay."&endDay=".$endDay."&startTime=".$startTime."&endTime=".$endTime."&workfunction=".$workFunction."&notes=".$notes."&shift_id=".$row['shift_id']."'><img src='img/update.png' alt='Update shift' title='Update shift' /></a>
+                <td><a href='updateShift.php?year=".$year."&month=".$month."&day=".$day."&startMonth=".$startMonth."&endMonth=".$endMonth."&startDay=".$startDay."&endDay=".$endDay."&startTime=".$startTime."&endTime=".$endTime."&workfunction=".$workFunction."&notes=".$notes."&shift_id=".$row['shift_id']."&empName=".$name."'><img src='img/update.png' alt='Update shift' title='Update shift' /></a>
               </tr>";
     } 
 }
