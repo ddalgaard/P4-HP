@@ -10,8 +10,8 @@ $year = $_GET['year'];
 $month = $_GET['month'];
 $day = $_GET['day'];
 
-// If all fields are set, add the shift
-if(isset($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'])){
+// If all fields are set (and not null) and the URL contains 'addShift=yes', add the shift
+if(isset($_GET['addShift']) == 'yes' && isset($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'])){
 
     addShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $_POST['shift_notes']);
 }
@@ -19,10 +19,21 @@ if(isset($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_s
 // If the URL contains 'deleteshift=yes', retreive its id from the url and delete it
 if(isset($_GET['deleteShift']) == 'yes'){
 	
+    // The shift id is recovered from the URL and is used to identify which shift to delete.
     $shiftId = $_GET['shift_id'];
     
     deleteShift($shiftId);
 }
+
+// If the URL contains 'updateShift=yes', retreive its id from the url and update it
+if(isset($_GET['updateShift']) == 'yes'){
+
+        // The shift id is recovered from the URL and is used to identify which shift to update. 
+        $shiftID = $_GET['shiftID'];
+    
+        updateShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $_POST['shift_notes'], $shiftID);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +50,8 @@ if(isset($_GET['deleteShift']) == 'yes'){
 		<div id="create">
             
             <!-- When the form is submitted, the query in the URL gets cleared. Therefore, we insert them again on submit in order to make the shifts on the current day show -->
-			<form action=<?php echo "'?year=$year&month=$month&day=$day'"; ?> method="post">
+            <!-- The query 'addShift=yes' ensures that the shift is added when the form is submitted. -->
+			<form action=<?php echo "'?year=$year&month=$month&day=$day&addShift=yes'"; ?> method="post">
 				<fieldset>
 					<legend>Shift start</legend>
                     <div><!-- &nbsp;/&nbsp; = adds a slash with a non-breaking space on each side - to seperate day and month fields -->
@@ -119,21 +131,6 @@ if(isset($_GET['deleteShift']) == 'yes'){
 
 
 <?php
-
-if(isset($_GET['updateShift']) == 'yes'){
-	
-    $shiftId = $_GET['shift_id'];
-    
-    updateShift($shiftId);
-}
-
-
-
-
-
-
-
-
 
 /*}*/
 ?>

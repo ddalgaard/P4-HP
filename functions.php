@@ -35,21 +35,28 @@ function addShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $end
 
 }
 
+// Function to update a shift
+function updateShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $endTime, $workFunction, $notes, $shiftID){
+    
+    // Get the current year
+    $year = date('Y'); 
+    
+    // Form timestamps from inputted arguments
+    $shiftStart = $year.'-'.$startMonth.'-'.$startDate.' '.$startTime;
+    $shiftEnd = $year.'-'.$endMonth.'-'.$endDate.' '.$endTime;
+    
+    $sql_query ="UPDATE shift SET shift_start='$shiftStart', shift_end='$shiftEnd', skill_id='$workFunction', note='$notes' WHERE shift_id='$shiftID'";
+    
+    executeQuery($sql_query); 
+
+}
+
 // Function to delete shift by shift-id (which is unique)
 function deleteShift($shift_id){
     $sql_query = "DELETE FROM shift WHERE shift_id = '$shift_id'"; 
     
     executeQuery($sql_query);
 }
-
-
-// Function to update shift by shift-id (which is unique)
-function updateShift($shift_id){
-    echo $shiftupdate;
-    $sql_query = "UPDATE shift set shift_start='$shiftStart' , shift_end='$shiftEnd', skill_id='$workFunction', note='$notes' where shift_id = '$shift_id'";
-    executeQuery($sql_query);
-}
-
 
 
 // Function to check if there is any shifts that starts or ends on the specified date
@@ -89,11 +96,12 @@ function returnEventsOnDate($year, $month, $day){
     //http://www.stillnetstudios.com/comparing-dates-without-times-in-sql-server/comment-page-1/
     // HUSK at rette, så vi selecter de aktuelle felter og ikke bruger '*' - det gør man kun i testmiljø. 
     
-   /* $sql_query ="SELECT shift_start, shift_end, skill_name, note, first_name, last_name, shift_id FROM shift, skill, emp WHERE 
+   $sql_query ="SELECT shift_start, shift_end, skill_name, note, first_name, last_name, shift_id FROM shift, skill, emp WHERE 
    DATEDIFF(shift_start, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id 
    
-   OR DATEDIFF(shift_end, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id"; */
+   OR DATEDIFF(shift_end, '$date') = 0 and skill.skill_id = shift.skill_id and shift.shift_emp_id = emp.emp_id";
    
+   /*
    //NEW STUF!!!!!!!!!!!!!!!!!!!!!!
    $sql_query1="SELECT shift_start, shift_end, skill_name, note, shift_emp_id, shift_id FROM shift, skill WHERE 
    DATEDIFF(shift_start, '$date') = 0 and skill.skill_id = shift.skill_id 
@@ -109,12 +117,37 @@ function returnEventsOnDate($year, $month, $day){
     
     // Use query function (executeQuery()) to return result of query
     $query_result2 = executeQuery($sql_query2);
+    */
+
+    // Use query function (executeQuery()) to return result of query
+    $query_result = executeQuery($sql_query);
     
     
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     // Extract information for each entry in the table
-    while($row = mysql_fetch_array($query_result1, $query_result2)){
+    while($row = mysql_fetch_array($query_result)){
+
+        $startMonth = date('m', strtotime($row['shift_start']));
+        $endMonth = date('m', strtotime($row['shift_end']));
+        $startDay = date('d', strtotime($row['shift_start']));
+        $endDay = date('d', strtotime($row['shift_end']));
+        $startTime = date('G:i', strtotime($row['shift_start']));
+        $endTime = date('G:i', strtotime($row['shift_end']));
+        $workFunction = $row['skill_name'];
+        $notes = $row['note'];
         
         echo "<tr>
                 <td>".$row['shift_start']."</td>
@@ -123,8 +156,7 @@ function returnEventsOnDate($year, $month, $day){
                 <td>".$row['first_name']." ".$row['last_name']."</td>
                 <td>".$row['note']."</td>
                 <td><a href='browseDate.php?year=".$year."&month=".$month."&day=".$day."&shift_id=".$row['shift_id']."&deleteShift=yes'><img src='img/trashcan.png' alt='Delete shift' title='Delete this shift' /></a>
-                <td><a href='browseDate.php?year=".$year."&month=".$month."&day=".$day."&shift_id=".$row['shift_id']."&updateShift=yes'><img src='img/update.png' alt='Update shift' title='Update shift' /></a>
-                
+                <td><a href='updateShift.php?year=".$year."&month=".$month."&day=".$day."&startMonth=".$startMonth."&endMonth=".$endMonth."&startDay=".$startDay."&endDay=".$endDay."&startTime=".$startTime."&endTime=".$endTime."&workfunction=".$workFunction."&notes=".$notes."&shift_id=".$row['shift_id']."'><img src='img/update.png' alt='Update shift' title='Update shift' /></a>
               </tr>";
     } 
 }
