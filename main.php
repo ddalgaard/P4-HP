@@ -35,7 +35,7 @@ if($_SESSION['loggedin'] == TRUE){
 <body>
 
 	<span id="hello_user">
-		<?php echo returnHelloUser($username); ?>
+		<?php echo returnHelloUser(); ?>
 	</span>
 
 	<div id="main">
@@ -83,7 +83,7 @@ if($_SESSION['loggedin'] == TRUE){
 				</tr>				
                     <?php 
                     	// spans 4 rows
-                    	echo returnEventsOnID($username); 
+                    	echo returnEventsOnID();
                     ?>
 			</tbody>
 		</table>

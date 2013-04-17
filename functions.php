@@ -250,14 +250,12 @@ function createCalendar($month, $year){
     
 }
 
-function returnHelloUser($username){
+function returnHelloUser(){
 
         $username = $_SESSION['username']; 
         $userid = mysql_query("SELECT first_name, last_name FROM login, emp WHERE username = '$username' and login.emp_id = emp.emp_id");
         while($row_id = mysql_fetch_array($userid)){
         echo "Hej <b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
-        $ID = $row_id["emp_id"];
-
     }}
 
 
@@ -265,7 +263,7 @@ function returnHelloUser($username){
 // KOMMENTER FUNKTION!!!
 // Ændre navn til at afspejle funktionens funcktionbalitet
 
-function returnEventsOnID($username){
+function returnEventsOnID(){
 
         $username = $_SESSION['username']; 
         $userId = mysql_query("SELECT emp_id FROM login WHERE username = '$username'");
@@ -319,9 +317,12 @@ function returnFreeEvents(){
         // Assign the value from the db-field 'emp_id' to a variable $empID
         $empID = $row_id["emp_id"];
     }
-
     //
-    $sql_query ="select shift_id, shift_start, shift_end, skill_name, note from shift, skill where shift_emp_id is null and skill.skill_id = shift.skill_id group by shift_start asc;";
+    $sql_query ="SELECT shift.shift_id, shift.shift_start, shift.shift_end, skill.skill_name, shift.note, shift.skill_id
+                 FROM (shift LEFT JOIN skill ON skill.skill_id = shift.skill_id)
+                 WHERE shift_emp_id IS NULL
+                 AND EXISTS (SELECT emp_id, skill_id FROM emp_skill WHERE emp_id = '$empID' AND shift.skill_id = emp_skill.skill_id)
+                 GROUP BY shift_start ASC;";
                 
     // Use query function (executeQuery()) to return result of query
     $query_result = executeQuery($sql_query);
