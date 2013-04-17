@@ -11,9 +11,9 @@ $month = $_GET['month'];
 $day = $_GET['day'];
 
 // If all fields are set, add the shift
-if(isset($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'])){
+if(isset($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $_POST['emp_function'])){
 
-    addShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $_POST['shift_notes']);
+    addShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $_POST['emp_function'], $_POST['shift_notes']);
 }
 
 // If the URL contains 'deleteshift=yes', retreive its id from the url and delete it
@@ -77,6 +77,13 @@ if(isset($_GET['deleteShift']) == 'yes'){
 					<?php selectWorkfunction(); ?>
 				</select>
 
+				<label for="select_emp_function">Employee</label>
+				<select id="select_emp_function" name="emp_function">
+					<option value="">Free</option>
+					<?php selectEmpfunction(); ?>
+				</select>
+				
+				
 				<label for="shift_notes">Notes</label>
 				<textarea id="shift_notes" name="shift_notes" maxlength="1000">Notes
 				</textarea>

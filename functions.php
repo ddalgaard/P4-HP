@@ -20,7 +20,7 @@ function executeQuery($sql_query){
 }
 
 // Function to add a new shift
-function addShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $endTime, $workFunction, $notes){
+function addShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $endTime, $workFunction, $emp_function, $notes){
     
     // Get the current year
     $year = date('Y'); 
@@ -28,11 +28,14 @@ function addShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $end
     // Form timestamps from inputted arguments
     $shiftStart = $year.'-'.$startMonth.'-'.$startDate.' '.$startTime;
     $shiftEnd = $year.'-'.$endMonth.'-'.$endDate.' '.$endTime;
-    
-    $sql_query ="INSERT INTO shift (shift_start, shift_end, skill_id, note) VALUES ('$shiftStart', '$shiftEnd', '$workFunction', '$notes')";
-    
-    executeQuery($sql_query); 
-
+	
+	$sql_1="INSERT INTO shift (shift_start, shift_end, skill_id, note) VALUES ('$shiftStart', '$shiftEnd', '$workFunction', '$notes')";
+	$sql_2="INSERT INTO shift (shift_start, shift_end, skill_id, shift_emp_id, note) VALUES ('$shiftStart', '$shiftEnd', '$workFunction', '$emp_function', '$notes')";
+	
+	if ($emp_function == ""){
+		mysql_query($sql_1);}
+	else{
+		mysql_query($sql_2);}
 }
 
 // Function to delete shift by shift-id (which is unique)
@@ -131,6 +134,20 @@ function selectWorkfunction(){
     while($row = mysql_fetch_array($query_result)){
             
         echo "<option value='".$row['skill_id']."'>".$row['skill_name']."</option>";
+    }
+}
+
+// Function to display workers
+function selectEmpfunction(){
+
+    $sql_query = "SELECT emp_id, first_name, last_name FROM EMP";
+
+    $query_result = executeQuery($sql_query);
+    while($row = mysql_fetch_array($query_result)){
+
+    echo "<option value='".$row['emp_id']."'>".$row['first_name']." ".$row['last_name']."</option>";
+    
+	
     }
 }
                          
