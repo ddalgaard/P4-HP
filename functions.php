@@ -117,8 +117,8 @@ function returnEventsOnDate($year, $month, $day){
         $notes = $row['note'];
         
         echo "<tr>
-                <td>".$row['shift_start']."</td>
-                <td>".$row['shift_end']."</td>
+                <td>".returnFormattedDateTime($row['shift_start'])."</td>
+                <td>".returnFormattedDateTime($row['shift_end'])."</td>
                 <td>".$row['skill_name']."</td>
                 <td>".$row['name']."</td>
                 <td>".$row['note']."</td>

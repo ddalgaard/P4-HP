@@ -29,7 +29,7 @@ if($_SESSION['loggedin'] == TRUE){
 		<?php echo returnHelloUser($username); ?>
 	</span>
 
-	<div id="main">
+	<div id="container">
 		<ul id="menu">
 			<li><a href="">Main</a></li>
 			<li><a href="calendar.php">Calendar</a></li>
