@@ -4,6 +4,15 @@ session_start();
 require_once 'dbconnect.php';
 require_once 'functions.php';
 checkLogin();
+
+// If the URL contains 'takeShift=yes', grab the shiftID and empID from the URL and execute takeShift() function.
+if(isset($_GET['takeShift']) == 'yes'){
+
+    $shiftID = $_GET['shiftID'];
+    $empID = $_GET['empID'];
+
+    takeShift($shiftID, $empID);
+}
 ?>
 
 
