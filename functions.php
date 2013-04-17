@@ -257,16 +257,19 @@ function returnHelloUser($username){
         while($row_id = mysql_fetch_array($userid)){
         echo "Hej <b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
         $ID = $row_id["emp_id"];
+
     }}
 
 
 
 // KOMMENTER FUNKTION!!!
+// Ændre navn til at afspejle funktionens funcktionbalitet
+
 function returnEventsOnID($username){
 
         $username = $_SESSION['username']; 
-        $userid = mysql_query("SELECT emp_id FROM login WHERE username = '$username'");
-        while($row_id = mysql_fetch_array($userid)){
+        $userId = mysql_query("SELECT emp_id FROM login WHERE username = '$username'");
+        while($row_id = mysql_fetch_array($userId)){
         $ID = $row_id["emp_id"]; 
     }
 
@@ -295,16 +298,29 @@ function returnEventsOnID($username){
 function returnFormattedDateTime($dateTimeString){
 
     // Use newline-character (\n) to break line after month.
-    // 't' needs to be double-escaped, otherwise it is interpreted as \t which is the horizontal tab character.
-    $formattedDateTime = date("F j \n \a\\t G:i", strtotime($dateTimeString));
+    $formattedDateTime = date("F j \n G:i", strtotime($dateTimeString));
 
     // Use the nl2br php function to add a html linebreak(<br/>) before all newlines (\n) in a string
     return nl2br($formattedDateTime);
 } 
     
  
-function returnFreeEvents(){ 
+function returnFreeEvents(){
 
+    // Get username of current user from session
+    $username = $_SESSION['username'];
+
+    // Get the userID from the DB on base of username. This is used to send as a parameter in the URL (see below).
+    $userId = mysql_query("SELECT emp_id FROM login WHERE username = '$username'");
+
+    // Use a while-loop to extract data from query array
+    while($row_id = mysql_fetch_array($userId)){
+
+        // Assign the value from the db-field 'emp_id' to a variable $empID
+        $empID = $row_id["emp_id"];
+    }
+
+    //
     $sql_query ="select shift_id, shift_start, shift_end, skill_name, note from shift, skill where shift_emp_id is null and skill.skill_id = shift.skill_id group by shift_start asc;";
                 
     // Use query function (executeQuery()) to return result of query
@@ -317,17 +333,17 @@ function returnFreeEvents(){
                 <td>".returnFormattedDateTime($row['shift_end'])."</td>
                 <td>".$row['skill_name']."</td>
                 <td>".$row['note']."</td>
-                <td class='button_row'><a href='' class='button'>take shift</a></td>
+                <td class='button_row'><a href='?takeShift=yes&shiftID=".$row['shift_id']."&empID=".$empID."' class='button'>take shift</a></td>
             </tr>";
 
                       
     }
 }
 
-function takeshift(){
+function takeShift($shiftID, $empID){
 
-$sql_query ="UPDATE `shift` SET `shift_emp_id`='$ID';";
-$query_result = executeQuery($sql_query);               
+$sql_query ="UPDATE `shift` SET `shift_emp_id`='$empID' WHERE shift_id = '$shiftID';";
+executeQuery($sql_query);
     // Use query function (executeQuery()) to return result of query
 
 }
@@ -336,20 +352,20 @@ $query_result = executeQuery($sql_query);
 
 
 // Function to create new employee
-function addEmp($firstName, $lastName, $email, $adress, $zip_code, $phone_no, $workfunction1, $workfunction2, $workfunction3){
+function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $workFunction1, $workFunction2, $workFunction3){
     if (mysqli_connect_errno())
         {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
         }
     $sql_1="INSERT INTO `emp`(`first_name`, `last_name`, `email`) VALUES ('$firstName','$lastName','$email')";
-    $sql_2="INSERT INTO `address`(`emp_id`, `street`, `zip_code`) VALUES (LAST_INSERT_ID(),'$adress','$zip_code')";
+    $sql_2="INSERT INTO `address`(`emp_id`, `street`, `zip_code`) VALUES (LAST_INSERT_ID(),'$address','$zip_code')";
     $sql_3="INSERT INTO `phone`(`emp_id`,`phone_no`) VALUES (LAST_INSERT_ID(),'$phone_no')";
-    $sql_4="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workfunction1')";
-    $sql_5="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workfunction2')";
-    $sql_6="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workfunction3')";
+    $sql_4="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction1')";
+    $sql_5="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction2')";
+    $sql_6="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction3')";
 
-    $checkWorkFunction2 = mysql_real_escape_string($workfunction2);
-    $checkWorkFunction3 = mysql_real_escape_string($workfunction3);
+    $checkWorkFunction2 = mysql_real_escape_string($workFunction2);
+    $checkWorkFunction3 = mysql_real_escape_string($workFunction3);
 
     mysql_query($sql_1);
     mysql_query($sql_2);
