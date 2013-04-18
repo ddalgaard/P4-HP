@@ -1,0 +1,94 @@
+
+/*Calendar styles */
+
+
+
+h2.monthname {
+	display: block;
+	margin-top: 10px;
+	margin-left: 100px;
+}
+
+#calendar_table {
+	
+	text-align: center; 
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	
+	border: 0;
+	
+	
+	
+	border-collapse: separate;
+	border-spacing: 10px;
+	
+}
+
+#calendar_table th {
+	width: 100px;
+	height: 30px;
+	background-color: #f9f9f9;
+	font-size: 20px;
+	
+}
+ 
+#calendar_table tr td {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 85px;
+	width: 85px;
+	height: 85px;
+	
+	margin: 15px; 
+	padding: 0.2em;
+	overflow: auto;
+	-moz-border-radius-bottomright: 25px 25px;
+	border-bottom-right-radius: 25px 25px;
+	background-color: #ffffdd; /*IE fallback*/
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffdd), to(#f5e4a1));
+	background-image: -moz-linear-gradient(top left 90deg, #ffffdd 0%, #f5e4a1 100%);
+    background-image: linear-gradient(top left 90deg, #ffffdd 0%, #f5e4a1 100%);
+   filter:alpha(opacity=70); 
+   opacity:.7;
+   
+	
+}
+
+#calendar_table tr td:hover {
+	
+	background-color: #ffffdd; /*IE fallback*/
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f5e4a1), to(#ffffdd));
+	background-image: -moz-linear-gradient(top left 90deg, #f5e4a1 0%, #ffffdd 100%);
+    background-image: linear-gradient(top left 90deg, #f5e4a1 0%, #ffffdd 100%);
+   filter:alpha(opacity=60); 
+   opacity:.6;
+	
+}
+
+#calendar_table tr td a {
+	
+	display: block;
+	height: 100%;
+	width: 100%;
+
+	
+	
+	
+}
+
+#calendar_table tr td.nodate {
+	width: 85px;
+	height: 85px;
+	
+	margin: 15px; 
+	padding: 0.2em;
+	overflow: auto;
+	
+	background: white; 
+	
+	
+}
+
+
+

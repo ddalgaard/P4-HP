@@ -208,7 +208,7 @@ function createCalendar($month, $year){
     // Count how many days there are before the first day of the month ($firstDayOfMonth). Output these as blank cells.
     // Start count at 1 because monday is day in the week 1 (we know this because $firstDayOfMonth returns '5' for the first day of March which is a friday). 
     for($daysBeforeFirstDayOfMonth = 1; $daysBeforeFirstDayOfMonth < $firstDayOfMonth; $daysBeforeFirstDayOfMonth++){
-            $calendar .='<td >&nbsp;</td>';
+            $calendar .='<td class="nodate">&nbsp;</td>';
     }
     
     // Add a cell with the date for each day of the month. 
