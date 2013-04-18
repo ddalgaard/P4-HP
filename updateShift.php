@@ -84,6 +84,7 @@ $shiftID = $_GET['shift_id'];
 						<input type="submit" value="Update shift" />
 					</form>
 				</div>
+				<a href="<?php echo "browseDate.php?year=$year&month=$month&day=$day" ?>">Go back</a>
 			</div>
 		</div>
 	</body>
