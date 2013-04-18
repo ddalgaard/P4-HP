@@ -183,10 +183,10 @@ function createCalendar($month, $year){
     $monthName = date('F', $timestamp);
         
     // Add name of month to h2 heading
-    $calendar ='<h2>'.$monthName.' '.$year.'</h2>';
+    $calendar ='<h2 class="monthname">'.$monthName.' '.$year.'</h2>';
         
     // Create first part of calendar table.
-     $calendar .= '<table>';
+     $calendar .= '<table id="calendar_table">';
     
     // Create table column headings (weekdays). Could as well have been made as an array where a foreach loop would grab each day from the array.
     $calendar .='<thead>
@@ -208,7 +208,7 @@ function createCalendar($month, $year){
     // Count how many days there are before the first day of the month ($firstDayOfMonth). Output these as blank cells.
     // Start count at 1 because monday is day in the week 1 (we know this because $firstDayOfMonth returns '5' for the first day of March which is a friday). 
     for($daysBeforeFirstDayOfMonth = 1; $daysBeforeFirstDayOfMonth < $firstDayOfMonth; $daysBeforeFirstDayOfMonth++){
-            $calendar .='<td>&nbsp;</td>';
+            $calendar .='<td >&nbsp;</td>';
     }
     
     // Add a cell with the date for each day of the month. 

@@ -9,7 +9,7 @@ $db_username="root";
 
 $db_password="";
 
-$db_name="calendar";
+$db_name="";
 
 $tbl_name="login";
  
