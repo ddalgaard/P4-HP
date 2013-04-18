@@ -12,8 +12,18 @@ $db_password="congobajer2013";
 $db_name="cgasberg_swps-final";
 
 $tbl_name="login";
- 
 
+/*
+$db_host="localhost";	
+
+$db_username="root";
+
+$db_password="";
+
+$db_name="calendar";
+
+$tbl_name="login";
+*/
 
 // connect to mysql database
 

@@ -11,10 +11,20 @@ $month = $_GET['month'];
 $day = $_GET['day'];
 
 
-// If all fields are set (and not null) and the URL contains 'addShift=yes', add the shift
+
+// If the below fields are set (and not null) and the URL contains 'addShift=yes', add the shift
 if(isset($_GET['addShift']) == 'yes' && isset($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'])){
 
-    addShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $_POST['emp_function'], $_POST['shift_notes']);
+    // To check if an employee is assigned to the shift. If not, the value NULL should be sent for the employee ID in the addShift function
+    if($_POST['shift_emp'] == ""){
+        $shiftEmp = 'NULL'; 
+    } else {
+        // Note that quotes are added to the variable string. This is because the input should be added as a string (see addShift-function in functions.php for more explanation)
+        // Ref: http://stackoverflow.com/questions/8796707/is-it-possible-to-have-a-html-select-option-value-as-null-using-php (see last post)
+       $shiftEmp = "'".$_POST['shift_emp']."'";
+    }
+
+    addShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $shiftEmp, $_POST['shift_notes']);
 }
 
 // If the URL contains 'deleteshift=yes', retreive its id from the url and delete it
@@ -29,10 +39,19 @@ if(isset($_GET['deleteShift']) == 'yes'){
 // If the URL contains 'updateShift=yes', retreive its id from the url and update it
 if(isset($_GET['updateShift']) == 'yes'){
 
+        // To check if an employee is assigned to the shift. If not, the value NULL should be sent for the employee ID in the updateShift function
+        if($_POST['shift_emp'] == ""){
+            $shiftEmp = 'NULL'; 
+        } else {
+            // Note that quotes are added to the variable string. This is because the input should be added as a string (see updateShift-function in functions.php for more explanation)
+            // Ref: http://stackoverflow.com/questions/8796707/is-it-possible-to-have-a-html-select-option-value-as-null-using-php (see last post)
+           $shiftEmp = "'".$_POST['shift_emp']."'";
+        }
+
         // The shift id is recovered from the URL and is used to identify which shift to update. 
         $shiftID = $_GET['shiftID'];
     
-        updateShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $_POST['shift_notes'], $shiftID);
+        updateShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $shiftEmp, $_POST['shift_notes'], $shiftID);
 }
 
 ?>
@@ -65,7 +84,7 @@ if(isset($_GET['updateShift']) == 'yes'){
                                 <label for="start_month">Month</label>
                             </div>
                             <div>
-        					    <input type="text" id="start_time" value="00:00" name="shift_start_time" />
+        					    <input type="text" id="start_time" value="12:00" name="shift_start_time" />
                                 <label for="start_time">Time</label>
                             </div>
         				</fieldset>
@@ -81,7 +100,7 @@ if(isset($_GET['updateShift']) == 'yes'){
                                 <label for="end_month">Month</label>
                             </div>
                             <div>
-                                <input type="text" id="end_time" value="00:00" name="shift_end_time" />
+                                <input type="text" id="end_time" value="13:00" name="shift_end_time" />
                                 <label for="end_time">Time</label>
                             </div>
         				</fieldset>
@@ -91,9 +110,9 @@ if(isset($_GET['updateShift']) == 'yes'){
         					<?php selectWorkfunction(); ?>
         				</select>
 
-        				<label for="select_emp_function">Employee</label>
-        				<select id="select_emp_function" name="emp_function">
-        					<option value="">Free</option>
+        				<label for="select_emp">Employee</label>
+        				<select id="select_emp" name="shift_emp">
+                            <option value="">Free</option>
         					<?php selectEmpfunction(); ?>
         				</select>
         				
