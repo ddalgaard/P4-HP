@@ -10,20 +10,19 @@ checkLogin();
 <head>
 </head>
 <body>
-<?php
-//Tjekker om sessions username og loggedin er sat. Hvis de er, må man blive på siden med denne funktion, eller redirectes man tilbage til login.
-if($_SESSION['loggedin'] == TRUE){
-    ?>
     <?php
-    // If all fields are set, add the employee
-    if(isset($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3'])){
+    //Tjekker om sessions username og loggedin er sat. Hvis de er, må man blive på siden med denne funktion, eller redirectes man tilbage til login.
+    if($_SESSION['loggedin'] == TRUE){
 
+        if (!empty($_POST['create-submit'])) {
         addEmp($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3']);
-    }
-    if(isset($_GET['deleteEmp']) == 'yes'){
+        }
+
+        if (!empty($_POST['delete-submit'])) {
         $emp_id = $_POST['selectEmpToDelete'];
         deleteEmp($emp_id);
-    }
+        }
+
     ?>
 
     <html>
@@ -46,7 +45,7 @@ if($_SESSION['loggedin'] == TRUE){
             <li><a href="log_out.php">Logout</a></li>
         </ul>
 
-        <form id="form1" name="form1" method="post">
+        <form id="createForm" name="createForm" method="post">
             <fieldset class="createUser">
                 <legend>Create employee</legend>
                 <label>First name:</label><input type="text" name="txtFirstName"/>
@@ -86,11 +85,11 @@ if($_SESSION['loggedin'] == TRUE){
                     }
                     ?>
                 </select>
-                <input class="button" type="submit" name="createUser" id="createUser" value="Create" />
+                <input class="button" type="submit" name="create-submit" id="createUser" value="Create" />
             </fieldset>
         </form>
 
-        <form id="deleteForm" name="delForm" method="post" action="?deleteEmp=yes">
+        <form id="deleteForm" name="deleteForm" method="post">
             <fieldset id="deleteUser">
                 <legend>Delete employee</legend>
 
@@ -107,7 +106,7 @@ if($_SESSION['loggedin'] == TRUE){
                     }
                     ?>
                 </select>
-                <input class="deletebutton" type="submit" name="delEmp" id="delEmp" value="Delete Employee" />
+                <input class="deleteButton" type="submit" name="delete-submit" id="delEmp" value="Delete Employee" />
 
             </fieldset>
         </form>
