@@ -1,6 +1,4 @@
-<?php require_once 'dbconnect.php'; ?>
-
-<?php
+<?php require_once 'dbconnect.php';
 
 function checkLogin() {
     
@@ -48,22 +46,19 @@ function updateShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $
     // Note that $empID is not surrounded by quotes. This is because a NULL value can be inserted. If it was quoted, the null value would become a string. Quotes are added when necessary in the if-statement in browseDate.php.
     $sql_query ="UPDATE shift SET shift_start='$shiftStart', shift_end='$shiftEnd', skill_id='$workFunction', shift_emp_id=$empID, note='$notes' WHERE shift_id='$shiftID'";
     
-    executeQuery($sql_query); 
-
+    executeQuery($sql_query);
 }
 
 // Function to delete shift by shift-id (which is unique)
 function deleteShift($shift_id){
-    $sql_query = "DELETE FROM shift WHERE shift_id = '$shift_id'"; 
-    
+    $sql_query = "DELETE FROM shift WHERE shift_id = '$shift_id'";
+
     executeQuery($sql_query);
 }
-
 
 // Function to check if there is any shifts that starts or ends on the specified date
 function checkIfEventExistOnDate($year, $month, $day){
 
-    
     // Create the date-variable from the function inputs
     $date = $year.'-'.$month.'-'.$day;
     
@@ -188,10 +183,10 @@ function createCalendar($month, $year){
     $monthName = date('F', $timestamp);
         
     // Add name of month to h2 heading
-    $calendar ='<h2>'.$monthName.' '.$year.'</h2>';
+    $calendar ='<h2 class="monthname">'.$monthName.' '.$year.'</h2>';
         
     // Create first part of calendar table.
-     $calendar .= '<table>';
+     $calendar .= '<table id="calendar_table">';
     
     // Create table column headings (weekdays). Could as well have been made as an array where a foreach loop would grab each day from the array.
     $calendar .='<thead>
@@ -213,7 +208,7 @@ function createCalendar($month, $year){
     // Count how many days there are before the first day of the month ($firstDayOfMonth). Output these as blank cells.
     // Start count at 1 because monday is day in the week 1 (we know this because $firstDayOfMonth returns '5' for the first day of March which is a friday). 
     for($daysBeforeFirstDayOfMonth = 1; $daysBeforeFirstDayOfMonth < $firstDayOfMonth; $daysBeforeFirstDayOfMonth++){
-            $calendar .='<td>&nbsp;</td>';
+            $calendar .='<td class="nodate">&nbsp;</td>';
     }
     
     // Add a cell with the date for each day of the month. 
