@@ -40,18 +40,16 @@ if($_SESSION['loggedin'] == TRUE){
 
 	<div id="container">
 		<ul id="menu">
-			<li><a href="">Main</a></li>
+			<li><a href="main.php">Main</a></li>
 			<li><a href="calendar.php">Calendar</a></li>
-			<li><a href="">Bulletin</a></li>
-			<li><a href="">Settings</a></li>
-			<li><a href="">About</a></li>
-			<li><a href="http://swps-dev.cgasberg.dk/log_out.php">Logout</a></li>
+			<li><a href="createUser.php">Settings</a></li>
+			<li><a href="log_out.php">Logout</a></li>
 		</ul> 
 
 		<table id="free_shifts" class="shifts_table">
 			<thead>
 				<tr>
-					<th colspan="5"> Free Shifts </th>
+					<th colspan="5"> Create employee: </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -101,7 +99,7 @@ if($_SESSION['loggedin'] == TRUE){
 else {
 	
 		echo "Du er ikke logget ind";
-		echo "<a href='http://swps-dev.cgasberg.dk/'></br> Klik her for at logge ind!</a>";
+		echo "<a href='index.php'></br> Klik her for at logge ind!</a>";
 
 	}
 	
