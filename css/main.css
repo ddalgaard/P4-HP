@@ -214,4 +214,8 @@ a {
         border-radius:4px;
 }
 
+.selectedOption {
+    color:#ff6600;
+}
+
 

@@ -20,7 +20,7 @@ function executeQuery($sql_query){
 }
 
 // Function to add a new shift
-function addShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $endTime, $workFunction, $emp_function, $notes){
+function addShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $endTime, $workFunction, $empID, $notes){
     
     // Get the current year
     $year = date('Y'); 
@@ -29,17 +29,14 @@ function addShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $end
     $shiftStart = $year.'-'.$startMonth.'-'.$startDate.' '.$startTime;
     $shiftEnd = $year.'-'.$endMonth.'-'.$endDate.' '.$endTime;
 	
-	$sql_1="INSERT INTO shift (shift_start, shift_end, skill_id, note) VALUES ('$shiftStart', '$shiftEnd', '$workFunction', '$notes')";
-	$sql_2="INSERT INTO shift (shift_start, shift_end, skill_id, shift_emp_id, note) VALUES ('$shiftStart', '$shiftEnd', '$workFunction', '$emp_function', '$notes')";
-	
-	if ($emp_function == ""){
-		mysql_query($sql_1);}
-	else{
-		mysql_query($sql_2);}
+    // Note that $empID is not surrounded by quotes. This is because a NULL value can be inserted. If it was quoted, the null value would become a string. Quotes are added when necessary in the if-statement in browseDate.php.
+	$sql_query="INSERT INTO shift (shift_start, shift_end, skill_id, shift_emp_id, note) VALUES ('$shiftStart', '$shiftEnd', '$workFunction', $empID, '$notes')";
+
+    executeQuery($sql_query); 
 }
 
 // Function to update a shift
-function updateShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $endTime, $workFunction, $notes, $shiftID){
+function updateShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $endTime, $workFunction, $empID, $notes, $shiftID){
     
     // Get the current year
     $year = date('Y'); 
@@ -48,7 +45,8 @@ function updateShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $
     $shiftStart = $year.'-'.$startMonth.'-'.$startDate.' '.$startTime;
     $shiftEnd = $year.'-'.$endMonth.'-'.$endDate.' '.$endTime;
     
-    $sql_query ="UPDATE shift SET shift_start='$shiftStart', shift_end='$shiftEnd', skill_id='$workFunction', note='$notes' WHERE shift_id='$shiftID'";
+    // Note that $empID is not surrounded by quotes. This is because a NULL value can be inserted. If it was quoted, the null value would become a string. Quotes are added when necessary in the if-statement in browseDate.php.
+    $sql_query ="UPDATE shift SET shift_start='$shiftStart', shift_end='$shiftEnd', skill_id='$workFunction', shift_emp_id=$empID, note='$notes' WHERE shift_id='$shiftID'";
     
     executeQuery($sql_query); 
 
@@ -94,7 +92,7 @@ function returnEventsOnDate($year, $month, $day){
     //http://www.w3schools.com/sql/func_datediff_mysql.asp
     //http://www.stillnetstudios.com/comparing-dates-without-times-in-sql-server/comment-page-1/
    // The following select statement uses 2 left join because it works 3 different tables where the main table is shift. The joins helps to clarify the information in the shift table by adding skill name and employee name from skill and emp table.
-    $sql_query="SELECT shift.shift_start, shift.shift_end, shift.note, shift.shift_id, CONCAT(emp.first_name, ' ', emp.last_name) AS name , skill.skill_name
+    $sql_query="SELECT shift.shift_start, shift.shift_end, shift.note, shift.shift_id, shift.skill_id, shift.shift_emp_id, CONCAT(emp.first_name, ' ', emp.last_name) AS name , skill.skill_name
                FROM (shift LEFT JOIN skill ON skill.skill_id = shift.skill_id)
                LEFT JOIN emp
                ON emp.emp_id = shift.shift_emp_id
@@ -114,6 +112,8 @@ function returnEventsOnDate($year, $month, $day){
         $startTime = date('G:i', strtotime($row['shift_start']));
         $endTime = date('G:i', strtotime($row['shift_end']));
         $workFunction = $row['skill_name'];
+        $skillID = $row['skill_id'];
+        $empID = $row['shift_emp_id'];
         $notes = $row['note'];
         $name = $row['name'];
         
@@ -124,7 +124,7 @@ function returnEventsOnDate($year, $month, $day){
                 <td>".$row['name']."</td>
                 <td>".$row['note']."</td>
                 <td><a href='browseDate.php?year=".$year."&month=".$month."&day=".$day."&shift_id=".$row['shift_id']."&deleteShift=yes'><img src='img/trashcan.png' alt='Delete shift' title='Delete this shift' /></a>
-                <td><a href='updateShift.php?year=".$year."&month=".$month."&day=".$day."&startMonth=".$startMonth."&endMonth=".$endMonth."&startDay=".$startDay."&endDay=".$endDay."&startTime=".$startTime."&endTime=".$endTime."&workfunction=".$workFunction."&notes=".$notes."&shift_id=".$row['shift_id']."&empName=".$name."'><img src='img/update.png' alt='Update shift' title='Update shift' /></a>
+                <td><a href='updateShift.php?year=".$year."&month=".$month."&day=".$day."&startMonth=".$startMonth."&endMonth=".$endMonth."&startDay=".$startDay."&endDay=".$endDay."&startTime=".$startTime."&endTime=".$endTime."&workfunction=".$workFunction."&notes=".$notes."&shift_id=".$row['shift_id']."&skill_id=".$skillID."&emp_id=".$empID."&empName=".$name."'><img src='img/update.png' alt='Update shift' title='Update shift' /></a>
               </tr>";
     } 
 }
@@ -159,9 +159,9 @@ function selectEmpfunction(){
     $sql_query = "SELECT emp_id, first_name, last_name FROM EMP";
 
     $query_result = executeQuery($sql_query);
-    while($row = mysql_fetch_array($query_result)){
 
-    echo "<option value='".$row['emp_id']."'>".$row['first_name']." ".$row['last_name']."</option>";
+    while($row = mysql_fetch_array($query_result)){
+        echo "<option value='".$row['emp_id']."'>".$row['first_name']." ".$row['last_name']."</option>";
     
 	
     }

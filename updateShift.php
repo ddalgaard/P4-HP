@@ -15,9 +15,12 @@ $startDay = $_GET['startDay'];
 $endDay = $_GET['endDay'];
 $startTime = $_GET['startTime'];
 $endTime = $_GET['endTime'];
-//$workFunction = $_GET['workfunction']; -- virker ikke, da workfunction bliver outputtet i en funktion
 $notes = $_GET['notes'];
 $shiftID = $_GET['shift_id'];
+$skillID = $_GET['skill_id'];
+$empID = $_GET['emp_id'];
+$empName = $_GET['empName'];
+$workfunction = $_GET['workfunction'];
 
 
 
@@ -73,8 +76,18 @@ $shiftID = $_GET['shift_id'];
 
 						<label for="select_work_function">Work function</label>
 						<select id="select_work_function" name="shift_work_function">
+							<!-- This first option-tag outputs the current assigned work function. The php code outputs the rest of the selectable functions -->
+							<option value="<?php echo $skillID; ?>" class="selectedOption"><?php echo $workfunction; ?></option>
 							<?php selectWorkfunction(); ?>
 						</select>
+
+        				<label for="select_emp">Employee</label>
+        				<select id="select_emp" name="shift_emp">
+        					<!-- This first option-tag outputs the current assigned employee. The php code outputs the rest of the selectable functions -->
+        					<option value="<?php echo $empID; ?>" class="selectedOption"><?php echo $empName; ?></option>";
+        					<option value="">Free</option>
+        					<?php selectEmpfunction(); ?>
+        				</select>
 
 						<label for="shift_notes">Notes</label>
 						<textarea id="shift_notes" name="shift_notes" maxlength="1000"><?php echo $notes; ?>
