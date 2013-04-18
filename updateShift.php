@@ -26,61 +26,65 @@ $shiftID = $_GET['shift_id'];
 <!DOCTYPE html>
 
 <html>
-<head>
-    <title>CTRL-ALL-SHIFTS</title>
-    <link href="css/create_shift.css" rel="stylesheet" type="text/css" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
+	<head>
+	    <title>CTRL-ALL-SHIFTS</title>
+	    <link href="css/main.css" rel="stylesheet" type="text/css" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</head>
 
-<body>
-<div id="create_shift_popup">
-		<div id="create">
-            
-            <!-- When the form is submitted, the query in the URL gets cleared. Therefore, we insert them again on submit in order to make the shifts on the current day show -->
-			<form action=<?php echo "'browseDate.php?year=$year&month=$month&day=$day&updateShift=yes&shiftID=$shiftID'"; ?> method="post">
-				<fieldset>
-					<legend>Shift start</legend>
-                    <div><!-- &nbsp;/&nbsp; = adds a slash with a non-breaking space on each side - to seperate day and month fields -->
-					    <input type="text" id="start_date" value="<?php echo $startDay; ?>" name="shift_start_date" />&nbsp;/&nbsp;
-                        <label for="start_date">Date</label>
-                    </div>
-                    <div>
-					    <input type="text" id="start_month" value="<?php echo $startMonth; ?>" name="shift_start_month" />
-                        <label for="start_month">Month</label>
-                    </div>
-                    <div>
-					    <input type="text" id="start_time" value="<?php echo $startTime; ?>" name="shift_start_time" />
-                        <label for="start_time">Time</label>
-                    </div>
-				</fieldset>
+	<body>
+		<div id="container">
+			<div id="create_shift_popup">
+				<div id="create">
+			            
+			        <!-- When the form is submitted, the query in the URL gets cleared. Therefore, we insert them again on submit in order to make the shifts on the current day show -->
+					<form action=<?php echo "'browseDate.php?year=$year&month=$month&day=$day&updateShift=yes&shiftID=$shiftID'"; ?> method="post">
+						<fieldset>
+							<legend>Shift start</legend>
+			                <div>
+								<input type="text" id="start_date" value="<?php echo $startDay; ?>" name="shift_start_date" />
+			                    <label for="start_date">Date</label>
+			                </div>
+			                <div>
+								<input type="text" id="start_month" value="<?php echo $startMonth; ?>" name="shift_start_month" />
+			                    <label for="start_month">Month</label>
+			                </div>
+			                <div>
+								<input type="text" id="start_time" value="<?php echo $startTime; ?>" name="shift_start_time" />
+			                    <label for="start_time">Time</label>
+			                </div>
+						</fieldset>
 
-				<fieldset>
-					<legend>Shift end</legend>
-                    <div>
-                        <input type="text" id="end_date" value="<?php echo $endDay; ?>" name="shift_end_date" />&nbsp;/&nbsp;
-                        <label for="end_date">Date</label>
-                    </div>
-                    <div>
-                        <input type="text" id="end_month" value="<?php echo $endMonth; ?>" name="shift_end_month" />
-                        <label for="end_month">Month</label>
-                    </div>
-                    <div>
-                        <input type="text" id="end_time" value="<?php echo $endTime; ?>" name="shift_end_time" />
-                        <label for="end_time">Time</label>
-                    </div>
-				</fieldset>
+						<fieldset>
+							<legend>Shift end</legend>
+			                <div>
+			                    <input type="text" id="end_date" value="<?php echo $endDay; ?>" name="shift_end_date" />
+			                    <label for="end_date">Date</label>
+			                </div>
+			                <div>
+			                    <input type="text" id="end_month" value="<?php echo $endMonth; ?>" name="shift_end_month" />
+			                    <label for="end_month">Month</label>
+			                </div>
+			                <div>
+			                    <input type="text" id="end_time" value="<?php echo $endTime; ?>" name="shift_end_time" />
+			                    <label for="end_time">Time</label>
+			                </div>
+						</fieldset>
 
-			    <label for="select_work_function">Work function</label>
-				<select id="select_work_function" name="shift_work_function">
-					<?php selectWorkfunction(); ?>
-				</select>
+						<label for="select_work_function">Work function</label>
+						<select id="select_work_function" name="shift_work_function">
+							<?php selectWorkfunction(); ?>
+						</select>
 
-				<label for="shift_notes">Notes</label>
-				<textarea id="shift_notes" name="shift_notes" maxlength="1000"><?php echo $notes; ?>
-				</textarea>
-				
-				<br/>
-				<input type="submit" value="Update shift" />
-			</form>
+						<label for="shift_notes">Notes</label>
+						<textarea id="shift_notes" name="shift_notes" maxlength="1000"><?php echo $notes; ?>
+						</textarea>
+							
+						<br/>
+						<input type="submit" value="Update shift" />
+					</form>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
