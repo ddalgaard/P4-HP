@@ -330,10 +330,8 @@ function returnFreeEvents(){
                 <td>".returnFormattedDateTime($row['shift_end'])."</td>
                 <td>".$row['skill_name']."</td>
                 <td>".$row['note']."</td>
-                <td class='button_row'><a href='?takeShift=yes&shiftID=".$row['shift_id']."&empID=".$empID."' class='button'>take shift</a></td>
+                <td class='button_row'><a href='?takeShift=yes&shiftID=".$row['shift_id']."&empID=".$empID."' onclick=\"return confirm('Are you sure?');\" class='button'>take shift</a></td>
             </tr>";
-
-                      
     }
 }
 
