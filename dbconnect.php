@@ -3,7 +3,7 @@
 
 // establish connection and login to mysql database
 
-$db_host="localhost";	
+$db_host="db8.meebox.net";	
 
 $db_username="root";
 
