@@ -1,6 +1,4 @@
-<?php require_once 'dbconnect.php'; ?>
-
-<?php
+<?php require_once 'dbconnect.php';
 
 function checkLogin() {
     
@@ -50,22 +48,19 @@ function updateShift($startMonth, $endMonth, $startDate, $endDate, $startTime, $
     
     $sql_query ="UPDATE shift SET shift_start='$shiftStart', shift_end='$shiftEnd', skill_id='$workFunction', note='$notes' WHERE shift_id='$shiftID'";
     
-    executeQuery($sql_query); 
-
+    executeQuery($sql_query);
 }
 
 // Function to delete shift by shift-id (which is unique)
 function deleteShift($shift_id){
-    $sql_query = "DELETE FROM shift WHERE shift_id = '$shift_id'"; 
-    
+    $sql_query = "DELETE FROM shift WHERE shift_id = '$shift_id'";
+
     executeQuery($sql_query);
 }
-
 
 // Function to check if there is any shifts that starts or ends on the specified date
 function checkIfEventExistOnDate($year, $month, $day){
 
-    
     // Create the date-variable from the function inputs
     $date = $year.'-'.$month.'-'.$day;
     
@@ -95,11 +90,11 @@ function returnEventsOnDate($year, $month, $day){
     //http://www.stillnetstudios.com/comparing-dates-without-times-in-sql-server/comment-page-1/
    // The following select statement uses 2 left join because it works 3 different tables where the main table is shift. The joins helps to clarify the information in the shift table by adding skill name and employee name from skill and emp table.
     $sql_query="SELECT shift.shift_start, shift.shift_end, shift.note, shift.shift_id, CONCAT(emp.first_name, ' ', emp.last_name) AS name , skill.skill_name
-               FROM (shift LEFT JOIN skill ON skill.skill_id = shift.skill_id)
-               LEFT JOIN emp
-               ON emp.emp_id = shift.shift_emp_id
-               WHERE DATEDIFF(shift_start, '$date')=0
-               OR DATEDIFF(shift_end, '$date')=0";
+                FROM (shift LEFT JOIN skill ON skill.skill_id = shift.skill_id)
+                LEFT JOIN emp
+                ON emp.emp_id = shift.shift_emp_id
+                WHERE DATEDIFF(shift_start, '$date')=0
+                OR DATEDIFF(shift_end, '$date')=0";
    
    // Use query function (executeQuery()) to return result of query
    $query_result = executeQuery($sql_query);
