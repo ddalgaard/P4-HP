@@ -5,11 +5,11 @@
 
 $db_host="db8.meebox.net";	
 
-$db_username="root";
+$db_username="cgasberg_swpsdev@web8.meebox.net";
 
-$db_password="";
+$db_password="congobajer2013";
 
-$db_name="";
+$db_name="cgasberg_swps-final";
 
 $tbl_name="login";
  
