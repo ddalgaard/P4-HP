@@ -267,7 +267,7 @@ function returnEventsOnID(){
         $ID = $row_id["emp_id"]; 
     }
 
-    $sql_query ="SELECT shift_id, shift_start, shift_end, skill_name, note FROM shift, skill WHERE shift_emp_id = $ID and shift.skill_id = skill.skill_id GROUP by shift_start asc;";
+    $sql_query ="SELECT shift_id, shift_start, shift_end, skill_name, note FROM shift, skill WHERE shift_emp_id = $ID AND shift.skill_id = skill.skill_id AND shift_start >= CURDATE() GROUP BY shift_start ASC;";
                 
     // Use query function (executeQuery()) to return result of query
     $query_result = executeQuery($sql_query);
@@ -275,7 +275,6 @@ function returnEventsOnID(){
     // Extract information for each entry in the table
     //echo"<tr>My Shifts</td><br>";
     while($row = mysql_fetch_array($query_result)){
-
               //<tr> closes in function returnFreeEvents();
         echo "<tr> 
                 <td>".returnFormattedDateTime($row['shift_start'])."</td>
