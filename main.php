@@ -15,7 +15,6 @@ if(isset($_GET['takeShift']) == 'yes'){
 }
 ?>
 
-
 <html>
 <head> 
 </head>
@@ -23,7 +22,6 @@ if(isset($_GET['takeShift']) == 'yes'){
 <?php
 	//Tjekker om sessions username og loggedin er sat. Hvis de er, må man blive på siden med denne funktion, eller redirectes man tilbage til login.
 if($_SESSION['loggedin'] == TRUE){
-
 ?>
 
 <html>
@@ -92,18 +90,12 @@ if($_SESSION['loggedin'] == TRUE){
 
 <?php
 
-
 }
 
 else {
-	
 		echo "Du er ikke logget ind";
 		echo "<a href='index.php'></br> Klik her for at logge ind!</a>";
-
 	}
-	
-	
-	
 ?>
 </body>
 </html>

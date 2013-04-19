@@ -10,20 +10,21 @@ checkLogin();
 <head>
 </head>
 <body>
-<?php
-//Tjekker om sessions username og loggedin er sat. Hvis de er, må man blive på siden med denne funktion, eller redirectes man tilbage til login.
-if($_SESSION['loggedin'] == TRUE){
-    ?>
     <?php
-    // If all fields are set, add the employee
-    if(isset($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3'])){
+    //Tjekker om sessions username og loggedin er sat. Hvis de er, må man blive på siden med denne funktion, eller redirectes man tilbage til login.
+    if($_SESSION['loggedin'] == TRUE){
 
-        addEmp($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3']);
-    }
-    if(isset($_GET['deleteEmp']) == 'yes'){
+        if (!empty($_POST['create-submit'])) {
+            if(isset($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3'])){
+
+                addEmp($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3']);
+            }
+        }
+
+        if (!empty($_POST['delete-submit'])) {
         $emp_id = $_POST['selectEmpToDelete'];
         deleteEmp($emp_id);
-    }
+        }
     ?>
 
     <html>
@@ -46,7 +47,7 @@ if($_SESSION['loggedin'] == TRUE){
             <li><a href="log_out.php">Logout</a></li>
         </ul>
 
-        <form id="form1" name="form1" method="post">
+        <form id="createForm" name="createForm" method="post">
             <fieldset class="createUser">
                 <legend>Create employee</legend>
                 <label>First name:</label><input type="text" name="txtFirstName"/>
@@ -56,58 +57,32 @@ if($_SESSION['loggedin'] == TRUE){
                 <label>Email:</label><input type="text" name="txtEmail"/>
                 <label>Phone:</label><input type="text" name="txtPhone"/>
                 <label>Work function 1:</label><select name="selectWorkFunction1">
-
-                    <?php
-                    $sql_query = "SELECT skill_name, skill_id FROM skill";
-                    $query_result = executeQuery($sql_query);
-                    while($row = mysql_fetch_array($query_result)){
-                        echo "<option value='" . $row['skill_id'] . "'>" . $row['skill_name'] ."</option>";
-                    }
-                    ?>
+                    <?php selectWorkfunction(); ?>
                 </select>
+
                 <label>Work function 2:</label><select name="selectWorkFunction2">
                     <option value="-1"> None </option>
-                    <?php
-                    $sql_query = "SELECT skill_name, skill_id FROM skill";
-                    $query_result = executeQuery($sql_query);
-                    while($row = mysql_fetch_array($query_result))
-                    {
-                        echo "<option value='" . $row['skill_id'] . "'>" . $row['skill_name'] ."</option>";
-                    }
-                    ?>
+                    <?php selectWorkfunction(); ?>
                 </select>
+
                 <label>Work function 3:</label><select name="selectWorkFunction3">
                     <option value="-1"> None </option>
-                    <?php
-                    $sql_query = "SELECT skill_name, skill_id FROM skill";
-                    $query_result = executeQuery($sql_query);
-                    while($row = mysql_fetch_array($query_result)){
-                        echo "<option value='" . $row['skill_id'] . "'>" . $row['skill_name'] ."</option>";
-                    }
-                    ?>
+                    <?php selectWorkfunction(); ?>
                 </select>
-                <input class="button" type="submit" name="createUser" id="createUser" value="Create" />
+                <input class="button" type="submit" name="create-submit" id="createUser" value="Create" />
             </fieldset>
         </form>
 
-        <form id="deleteForm" name="delForm" method="post" action="?deleteEmp=yes">
+        <form id="deleteForm" name="deleteForm" method="post">
             <fieldset id="deleteUser">
                 <legend>Delete employee</legend>
 
                 <label>Select employee:</label>
                 <select name="selectEmpToDelete">
                     <option value="-1"> None </option>
-
-                    <?php
-                    $sql_query = "SELECT emp_id, CONCAT(first_name, ' ', last_name) as full_name FROM emp";
-                    $query_result = executeQuery($sql_query);
-                    while($row = mysql_fetch_array($query_result))
-                    {
-                        echo "<option value='" . $row['emp_id'] . "'>" . $row['full_name'] ."</option>";
-                    }
-                    ?>
+                    <?php selectEmpfunction(); ?>
                 </select>
-                <input class="deletebutton" type="submit" name="delEmp" id="delEmp" value="Delete Employee" />
+                <input class="deleteButton" type="submit" name="delete-submit" id="delEmp" value="Delete Employee" />
 
             </fieldset>
         </form>
