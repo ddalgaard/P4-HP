@@ -15,14 +15,16 @@ checkLogin();
     if($_SESSION['loggedin'] == TRUE){
 
         if (!empty($_POST['create-submit'])) {
-        addEmp($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3']);
+            if(isset($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3'])){
+
+                addEmp($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3']);
+            }
         }
 
         if (!empty($_POST['delete-submit'])) {
         $emp_id = $_POST['selectEmpToDelete'];
         deleteEmp($emp_id);
         }
-
     ?>
 
     <html>
