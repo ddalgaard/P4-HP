@@ -57,35 +57,17 @@ checkLogin();
                 <label>Email:</label><input type="text" name="txtEmail"/>
                 <label>Phone:</label><input type="text" name="txtPhone"/>
                 <label>Work function 1:</label><select name="selectWorkFunction1">
-
-                    <?php
-                    $sql_query = "SELECT skill_name, skill_id FROM skill";
-                    $query_result = executeQuery($sql_query);
-                    while($row = mysql_fetch_array($query_result)){
-                        echo "<option value='" . $row['skill_id'] . "'>" . $row['skill_name'] ."</option>";
-                    }
-                    ?>
+                    <?php selectWorkfunction(); ?>
                 </select>
+
                 <label>Work function 2:</label><select name="selectWorkFunction2">
                     <option value="-1"> None </option>
-                    <?php
-                    $sql_query = "SELECT skill_name, skill_id FROM skill";
-                    $query_result = executeQuery($sql_query);
-                    while($row = mysql_fetch_array($query_result))
-                    {
-                        echo "<option value='" . $row['skill_id'] . "'>" . $row['skill_name'] ."</option>";
-                    }
-                    ?>
+                    <?php selectWorkfunction(); ?>
                 </select>
+
                 <label>Work function 3:</label><select name="selectWorkFunction3">
                     <option value="-1"> None </option>
-                    <?php
-                    $sql_query = "SELECT skill_name, skill_id FROM skill";
-                    $query_result = executeQuery($sql_query);
-                    while($row = mysql_fetch_array($query_result)){
-                        echo "<option value='" . $row['skill_id'] . "'>" . $row['skill_name'] ."</option>";
-                    }
-                    ?>
+                    <?php selectWorkfunction(); ?>
                 </select>
                 <input class="button" type="submit" name="create-submit" id="createUser" value="Create" />
             </fieldset>
@@ -98,15 +80,7 @@ checkLogin();
                 <label>Select employee:</label>
                 <select name="selectEmpToDelete">
                     <option value="-1"> None </option>
-
-                    <?php
-                    $sql_query = "SELECT emp_id, CONCAT(first_name, ' ', last_name) as full_name FROM emp";
-                    $query_result = executeQuery($sql_query);
-                    while($row = mysql_fetch_array($query_result))
-                    {
-                        echo "<option value='" . $row['emp_id'] . "'>" . $row['full_name'] ."</option>";
-                    }
-                    ?>
+                    <?php selectEmpfunction(); ?>
                 </select>
                 <input class="deleteButton" type="submit" name="delete-submit" id="delEmp" value="Delete Employee" />
 

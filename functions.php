@@ -151,17 +151,15 @@ function selectWorkfunction(){
 // Function to display workers
 function selectEmpfunction(){
 
-    $sql_query = "SELECT emp_id, first_name, last_name FROM EMP";
-
+    $sql_query = "SELECT emp_id, CONCAT(first_name, ' ', last_name) as full_name FROM emp";
     $query_result = executeQuery($sql_query);
-
-    while($row = mysql_fetch_array($query_result)){
-        echo "<option value='".$row['emp_id']."'>".$row['first_name']." ".$row['last_name']."</option>";
-    
-	
+    while($row = mysql_fetch_array($query_result))
+    {
+        echo "<option value='" . $row['emp_id'] . "'>" . $row['full_name'] ."</option>";
     }
 }
                          
+
 
 // Function to create calendar
 function createCalendar($month, $year){  
