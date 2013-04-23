@@ -375,6 +375,7 @@ function returnFreeEvents(){
                  FROM (shift LEFT JOIN skill ON skill.skill_id = shift.skill_id)
                  WHERE shift_emp_id IS NULL
                  AND EXISTS (SELECT emp_id, skill_id FROM emp_skill WHERE emp_id = '$empID' AND shift.skill_id = emp_skill.skill_id)
+                 AND shift.shift_start >= CURDATE()
                  GROUP BY shift_start ASC;";
                 
     // Use query function (executeQuery()) to return result of query
@@ -387,7 +388,7 @@ function returnFreeEvents(){
                 <td>".returnFormattedDateTime($row['shift_end'])."</td>
                 <td>".$row['skill_name']."</td>
                 <td>".$row['note']."</td>
-                <td class='button_row'><a href='?takeShift=yes&shiftID=".$row['shift_id']."&empID=".$empID."' onclick=\"return confirm('Are you sure?');\" class='button'>take shift</a></td>
+                <td><form method='post'> <input type='hidden' name='shiftId' value='{$row['shift_id']}'/> <input type='hidden' name='empId' value='{$empID}' /> <input type='submit' onclick=\"return confirm('Are you sure?');\" name='takeShift-submit' value='Take Shift' /></form></td>
             </tr>";
     }
 }
