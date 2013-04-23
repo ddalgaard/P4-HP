@@ -79,7 +79,6 @@ h2.monthname {
 
 	
 	
-	
 }
 
 #calendar_table tr td.nodate {
@@ -95,15 +94,8 @@ h2.monthname {
 	
 }
 
-
-.button {
-
-background:#12B9DB;
-    padding:5px;
-    border-radius:3px;
-    color:#fff;
-    font-weight:bold;
-    text-decoration: none;
+#form{
+display:block;
+margin-top: 10px;
 
 }
-

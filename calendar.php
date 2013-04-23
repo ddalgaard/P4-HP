@@ -43,7 +43,7 @@ $month = $_POST['select_month'];
 
 
     <!-- Select element: allows user to chose what month the calendar should display -->
-    <form action="" method="post">
+    <form id="form" action="" method="post">
         <select name="select_month">
             <option value="current">Current month</option>
             <option value="1">January</option>
@@ -84,7 +84,6 @@ $month = $_POST['select_month'];
     ?>
 
 </body>
-<br>
-	<a class="button" href="main.php" >Back to Main</a>
+
 </html>
 
