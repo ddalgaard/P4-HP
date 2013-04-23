@@ -149,7 +149,7 @@ if(isset($_GET['updateShift']) == 'yes'){
                         
                     </table>
                     
-                    <a href="calendar.php">Go back to calendar</a>
+                    <a class="returnbutton" href="calendar.php">Go back to calendar</a>
         		</div>
         	</div>
     </div>

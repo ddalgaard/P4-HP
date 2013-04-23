@@ -21,6 +21,7 @@ $month = $_POST['select_month'];
     <title>CTRL-ALL-SHIFTS</title>
     <link href="css/create_shift.css" rel="stylesheet" type="text/css" />
     <link href="css/calendar.css" rel="stylesheet" type="text/css" />
+    
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>	
 </head>
 
@@ -68,6 +69,6 @@ $month = $_POST['select_month'];
 
 </body>
 <br>
-	<a href="http://swps-dev.cgasberg.dk/main.php">Back to Main</a>
+	<a class="button" href="http://swps-dev.cgasberg.dk/main.php">Back to Main</a>
 </html>
 
