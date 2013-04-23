@@ -79,11 +79,36 @@ if(isset($_GET['updateShift']) == 'yes'){
             <li><a href="log_out.php">Logout</a></li>
         </ul> 
 
+<div id="overview">
+             <table id="shifts_today" class="shifts_table">
+                        <thead>
+                            <tr>
+                                <th colspan="7"> Shifts of the day </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table_boldtext">
+                                <td>Start time</td>
+                                <td>End time</td>
+                                <td>Work function</td>
+                                <td>Employee</td>
+                                <td>Notes</td>
+                                <td>Delete</td>
+                                <td>Edit Shift</td>
+                            </tr>
+                            <?php // Return events for the specified date
+                                echo returnEventsOnDate($year,$month,$day);
+                            ?>
+                        </tbody>
+                        
+                    </table>
+                    
+                    
+                </div>
 
 
 
-
-    <div id="container">
+    
         <div id="create_shift_popup">
         		<div id="create">
                     
@@ -142,34 +167,9 @@ if(isset($_GET['updateShift']) == 'yes'){
         				<input type="submit" value="Create shift" />
         			</form>
         		</div>
-        		<div id="overview">
-                    <table id="shifts_today" class="shifts_table">
-                        <thead>
-                            <tr>
-                                <th colspan="7"> Shifts of the day </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table_boldtext">
-                                <td>Start time</td>
-                                <td>End time</td>
-                                <td>Work function</td>
-                                <td>Employee</td>
-                                <td>Notes</td>
-                                <td>Delete</td>
-                                <td>Update Shift</td>
-                            </tr>
-                            <?php // Return events for the specified date
-                                echo returnEventsOnDate($year,$month,$day);
-                            ?>
-                        </tbody>
-                        
-                    </table>
-                    
-                    <a class="returnbutton" href="calendar.php">Go back to calendar</a>
-        		</div>
+        		<a class="returnbutton" href="calendar.php">Go back to calendar</a>
         	</div>
-    </div>
+    
 </body>
 </html>
 
