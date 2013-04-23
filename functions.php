@@ -282,9 +282,11 @@ function returnWeeklySchedule(){
                 echo $date;
 
             }
+            
+         
         echo "</tr><tr>";
 
-        if(mysql_num_rows($query_result) > 0){
+    //  if(mysql_num_rows($query_result) > 0){
 
             while($row = mysql_fetch_array($query_result)){
 
@@ -295,14 +297,16 @@ function returnWeeklySchedule(){
                 $rowNumber++;
 
                  echo "</tr>";
-            }
-        } else {
+            }}
+      /*   else {
 
                 echo "<td>nej</td>";
-                echo "</tr>";
-            }
+               echo "</tr>";
+          } */
+        
+          
+          
 
-}
 
 function returnHelloUser(){
 
