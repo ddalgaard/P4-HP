@@ -40,7 +40,7 @@ a {
     background:#fdfdfd;
     width:1000px;
     margin:0 auto;
-    
+
     padding:20px;
     border:2px solid #e3e3e3;
     overflow: auto;
@@ -115,13 +115,22 @@ a {
     min-width:100px;
 }
 
+#free_shifts{
+    float:right;
+    overflow:scroll;
+}
+
 .table_boldtext{
     font-weight: bold;
     color:#555;
   margin-top:15px;
-
-
+  
 }
+.shifts_table td{
+    width: 70px;
+    overflow:scroll;
+}
+
 
 
 .button_row {

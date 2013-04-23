@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once "functions.php";
 
 // Retrieve values in the URL parsed from the calendar dates link
@@ -111,7 +112,7 @@ $workfunction = $_GET['workfunction'];
 						<br/>
 						<input type="submit" value="Update shift" />
 					</form>
-					
+
 				</div>
 				<a class="button" href="<?php echo "browseDate.php?year=$year&month=$month&day=$day" ?>">Go back</a>
 			</div>

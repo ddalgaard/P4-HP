@@ -73,7 +73,7 @@ if($_SESSION['loggedin'] == TRUE){
 					<td>Start time</td>
 					<td>End time</td>
 					<td>Function</td>
-					<td colspan="2">Notes</td>
+					<td id="notes" colspan="2">Notes</td>
 				</tr>
                     <?php 
                     	echo returnFreeEvents();
