@@ -53,7 +53,7 @@ if($_SESSION['loggedin'] == TRUE){
 					<td>Start time</td>
 					<td>End time</td>
 					<td>Function</td>
-					<td>Notes</td>
+					<td id="notes">Notes</td>
 				</tr>				
                     <?php 
                     	// spans 4 rows

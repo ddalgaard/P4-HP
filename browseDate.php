@@ -167,9 +167,9 @@ if(isset($_GET['updateShift']) == 'yes'){
         				<input type="submit" value="Create shift" />
         			</form>
         		</div>
-        		<a class="returnbutton" href="calendar.php">Go back to calendar</a>
+        		
         	</div>
-    
+  
 </body>
 </html>
 
