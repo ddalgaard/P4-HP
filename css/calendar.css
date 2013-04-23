@@ -1,12 +1,16 @@
 
 /*Calendar styles */
 
-
+body {
+    font-family: Arial ,"Helvetica";
+    font-size:1em;
+    background:#ededed;
+}
 
 h2.monthname {
 	display: block;
 	margin-top: 10px;
-	margin-left: 100px;
+	text-align: center;
 }
 
 #calendar_table {
@@ -28,8 +32,9 @@ h2.monthname {
 #calendar_table th {
 	width: 100px;
 	height: 30px;
-	background-color: #f9f9f9;
+	
 	font-size: 20px;
+
 	
 }
  
@@ -74,7 +79,6 @@ h2.monthname {
 
 	
 	
-	
 }
 
 #calendar_table tr td.nodate {
@@ -90,5 +94,8 @@ h2.monthname {
 	
 }
 
+#form{
+display:block;
+margin-top: 10px;
 
-
+}

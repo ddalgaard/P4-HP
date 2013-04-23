@@ -382,6 +382,7 @@ function returnFreeEvents(){
                  FROM (shift LEFT JOIN skill ON skill.skill_id = shift.skill_id)
                  WHERE shift_emp_id IS NULL
                  AND EXISTS (SELECT emp_id, skill_id FROM emp_skill WHERE emp_id = '$empID' AND shift.skill_id = emp_skill.skill_id)
+                 AND shift.shift_start >= CURDATE()
                  GROUP BY shift_start ASC;";
                 
     // Use query function (executeQuery()) to return result of query
@@ -394,7 +395,7 @@ function returnFreeEvents(){
                 <td>".returnFormattedDateTime($row['shift_end'])."</td>
                 <td>".$row['skill_name']."</td>
                 <td>".$row['note']."</td>
-                <td class='button_row'><a href='?takeShift=yes&shiftID=".$row['shift_id']."&empID=".$empID."' onclick=\"return confirm('Are you sure?');\" class='button'>take shift</a></td>
+                <td><form method='post'> <input type='hidden' name='shiftId' value='{$row['shift_id']}'/> <input type='hidden' name='empId' value='{$empID}' /> <input type='submit' title='Take Shift' onclick=\"return confirm('Are you sure?');\" name='takeShift-submit' value='Take Shift' /></form></td>
             </tr>";
     }
 }
@@ -450,8 +451,9 @@ function deleteEmp($emp_id){
     $sql_del1="DELETE FROM `emp_skill` WHERE emp_id = $emp_id";
     $sql_del2="DELETE FROM `phone` WHERE emp_id = $emp_id";
     $sql_del3="DELETE FROM `address` WHERE emp_id = $emp_id";
-    $sql_del4="DELETE FROM `emp` WHERE emp_id = $emp_id";
-    $sql_del5="UPDATE `shift` SET shift_emp_id = NULL WHERE shift_emp_id = $emp_id";
+    $sql_del4="DELETE FROM `login` WHERE emp_id = $emp_id";
+    $sql_del5="DELETE FROM `emp` WHERE emp_id = $emp_id";
+    $sql_del6="UPDATE `shift` SET shift_emp_id = NULL WHERE shift_emp_id = $emp_id";
 
     $checkEmp = mysql_real_escape_string($emp_id);
 
@@ -462,14 +464,15 @@ function deleteEmp($emp_id){
         mysql_query($sql_del3);
         mysql_query($sql_del4);
         mysql_query($sql_del5);
+        mysql_query($sql_del6);
     }
 }
 
 // Function to check if a shift you are about to take conflicts with a shift you have already taken
-function checkIfShiftsConflict($shiftStart, $shiftEnd){
+function checkIfShiftsConflict($shiftId, $empId){
 
     // Query to check if the shift you are about to take is within the interval of a shift you have already taken
-    $sql_query = "SELECT * FROM shift WHERE '$shiftStart' < shift_end AND '$shiftEnd' > shift_start";
+    $sql_query = "SELECT * FROM shift WHERE (select shift_start from shift where shift_id = $shiftId) < shift_end AND (select shift_end from shift where shift_id = $shiftId) > shift_start AND shift_emp_id = $empId";
 
     // Execute query
     $query_result = executeQuery($sql_query); 
@@ -477,7 +480,12 @@ function checkIfShiftsConflict($shiftStart, $shiftEnd){
     // Get the amount of rows that is returned from the query. 
     // If one or more rows are returned an entry in the database is conflicting with the specified date interval and a warning is displayed. 
     if(mysql_num_rows($query_result) > 0){
-        echo "The shift you are about to take conflicts with one of your already taken shifts.<br/>";
+        echo "The shift you are about to take conflicts with one of your already taken shifts.";
+    }else {
+    $sql_query ="UPDATE `shift` SET `shift_emp_id`='$empId' WHERE shift_id = '$shiftId';";
+
+        // Use query function (executeQuery()) to return result of query
+    executeQuery($sql_query);
     }
 }
  
