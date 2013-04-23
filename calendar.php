@@ -21,12 +21,29 @@ $month = $_POST['select_month'];
     <title>CTRL-ALL-SHIFTS</title>
     <link href="css/create_shift.css" rel="stylesheet" type="text/css" />
     <link href="css/calendar.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>	
 </head>
-
 <body>
+    <span id="hello_user">
+        <?php echo returnHelloUser(); ?>
+    </span>
+
+    <div id="container">
+        <ul id="menu">
+            <li><a href="main.php">Main</a></li>
+            <li><a href="calendar.php">Calendar</a></li>
+            <li><a href="createUser.php">Settings</a></li>
+            <li><a href="log_out.php">Logout</a></li>
+        </ul> 
+
+
+
+
+
     <!-- Select element: allows user to chose what month the calendar should display -->
-    <form action="" method="post">
+    <form id="form" action="" method="post">
         <select name="select_month">
             <option value="current">Current month</option>
             <option value="1">January</option>
@@ -67,7 +84,6 @@ $month = $_POST['select_month'];
     ?>
 
 </body>
-<br>
-	<a href="http://swps-dev.cgasberg.dk/main.php">Back to Main</a>
+
 </html>
 
