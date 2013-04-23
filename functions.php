@@ -254,9 +254,9 @@ function returnWeeklySchedule(){
     $year = date("Y");
     //$year = "2013";
 
-    echo $date = date('Y-m-d');
+    $date = date('Y-m-d');
 
-    //$date = $year."-".$month."-".$day; 
+    $date = $year."-".$month."-".$day; 
 
 
     
@@ -292,7 +292,7 @@ function returnWeeklySchedule(){
 
                 echo "<td>Række".$rowNumber.": ".$row['shift_start']."-".$row['shift_end']."</td>";
 
-                $sql_query .= "LIMIT 1 OFFSET $rowNumber";
+                //$sql_query .= "LIMIT 1 OFFSET $rowNumber";
 
                 $rowNumber++;
 
@@ -303,6 +303,9 @@ function returnWeeklySchedule(){
                 echo "<td>nej</td>";
                echo "</tr>";
           } */
+          
+          
+          
         
           
           
@@ -408,7 +411,7 @@ function takeShift($shiftID, $empID){
 
 
 // Function to create new employee
-function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $workFunction1, $workFunction2, $workFunction3){
+function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $workFunction1, $workFunction2, $workFunction3, $password){
     if (mysqli_connect_errno())
         {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -419,6 +422,9 @@ function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $
     $sql_4="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction1')";
     $sql_5="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction2')";
     $sql_6="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction3')";
+    $sql_7 ="INSERT INTO `login`(`emp_id`, `username`, `password`) VALUES (LAST_INSERT_ID(), concat('$firstName', LAST_INSERT_ID()),'$password')"; 
+    
+    
 
     $checkWorkFunction2 = mysql_real_escape_string($workFunction2);
     $checkWorkFunction3 = mysql_real_escape_string($workFunction3);
@@ -427,6 +433,7 @@ function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $
     mysql_query($sql_2);
     mysql_query($sql_3);
     mysql_query($sql_4);
+    mysql_query($sql_7);
         if ($checkWorkFunction2 > 0)
         {
             mysql_query($sql_5);
@@ -435,6 +442,7 @@ function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $
         {
             mysql_query($sql_6);
         }
+       
 }
 
 // Function to delete an employee
