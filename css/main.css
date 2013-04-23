@@ -40,6 +40,7 @@ a {
     background:#fdfdfd;
     width:1000px;
     margin:0 auto;
+
     padding:20px;
     border:2px solid #e3e3e3;
     overflow: auto;
@@ -73,12 +74,17 @@ a {
 }
 
 .shifts_table {
-    width:490px;   
+      
     border-collapse:collapse;
     float:left;
     margin:5px 5px 0 5px;
     border:1px solid #ddd;
 
+
+}
+
+#notes{
+    width:100px;
 }
 
 .shifts_table tbody tr td {
@@ -109,10 +115,25 @@ a {
     min-width:100px;
 }
 
-.table_boldtext {
+#free_shifts{
+    float:right;
+    
+}
+
+.table_boldtext{
     font-weight: bold;
     color:#555;
+  margin-top:15px;
+  
 }
+.shifts_table td{
+    width: 70px;
+    
+}
+#my_shifts{
+width:490px;
+}
+
 
 .button_row {
     text-align: center;
@@ -121,16 +142,23 @@ a {
 .button {
     background:#12B9DB;
     padding:5px;
-    border-radius:3px;
+    border-radius:2px;
     color:#fff;
     font-weight:bold;
+    margin-top: 15px;
+    display: inline-block;
+
     
 }
 
 #shifts_today {
-    width:655px;
+  
     float:left;
 }
+
+
+
+
 
 #hello_user {
     float:right;
@@ -156,7 +184,7 @@ a {
 
 /* browseDate.php */
 #create_shift_popup #create, #create_shift_popup #overview {
-        float:left;  
+        float:right;  
 }
 
 #create_shift_popup #create {
@@ -253,13 +281,14 @@ input, select {
 
 background:#666;
     padding:5px;
-    border-radius:3px;
+    border-radius:2px;
     color:#fff;
     font-weight:bold;
-    
-    margin-top: 15px;
-
-
+    font-size: 0.75em;
+    display:inline-block;
+   
+    margin-left: 145px;
+    display:inline-block;
 }
 
 
