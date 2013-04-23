@@ -85,6 +85,6 @@ $month = $_POST['select_month'];
 
 </body>
 <br>
-	<a class="button" href="http://swps-dev.cgasberg.dk/main.php">Back to Main</a>
+	<a class="button" href="main.php" >Back to Main</a>
 </html>
 
