@@ -66,6 +66,23 @@ if(isset($_GET['updateShift']) == 'yes'){
 </head>
 
 <body>
+
+    <span id="hello_user">
+        <?php echo returnHelloUser(); ?>
+    </span>
+
+    <div id="container">
+        <ul id="menu">
+            <li><a href="main.php">Main</a></li>
+            <li><a href="calendar.php">Calendar</a></li>
+            <li><a href="createUser.php">Settings</a></li>
+            <li><a href="log_out.php">Logout</a></li>
+        </ul> 
+
+
+
+
+
     <div id="container">
         <div id="create_shift_popup">
         		<div id="create">
@@ -84,7 +101,7 @@ if(isset($_GET['updateShift']) == 'yes'){
                                 <label for="start_month">Month</label>
                             </div>
                             <div>
-        					    <input type="text" id="start_time" value="12:00" name="shift_start_time" />
+        					    <input type="text" id="start_time" value="00:00" name="shift_start_time" />
                                 <label for="start_time">Time</label>
                             </div>
         				</fieldset>
@@ -100,7 +117,7 @@ if(isset($_GET['updateShift']) == 'yes'){
                                 <label for="end_month">Month</label>
                             </div>
                             <div>
-                                <input type="text" id="end_time" value="13:00" name="shift_end_time" />
+                                <input type="text" id="end_time" value="00:00" name="shift_end_time" />
                                 <label for="end_time">Time</label>
                             </div>
         				</fieldset>
