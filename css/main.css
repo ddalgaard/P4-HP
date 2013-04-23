@@ -117,7 +117,7 @@ a {
 
 #free_shifts{
     float:right;
-    overflow:scroll;
+    
 }
 
 .table_boldtext{
@@ -128,7 +128,7 @@ a {
 }
 .shifts_table td{
     width: 70px;
-    overflow:scroll;
+    
 }
 
 
