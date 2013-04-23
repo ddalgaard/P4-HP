@@ -160,7 +160,7 @@ if(isset($_GET['updateShift']) == 'yes'){
         				
         				
         				<label for="shift_notes">Notes</label>
-        				<textarea id="shift_notes" name="shift_notes" maxlength="1000">
+        				<textarea id="shift_notes" name="shift_notes" maxlength="500">
         				</textarea>
         				
         				<br/>

@@ -111,10 +111,11 @@ $workfunction = $_GET['workfunction'];
 							
 						<br/>
 						<input type="submit" value="Update shift" />
+						<a class="returnbutton" href="<?php echo "browseDate.php?year=$year&month=$month&day=$day" ?>">cancel</a>
 					</form>
 
 				</div>
-				<a class="button" href="<?php echo "browseDate.php?year=$year&month=$month&day=$day" ?>">Go back</a>
+				
 			</div>
 		
 	</body>
