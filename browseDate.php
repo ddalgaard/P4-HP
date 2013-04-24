@@ -63,10 +63,53 @@ if(isset($_GET['updateShift']) == 'yes'){
     <title>CTRL-ALL-SHIFTS</title>
     <link href="css/main.css" rel="stylesheet" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+   
 </head>
 
 <body>
+
+    <span id="hello_user">
+        <?php echo returnHelloUser(); ?>
+    </span>
+
     <div id="container">
+        <ul id="menu">
+            <li><a href="main.php">Main</a></li>
+            <li><a href="calendar.php">Calendar</a></li>
+            <li><a href="createUser.php">Settings</a></li>
+            <li><a href="log_out.php">Logout</a></li>
+        </ul> 
+
+<div id="overview">
+             <table id="shifts_today" class="shifts_table">
+                        <thead>
+                            <tr>
+                                <th colspan="7"> Shifts of the day </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table_boldtext">
+                                <td>Start time</td>
+                                <td>End time</td>
+                                <td>Work function</td>
+                                <td>Employee</td>
+                                <td>Notes</td>
+                                <td>Delete</td>
+                                <td>Edit Shift</td>
+                            </tr>
+                            <?php // Return events for the specified date
+                                echo returnEventsOnDate($year,$month,$day);
+                            ?>
+                        </tbody>
+                        
+                    </table>
+                    
+                    
+                </div>
+
+
+
+    
         <div id="create_shift_popup">
         		<div id="create">
                     
@@ -84,7 +127,7 @@ if(isset($_GET['updateShift']) == 'yes'){
                                 <label for="start_month">Month</label>
                             </div>
                             <div>
-        					    <input type="text" id="start_time" value="12:00" name="shift_start_time" />
+        					    <input type="text" id="start_time" value="00:00" name="shift_start_time" />
                                 <label for="start_time">Time</label>
                             </div>
         				</fieldset>
@@ -100,15 +143,16 @@ if(isset($_GET['updateShift']) == 'yes'){
                                 <label for="end_month">Month</label>
                             </div>
                             <div>
-                                <input type="text" id="end_time" value="13:00" name="shift_end_time" />
+                                <input type="text" id="end_time" value="00:00" name="shift_end_time" />
                                 <label for="end_time">Time</label>
                             </div>
         				</fieldset>
 
         			    <label for="select_work_function">Work function</label>
-        				<select id="select_work_function" name="shift_work_function">
+        				<select id="select_work_function" name="shift_work_function" >
         					<?php selectWorkfunction(); ?>
         				</select>
+                      
 
         				<label for="select_emp">Employee</label>
         				<select id="select_emp" name="shift_emp">
@@ -118,41 +162,16 @@ if(isset($_GET['updateShift']) == 'yes'){
         				
         				
         				<label for="shift_notes">Notes</label>
-        				<textarea id="shift_notes" name="shift_notes" maxlength="1000">Notes
+        				<textarea id="shift_notes" name="shift_notes" maxlength="500">
         				</textarea>
         				
         				<br/>
         				<input type="submit" value="Create shift" />
         			</form>
         		</div>
-        		<div id="overview">
-                    <table id="shifts_today" class="shifts_table">
-                        <thead>
-                            <tr>
-                                <th colspan="7"> Shifts of the day </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table_boldtext">
-                                <td>Start time</td>
-                                <td>End time</td>
-                                <td>Work function</td>
-                                <td>Employee</td>
-                                <td>Notes</td>
-                                <td>Delete</td>
-                                <td>Update Shift</td>
-                            </tr>
-                            <?php // Return events for the specified date
-                                echo returnEventsOnDate($year,$month,$day);
-                            ?>
-                        </tbody>
-                        
-                    </table>
-                    
-                    <a class="returnbutton" href="calendar.php">Go back to calendar</a>
-        		</div>
+        		
         	</div>
-    </div>
+  
 </body>
 </html>
 

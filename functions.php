@@ -3,9 +3,27 @@
 function checkLogin() {
     
     if(!isset($_SESSION['loggedin'])) {
-    header("location:index.php");
+    redirect('index.php');
     } else {    
             }
+}
+
+function redirect($url){
+//Checks if headers are already sent, if not the function uses the good old header(Location: ) function, and if they are sent. The function first uses javascript to try and redirect, if javascript is disabled. The function uses meta refresh to redirect. 
+	if(!headers_sent()){
+		header('Location: '.$url);
+		exit;
+	}
+	 else
+        {  
+        echo '<script type="text/javascript">';
+        echo 'window.location.href="'.$url.'";';
+        echo '</script>';
+        echo '<noscript>';
+        echo '<meta http-equiv="refresh" content="0;url='.$url.'" />';
+        echo '</noscript>'; exit;
+    }
+	
 }
 
 function executeQuery($sql_query){
@@ -215,13 +233,13 @@ function createCalendar($month, $year){
     
         // Check is there is one or more shifts on a date - if there is, style the table cell
         if(checkIfEventExistOnDate($year,$month,$dayInMonth) > 0){
-            //$calendar .='<td style="background:#ff6600;">'.$dayInMonth.'</td>';
-            $calendar .='<td style="background:#ff6600;"><a href="browseDate.php?year='.$year.'&month='.$month.'&day='.$dayInMonth.'">'.$dayInMonth.'</a></td>';
+            //$calendar .='<td style="background:#CFDE5C;">'.$dayInMonth.'</td>';
+            $calendar .='<td style="background:#CFDE5C;"><a href="browseDate.php?year='.$year.'&month='.$month.'&day='.$dayInMonth.'" style="color:#fff;">'.$dayInMonth.'</a></td>';
         } 
         
         // If there are no shifts on a date, apply default style to the cell
         else {  
-            $calendar .='<td><a href="browseDate.php?year='.$year.'&month='.$month.'&day='.$dayInMonth.'">'.$dayInMonth.'</a></td>';
+            $calendar .='<td><a href="browseDate.php?year='.$year.'&month='.$month.'&day='.$dayInMonth.'" style="color:#fff;">'.$dayInMonth.'</a></td>';
         }    
         
         //For each day that is added, add 1 to the first day of month. 
@@ -306,17 +324,19 @@ function returnWeeklySchedule(){
 
     // Return the weekly calendar. 
     return $calendar;
-}
-
+} 
+          
 function returnHelloUser(){
 
         $username = $_SESSION['username']; 
         $userid = mysql_query("SELECT first_name, last_name FROM login, emp WHERE username = '$username' and login.emp_id = emp.emp_id");
         while($row_id = mysql_fetch_array($userid)){
+
             echo "Hello <b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
             echo "<a id='logout_link' class='hidden' href='log_out.php'>Log out</a>";
         }
 }
+
 
 
 
@@ -391,6 +411,7 @@ function returnFreeEvents(){
                  FROM (shift LEFT JOIN skill ON skill.skill_id = shift.skill_id)
                  WHERE shift_emp_id IS NULL
                  AND EXISTS (SELECT emp_id, skill_id FROM emp_skill WHERE emp_id = '$empID' AND shift.skill_id = emp_skill.skill_id)
+                 AND shift.shift_start >= CURDATE()
                  GROUP BY shift_start ASC;";
                 
     // Use query function (executeQuery()) to return result of query
@@ -403,24 +424,14 @@ function returnFreeEvents(){
                 <td>".returnFormattedDateTime($row['shift_end'])."</td>
                 <td>".$row['skill_name']."</td>
                 <td>".$row['note']."</td>
-                <td class='button_row'><a href='?takeShift=yes&shiftID=".$row['shift_id']."&empID=".$empID."' onclick=\"return confirm('Are you sure?');\" class='button'>take shift</a></td>
-            </tr>";
+                <td><form method='post'> <input type='hidden' name='shiftId' value='{$row['shift_id']}'/> <input type='hidden' name='empId' value='{$empID}' /> <input type='submit' class='button' onclick=\"return confirm('Are you sure?');\" name='takeShift-submit' value='Take Shift' /></form></td>
+                </tr>";
     }
 }
 
-function takeShift($shiftID, $empID){
-
-    $sql_query ="UPDATE `shift` SET `shift_emp_id`='$empID' WHERE shift_id = '$shiftID';";
-    
-    // Use query function (executeQuery()) to return result of query
-    executeQuery($sql_query);
-}
-
-
-
 
 // Function to create new employee
-function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $workFunction1, $workFunction2, $workFunction3){
+function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $workFunction1, $workFunction2, $workFunction3, $password){
     if (mysqli_connect_errno())
         {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -431,6 +442,9 @@ function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $
     $sql_4="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction1')";
     $sql_5="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction2')";
     $sql_6="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction3')";
+    $sql_7="INSERT INTO `login`(`emp_id`, `username`, `password`) VALUES (LAST_INSERT_ID(), CONCAT('$firstName', LAST_INSERT_ID()),'$password')";
+    
+    
 
     $checkWorkFunction2 = mysql_real_escape_string($workFunction2);
     $checkWorkFunction3 = mysql_real_escape_string($workFunction3);
@@ -439,6 +453,7 @@ function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $
     mysql_query($sql_2);
     mysql_query($sql_3);
     mysql_query($sql_4);
+    mysql_query($sql_7);
         if ($checkWorkFunction2 > 0)
         {
             mysql_query($sql_5);
@@ -447,6 +462,7 @@ function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $
         {
             mysql_query($sql_6);
         }
+       
 }
 
 // Function to delete an employee
@@ -454,8 +470,9 @@ function deleteEmp($emp_id){
     $sql_del1="DELETE FROM `emp_skill` WHERE emp_id = $emp_id";
     $sql_del2="DELETE FROM `phone` WHERE emp_id = $emp_id";
     $sql_del3="DELETE FROM `address` WHERE emp_id = $emp_id";
-    $sql_del4="DELETE FROM `emp` WHERE emp_id = $emp_id";
-    $sql_del5="UPDATE `shift` SET shift_emp_id = NULL WHERE shift_emp_id = $emp_id";
+    $sql_del4="DELETE FROM `login` WHERE emp_id = $emp_id";
+    $sql_del5="DELETE FROM `emp` WHERE emp_id = $emp_id";
+    $sql_del6="UPDATE `shift` SET shift_emp_id = NULL WHERE shift_emp_id = $emp_id";
 
     $checkEmp = mysql_real_escape_string($emp_id);
 
@@ -466,14 +483,15 @@ function deleteEmp($emp_id){
         mysql_query($sql_del3);
         mysql_query($sql_del4);
         mysql_query($sql_del5);
+        mysql_query($sql_del6);
     }
 }
 
 // Function to check if a shift you are about to take conflicts with a shift you have already taken
-function checkIfShiftsConflict($shiftStart, $shiftEnd){
+function checkIfShiftsConflict($shiftId, $empId){
 
     // Query to check if the shift you are about to take is within the interval of a shift you have already taken
-    $sql_query = "SELECT * FROM shift WHERE '$shiftStart' < shift_end AND '$shiftEnd' > shift_start";
+    $sql_query = "SELECT * FROM shift WHERE (select shift_start from shift where shift_id = $shiftId) < shift_end AND (select shift_end from shift where shift_id = $shiftId) > shift_start AND shift_emp_id = $empId";
 
     // Execute query
     $query_result = executeQuery($sql_query); 
@@ -481,8 +499,32 @@ function checkIfShiftsConflict($shiftStart, $shiftEnd){
     // Get the amount of rows that is returned from the query. 
     // If one or more rows are returned an entry in the database is conflicting with the specified date interval and a warning is displayed. 
     if(mysql_num_rows($query_result) > 0){
-        echo "The shift you are about to take conflicts with one of your already taken shifts.<br/>";
+        print '<script type="text/javascript">';
+        print 'alert("You cannot take this shift \n due to double booking.")';
+        print '</script>';
+    }else {
+    $sql_query ="UPDATE `shift` SET `shift_emp_id`='$empId' WHERE shift_id = '$shiftId';";
+
+        // Use query function (executeQuery()) to return result of query
+    executeQuery($sql_query);
     }
 }
- 
+function returnUserName() {
+
+$sqlReturnUsername = "SELECT `username` FROM `login` WHERE `emp_id` = LAST_INSERT_ID()";
+
+$query_result = executeQuery($sqlReturnUsername);
+
+if($row = mysql_num_rows($query_result) > 0){
+
+    $userName = mysql_fetch_array($query_result);
+    $yourUserName = $userName['username'];
+    print '<script type="text/javascript">';
+    print 'alert("Your username is: '.$yourUserName.'")';
+    print '</script>';
+
+
+
+}
+}
 ?>

@@ -1,9 +1,8 @@
-<?php 
-
-
+<?php
 session_start();
 // load database login data
 require_once 'dbconnect.php';
+require_once 'functions.php';
 
 
 
@@ -35,20 +34,20 @@ $result=mysql_query($sql);
 // counts number of rows in the result to ensure that the inputdata is only one row
 $count=mysql_num_rows($result);
 if($count==1){
-
 // redirect if login is successfull
 $_SESSION['username'] = $username;
 $_SESSION['password'] = $password;
 $_SESSION['loggedin'] = TRUE;
 
-header("location:main.php");
-
+redirect('main.php');
+//header("location:main.php");
 }
-
 // post error message if the login data is wrong
 else {
- 
- header("location:index.php");
+
+redirect('index.php');
+
+//header("location:index.php");
 }
 
 

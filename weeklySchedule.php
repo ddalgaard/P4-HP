@@ -22,7 +22,6 @@ require_once 'functions.php';
 				<li><a href="main.php">Main</a></li>
 				<li><a href="calendar.php">Calendar</a></li>
 				<li><a href="createUser.php">Settings</a></li>
-				<li><a href="log_out.php">Logout</a></li>
 			</ul> 
 			<div id="weeklySchedule">
 				<?php 

@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once "functions.php";
 
 // Retrieve values in the URL parsed from the calendar dates link
@@ -35,8 +36,23 @@ $workfunction = $_GET['workfunction'];
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	</head>
 
-	<body>
-		<div id="container">
+<body>
+
+
+	<span id="hello_user">
+		<?php echo returnHelloUser(); ?>
+	</span>
+
+	<div id="container">
+		<ul id="menu">
+			<li><a href="main.php">Main</a></li>
+			<li><a href="calendar.php">Calendar</a></li>
+			<li><a href="createUser.php">Settings</a></li>
+			<li><a href="log_out.php">Logout</a></li>
+		</ul> 
+
+	
+		
 			<div id="create_shift_popup">
 				<div id="create">
 			            
@@ -90,15 +106,17 @@ $workfunction = $_GET['workfunction'];
         				</select>
 
 						<label for="shift_notes">Notes</label>
-						<textarea id="shift_notes" name="shift_notes" maxlength="1000"><?php echo $notes; ?>
+						<textarea id="shift_notes" name="shift_notes" maxlength="500"><?php echo $notes; ?>
 						</textarea>
 							
 						<br/>
 						<input type="submit" value="Update shift" />
+						<a class="returnbutton" href="<?php echo "browseDate.php?year=$year&month=$month&day=$day" ?>">cancel</a>
 					</form>
+
 				</div>
-				<a href="<?php echo "browseDate.php?year=$year&month=$month&day=$day" ?>">Go back</a>
+				
 			</div>
-		</div>
+		
 	</body>
 </html>

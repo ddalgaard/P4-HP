@@ -16,10 +16,10 @@ h2.monthname {
 #calendar_table {
 	
 	text-align: center; 
+	
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	
 	border: 0;
 	
 	
@@ -50,10 +50,10 @@ h2.monthname {
 	overflow: auto;
 	-moz-border-radius-bottomright: 25px 25px;
 	border-bottom-right-radius: 25px 25px;
-	background-color: #ffffdd; /*IE fallback*/
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffdd), to(#f5e4a1));
-	background-image: -moz-linear-gradient(top left 90deg, #ffffdd 0%, #f5e4a1 100%);
-    background-image: linear-gradient(top left 90deg, #ffffdd 0%, #f5e4a1 100%);
+	background-color: #C0C0C0; /*IE fallback*/
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#C0C0C0), to(#666));
+	background-image: -moz-linear-gradient(top left 90deg, #C0C0C0 0%, #666 100%);
+    background-image: linear-gradient(top left 90deg, #C0C0C0 0%, #666 100%);
    filter:alpha(opacity=70); 
    opacity:.7;
    
@@ -62,10 +62,10 @@ h2.monthname {
 
 #calendar_table tr td:hover {
 	
-	background-color: #ffffdd; /*IE fallback*/
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#f5e4a1), to(#ffffdd));
-	background-image: -moz-linear-gradient(top left 90deg, #f5e4a1 0%, #ffffdd 100%);
-    background-image: linear-gradient(top left 90deg, #f5e4a1 0%, #ffffdd 100%);
+	background-color: #C0C0C0; /*IE fallback*/
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#666), to(#C0C0C0));
+	background-image: -moz-linear-gradient(top left 90deg, #666 0%, #C0C0C0 100%);
+    background-image: linear-gradient(top left 90deg, #666 0%, #C0C0C0 100%);
    filter:alpha(opacity=60); 
    opacity:.6;
 	
@@ -77,7 +77,6 @@ h2.monthname {
 	height: 100%;
 	width: 100%;
 
-	
 	
 	
 }
@@ -95,15 +94,8 @@ h2.monthname {
 	
 }
 
-
-.button {
-
-background:#12B9DB;
-    padding:5px;
-    border-radius:3px;
-    color:#fff;
-    font-weight:bold;
-    text-decoration: none;
+#form{
+display:block;
+margin-top: 10px;
 
 }
-

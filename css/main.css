@@ -40,6 +40,7 @@ a {
     background:#fdfdfd;
     width:1000px;
     margin:0 auto;
+
     padding:20px;
     border:2px solid #e3e3e3;
     overflow: auto;
@@ -73,11 +74,17 @@ a {
 }
 
 .shifts_table {
-    width:490px;   
+
     border-collapse:collapse;
     float:left;
     margin:5px 5px 0 5px;
     border:1px solid #ddd;
+
+
+}
+
+#notes{
+    width:100px;
 }
 
 .shifts_table tbody tr td {
@@ -86,6 +93,7 @@ a {
 }
  
 .shifts_table thead tr {
+    text-transform: uppercase;
     background:#eee;
     height:70px;
 }
@@ -108,10 +116,25 @@ a {
     min-width:100px;
 }
 
-.table_boldtext {
+#free_shifts{
+    float:right;
+    
+}
+
+.table_boldtext{
     font-weight: bold;
     color:#555;
+  margin-top:15px;
+  
 }
+.shifts_table td{
+    width: 70px;
+    
+}
+#my_shifts{
+width:490px;
+}
+
 
 .button_row {
     text-align: center;
@@ -120,26 +143,29 @@ a {
 .button {
     background:#12B9DB;
     padding:5px;
-    border-radius:3px;
+    border-radius:2px;
     color:#fff;
     font-weight:bold;
+    margin-top: 10px;
+    display: inline-block;
+    
     
 }
 
 #shifts_today {
-    width:655px;
+  
+    float:left;
 }
+
 
 #hello_user {
     float:right;
     margin:15px 20% 15px 0;
     background:#CFDE5C;
     color:#fff;
-    padding:8px 10px 10px 0;
-    display: inline-block;
+    padding:7px 10px 9px 0;
     border-radius:3px;
     font-size:13px;
-    position: relative;
 }
 
 #hello_user:before {
@@ -150,6 +176,15 @@ a {
     border-radius:3px 0 0 3px;
     margin-right:6px;
     font-size:11px;
+  
+}
+#hello_user a {
+    text-decoration:none;
+}
+
+/* baggrund on hover */
+#hello_user a:hover { 
+    background: #CFDE5C; 
 }
 
 /* Hide and show elements*/
@@ -168,7 +203,7 @@ a {
 
 /* browseDate.php */
 #create_shift_popup #create, #create_shift_popup #overview {
-        float:left;  
+        float:right;  
 }
 
 #create_shift_popup #create {
@@ -262,13 +297,17 @@ input, select {
 }
 
 .returnbutton{
-    
+
 background:#666;
     padding:5px;
-    border-radius:3px;
+    border-radius:2px;
     color:#fff;
     font-weight:bold;
-
+    font-size: 0.75em;
+    display:inline-block;
+   
+    margin-left: 145px;
+    display:inline-block;
 }
 
 
