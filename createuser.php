@@ -53,7 +53,7 @@ checkLogin();
             <li><a href="log_out.php">Logout</a></li>
         </ul>
 <!-- Start Create new User form -->
-        <form id="createForm" name="createForm" method="post">
+        <form id="createForm" name="createForm" autocomplete="off" method="post">
             <fieldset class="createUser">
                 <legend>Create employee</legend>
                 <label>First name:</label><input type="text" name="txtFirstName"/>
