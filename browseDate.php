@@ -63,6 +63,7 @@ if(isset($_GET['updateShift']) == 'yes'){
     <title>CTRL-ALL-SHIFTS</title>
     <link href="css/main.css" rel="stylesheet" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+   
 </head>
 
 <body>
@@ -148,9 +149,10 @@ if(isset($_GET['updateShift']) == 'yes'){
         				</fieldset>
 
         			    <label for="select_work_function">Work function</label>
-        				<select id="select_work_function" name="shift_work_function">
+        				<select id="select_work_function" name="shift_work_function" >
         					<?php selectWorkfunction(); ?>
         				</select>
+                      
 
         				<label for="select_emp">Employee</label>
         				<select id="select_emp" name="shift_emp">
