@@ -400,16 +400,6 @@ function returnFreeEvents(){
     }
 }
 
-function takeShift($shiftID, $empID){
-
-    $sql_query ="UPDATE `shift` SET `shift_emp_id`='$empID' WHERE shift_id = '$shiftID';";
-    
-    // Use query function (executeQuery()) to return result of query
-    executeQuery($sql_query);
-}
-
-
-
 
 // Function to create new employee
 function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $workFunction1, $workFunction2, $workFunction3, $password){
@@ -490,5 +480,22 @@ function checkIfShiftsConflict($shiftId, $empId){
     executeQuery($sql_query);
     }
 }
- 
+function returnUserName() {
+
+$sqlReturnUsername = "SELECT `username` FROM `login` WHERE `emp_id` = LAST_INSERT_ID()";
+
+$query_result = executeQuery($sqlReturnUsername);
+
+if($row = mysql_num_rows($query_result) > 0){
+
+    $userName = mysql_fetch_array($query_result);
+    $yourUserName = $userName['username'];
+    print '<script type="text/javascript">';
+    print 'alert("Your username is: '.$yourUserName.'")';
+    print '</script>';
+
+
+
+}
+}
 ?>

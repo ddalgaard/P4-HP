@@ -20,6 +20,7 @@ checkLogin();
             $password = hash('sha256', $_POST['txtPassword']);
 
                 addEmp($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3'],$password);
+                returnUserName();
             }
         }
 
