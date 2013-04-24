@@ -75,7 +75,7 @@ checkLogin();
                 <label>Work function 3:</label><select name="selectWorkFunction3">
                     <option value="-1"> None </option>
                     <?php selectWorkfunction(); ?>
-                </select><br />
+                </select>
 
                 <label>Password:</label><input type="password" name="txtPassword" />
                 <input class="button" type="submit" name="create-submit" id="createUser" value="Create" />

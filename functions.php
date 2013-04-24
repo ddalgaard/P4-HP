@@ -9,6 +9,7 @@ function checkLogin() {
 }
 
 function redirect($url){
+//Checks if headers are already sent, if not the function uses the good old header(Location: ) function, and if they are sent. The function first uses javascript to try and redirect, if javascript is disabled. The function uses meta refresh to redirect. 
 	if(!headers_sent()){
 		header('Location: '.$url);
 		exit;
