@@ -6,11 +6,9 @@ require_once 'functions.php';
 checkLogin();
 
 // If the URL contains 'takeShift=yes', grab the shiftID and empID from the URL and execute takeShift() function.
-if (!empty($_POST['takeShift-submit'])){
-    if(isset($_POST['shiftId'], $_POST['empId'])) {
-        checkIfShiftsConflict($_POST['shiftId'], $_POST['empId']);
+if(!empty($_POST['takeShift-submit'])){
+    checkIfShiftsConflict($_POST['shiftId'], $_POST['empId']);
     }
-}
 ?>
 
 <html>

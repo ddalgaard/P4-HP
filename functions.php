@@ -423,7 +423,7 @@ function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $
     $sql_4="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction1')";
     $sql_5="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction2')";
     $sql_6="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction3')";
-    $sql_7 ="INSERT INTO `login`(`emp_id`, `username`, `password`) VALUES (LAST_INSERT_ID(), concat('$firstName', LAST_INSERT_ID()),'$password')"; 
+    $sql_7="INSERT INTO `login`(`emp_id`, `username`, `password`) VALUES (LAST_INSERT_ID(), CONCAT('$firstName', LAST_INSERT_ID()),'$password')";
     
     
 
@@ -480,7 +480,9 @@ function checkIfShiftsConflict($shiftId, $empId){
     // Get the amount of rows that is returned from the query. 
     // If one or more rows are returned an entry in the database is conflicting with the specified date interval and a warning is displayed. 
     if(mysql_num_rows($query_result) > 0){
-        echo "The shift you are about to take conflicts with one of your already taken shifts.";
+        print '<script type="text/javascript">';
+        print 'alert("You cannot take this shift \n due to double booking.")';
+        print '</script>';
     }else {
     $sql_query ="UPDATE `shift` SET `shift_emp_id`='$empId' WHERE shift_id = '$shiftId';";
 
