@@ -1,6 +1,7 @@
 ﻿<?php
 session_start();
 require_once "functions.php";
+checkLogin();
 /*
 checkLogin();
 if($_SESSION['loggedin'] == TRUE){
