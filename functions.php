@@ -395,20 +395,14 @@ function returnFreeEvents(){
                 <td>".returnFormattedDateTime($row['shift_end'])."</td>
                 <td>".$row['skill_name']."</td>
                 <td>".$row['note']."</td>
+<<<<<<< HEAD
                 <td><form method='post'> <input type='hidden' name='shiftId' value='{$row['shift_id']}'/> <input type='hidden' name='empId' value='{$empID}' /> <input type='submit' class='button' title='Take Shift' onclick=\"return confirm('Are you sure?');\" name='takeShift-submit' value='Take Shift' /></form></td>
+=======
+                <td><form method='post'> <input type='hidden' name='shiftId' value='{$row['shift_id']}'/> <input type='hidden' name='empId' value='{$empID}' /> <input type='submit' onclick=\"return confirm('Are you sure?');\" name='takeShift-submit' value='Take Shift' /></form></td>
+>>>>>>> f5fd108ec1e269d5218199d0655543108f3ebbc4
             </tr>";
     }
 }
-
-function takeShift($shiftID, $empID){
-
-    $sql_query ="UPDATE `shift` SET `shift_emp_id`='$empID' WHERE shift_id = '$shiftID';";
-    
-    // Use query function (executeQuery()) to return result of query
-    executeQuery($sql_query);
-}
-
-
 
 
 // Function to create new employee
@@ -490,5 +484,22 @@ function checkIfShiftsConflict($shiftId, $empId){
     executeQuery($sql_query);
     }
 }
- 
+function returnUserName() {
+
+$sqlReturnUsername = "SELECT `username` FROM `login` WHERE `emp_id` = LAST_INSERT_ID()";
+
+$query_result = executeQuery($sqlReturnUsername);
+
+if($row = mysql_num_rows($query_result) > 0){
+
+    $userName = mysql_fetch_array($query_result);
+    $yourUserName = $userName['username'];
+    print '<script type="text/javascript">';
+    print 'alert("Your username is: '.$yourUserName.'")';
+    print '</script>';
+
+
+
+}
+}
 ?>
