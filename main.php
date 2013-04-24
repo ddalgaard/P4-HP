@@ -29,7 +29,19 @@ if($_SESSION['loggedin'] == TRUE){
 <body>
 
 	<span id="hello_user">
-		<?php echo returnHelloUser(); ?>
+		
+			<a href="#">
+
+				<ul>
+					<li><a href="log_out.php"> Logout</a></li>
+				</ul>
+			</a>
+
+			<a id="hover"><?php echo returnHelloUser();?>
+				<div id="hidden"><a href="log_out.php">Logout</a></div>
+
+			</a>
+			
 	</span>
 
 	<div id="container">
@@ -37,9 +49,10 @@ if($_SESSION['loggedin'] == TRUE){
 			<li><a href="main.php">Main</a></li>
 			<li><a href="calendar.php">Calendar</a></li>
 			<li><a href="createUser.php">Settings</a></li>
-			<li><a href="log_out.php">Logout</a></li>
+			
 		</ul> 
-        
+		
+
 		<table id="my_shifts" class="shifts_table">
 			<thead>
 				<tr>

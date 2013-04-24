@@ -146,9 +146,9 @@ width:490px;
     border-radius:2px;
     color:#fff;
     font-weight:bold;
-    margin-top: 15px;
+    margin-top: 10px;
     display: inline-block;
-
+    
     
 }
 
@@ -158,18 +158,17 @@ width:490px;
 }
 
 
-
-
-
 #hello_user {
     float:right;
     margin:15px 20% 15px 0;
     background:#CFDE5C;
     color:#fff;
-    padding:8px 10px 10px 0;
+    padding:7px 10px 9px 0;
     display: inline-block;
     border-radius:3px;
     font-size:13px;
+    list-style:none;
+    
 }
 
 #hello_user:before {
@@ -180,7 +179,55 @@ width:490px;
     border-radius:3px 0 0 3px;
     margin-right:6px;
     font-size:11px;
+  
 }
+#hello_user a {
+    text-decoration:none;
+}
+
+/*minibox*/
+#hello_user ul li {
+    list-style:none;
+}
+
+/*ikke display minibox*/
+#hello_user ul {
+    display: none;
+    text-decoration:none;
+
+}
+/*minibox style*/
+/*
+#hello_user ul li a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 15px 5px 15px;
+    border-radius: 0px 0px 3px 3px;
+    background: #fff;
+    white-space: nowrap;
+}*/
+/* on hover show mini box */
+#hello_user a:hover ul {
+    display: block;
+    position: absolute;
+}
+
+#hidden {
+    display: none;
+}
+
+#hover:hover #hidden, #hover:hover #hidden a {
+    display: block;
+}
+
+
+/* baggrund on hover */
+#hello_user a:hover a { background: #CFDE5C; 
+}
+#hello_user a:hover li a:hover {background: #666;
+}
+
 
 
 /* browseDate.php */

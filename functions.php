@@ -215,13 +215,13 @@ function createCalendar($month, $year){
     
         // Check is there is one or more shifts on a date - if there is, style the table cell
         if(checkIfEventExistOnDate($year,$month,$dayInMonth) > 0){
-            //$calendar .='<td style="background:#ff6600;">'.$dayInMonth.'</td>';
-            $calendar .='<td style="background:#ff6600;"><a href="browseDate.php?year='.$year.'&month='.$month.'&day='.$dayInMonth.'">'.$dayInMonth.'</a></td>';
+            //$calendar .='<td style="background:#CFDE5C;">'.$dayInMonth.'</td>';
+            $calendar .='<td style="background:#CFDE5C;"><a href="browseDate.php?year='.$year.'&month='.$month.'&day='.$dayInMonth.'" style="color:#fff;">'.$dayInMonth.'</a></td>';
         } 
         
         // If there are no shifts on a date, apply default style to the cell
         else {  
-            $calendar .='<td><a href="browseDate.php?year='.$year.'&month='.$month.'&day='.$dayInMonth.'">'.$dayInMonth.'</a></td>';
+            $calendar .='<td><a href="browseDate.php?year='.$year.'&month='.$month.'&day='.$dayInMonth.'" style="color:#fff;">'.$dayInMonth.'</a></td>';
         }    
         
         //For each day that is added, add 1 to the first day of month. 
@@ -316,7 +316,7 @@ function returnHelloUser(){
         $username = $_SESSION['username']; 
         $userid = mysql_query("SELECT first_name, last_name FROM login, emp WHERE username = '$username' and login.emp_id = emp.emp_id");
         while($row_id = mysql_fetch_array($userid)){
-        echo "Hej <b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
+        echo "<b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
     }}
 
 
@@ -395,7 +395,7 @@ function returnFreeEvents(){
                 <td>".returnFormattedDateTime($row['shift_end'])."</td>
                 <td>".$row['skill_name']."</td>
                 <td>".$row['note']."</td>
-                <td><form method='post'> <input type='hidden' name='shiftId' value='{$row['shift_id']}'/> <input type='hidden' name='empId' value='{$empID}' /> <input type='submit' title='Take Shift' onclick=\"return confirm('Are you sure?');\" name='takeShift-submit' value='Take Shift' /></form></td>
+                <td><form method='post'> <input type='hidden' name='shiftId' value='{$row['shift_id']}'/> <input type='hidden' name='empId' value='{$empID}' /> <input type='submit' class='button' title='Take Shift' onclick=\"return confirm('Are you sure?');\" name='takeShift-submit' value='Take Shift' /></form></td>
             </tr>";
     }
 }
