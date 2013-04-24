@@ -22,16 +22,16 @@ legend{
     text-transform: uppercase;
     color:#444;
     font-weight: bold;
-    font-size: 12px;	
-	
+    font-size: 12px;
+   
 }
 
 label{
 	
-	text-transform: uppercase;
+	text-transform: lowercase;
     color:#444;
     font-weight: bold;
-    font-size: 10px;
+    font-size: 12px;
     float: left;
     width: 110px;
     margin-top: 5px;
@@ -68,4 +68,8 @@ input, select {
     border-radius:3px;
     color:#fff;
     font-weight:bold;
+}
+
+#createForm{
+    margin-top: 10px;
 }
