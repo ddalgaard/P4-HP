@@ -48,7 +48,7 @@ if($_SESSION['loggedin'] == TRUE){
 		<ul id="menu">
 			<li><a href="main.php">Main</a></li>
 			<li><a href="calendar.php">Calendar</a></li>
-			<li><a href="createUser.php">Settings</a></li>
+			<li><a href="createuser.php">Settings</a></li>
 			
 		</ul> 
 		
