@@ -246,68 +246,7 @@ function createCalendar($month, $year){
 
 function returnWeeklySchedule(){
 
-    $day = date("d");
-    //$day = "26";
-    $month = date("m");
-    //$month = "04";
-    $weekNumber = date("W");
-    $year = date("Y");
-    //$year = "2013";
-
-    $date = date('Y-m-d');
-
-    $date = $year."-".$month."-".$day; 
-
-
-    
-
-        $rowNumber = 0; 
-
-        $sql_query = "SELECT EXTRACT(hour_minute FROM shift_start) AS shift_start, EXTRACT(hour_minute FROM shift_end) AS shift_end, skill_name, CONCAT(first_name, ' ', last_name) AS emp_name 
-                      FROM shift, skill, emp 
-                      WHERE DATEDIFF(shift_start, '$date') = 0 AND skill.skill_id = shift.skill_id AND shift.shift_emp_id = emp.emp_id 
-                      OR DATEDIFF(shift_end, '$date') = 0 AND skill.skill_id = shift.skill_id AND shift.shift_emp_id = emp.emp_id  
-                      ";
-
-        $query_result = executeQuery($sql_query);
-
-
-        echo "<tr>";
-        for($day =1; $day <= 7; $day++){
-
-               // $weekStartDate = date('Y-m-d',strtotime("this Monday", $time));
-
-                $date = "<td>".date('l d/m', strtotime($year."W".$weekNumber.$day))."</td>";
-
-                echo $date;
-
-            }
-            
-         
-        echo "</tr><tr>";
-
-    //  if(mysql_num_rows($query_result) > 0){
-
-            while($row = mysql_fetch_array($query_result)){
-
-                echo "<td>Række".$rowNumber.": ".$row['shift_start']."-".$row['shift_end']."</td>";
-
-                //$sql_query .= "LIMIT 1 OFFSET $rowNumber";
-
-                $rowNumber++;
-
-                 echo "</tr>";
-            }}
-      /*   else {
-
-                echo "<td>nej</td>";
-               echo "</tr>";
-          } */
-          
-          
-          
-        
-          
+} 
           
 
 
