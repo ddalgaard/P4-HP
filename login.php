@@ -39,13 +39,13 @@ $_SESSION['username'] = $username;
 $_SESSION['password'] = $password;
 $_SESSION['loggedin'] = TRUE;
 
-redirect('http://localhost:8888/P4-PHP/main.php');
+redirect('main.php');
 //header("location:main.php");
 }
 // post error message if the login data is wrong
 else {
 
-redirect('http://localhost:8888/P4-PHP/index.php');
+redirect('index.php');
 
 //header("location:index.php");
 }
