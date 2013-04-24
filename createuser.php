@@ -8,6 +8,7 @@ checkLogin();
 
 <html>
 <head>
+
 </head>
 <body>
     <?php
@@ -22,6 +23,7 @@ checkLogin();
             
 
                 addEmp($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3'],$password);
+                returnUserName();
             }
         }
 
@@ -38,19 +40,21 @@ checkLogin();
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </head>
     <body>
-
+<!-- Echo out the name of the user logged in -->
 	<span id="hello_user">
 		<?php echo returnHelloUser(); ?>
 	</span>
 
     <div id="container">
+    
+<!-- The html menu, made as an inline list -->
         <ul id="menu">
             <li><a href="main.php">Main</a></li>
             <li><a href="calendar.php">Calendar</a></li>
             <li><a href="createUser.php">Settings</a></li>
             <li><a href="log_out.php">Logout</a></li>
         </ul>
-
+<!-- Start Create new User form -->
         <form id="createForm" name="createForm" method="post">
             <fieldset class="createUser">
                 <legend>Create employee</legend>
@@ -74,10 +78,11 @@ checkLogin();
                     <?php selectWorkfunction(); ?>
                 </select><br />
                 <label>Password:</label><input type="password" name="txtpassword" />
-                <input class="button" type="submit" name="create-submit" id="createUser" value="Create" />
+                <input class="button" type="submit"  name="create-submit" id="createUser" value="Create" />
             </fieldset>
         </form>
 
+<!-- End createUser form -- Start Delete user form -->
         <form id="deleteForm" name="deleteForm" method="post">
             <fieldset id="deleteUser">
                 <legend>Delete employee</legend>
@@ -91,6 +96,8 @@ checkLogin();
 
             </fieldset>
         </form>
+        
+      
     </div>
     </body>
     </html>
