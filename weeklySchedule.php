@@ -7,40 +7,28 @@ require_once 'functions.php';
 
 ?>
 
-
 <html>
-<head> 
-</head>
-<body>
-
-<html>
-<head>
-	<title>CTRL-ALL-SHIFTS</title>
-	<link href="css/main.css" rel="stylesheet" type="text/css" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
-<body>
-
-		<table id="free_shifts" class="shifts_table">
-			<thead>
-				<tr>
-					<th colspan="5"> Free Shifts </th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="table_boldtext"> 
-					<td>Start time</td>
-					<td>End time</td>
-				</tr>
-                    <?php 
-                    	returnWeeklySchedule();
-                    ?>
-			</tbody>
-		</table>
-
-</body>
-</html>
-
-
-</body>
+	<head>
+		<title>CTRL-ALL-SHIFTS</title>
+		<link href="css/main.css" rel="stylesheet" type="text/css" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</head>
+	<body>
+		<div id="hello_user" class="reveal_hidden">
+			<?php returnHelloUser(); ?>
+		</div>
+		<div id="container">
+			<ul id="menu">
+				<li><a href="main.php">Main</a></li>
+				<li><a href="calendar.php">Calendar</a></li>
+				<li><a href="createUser.php">Settings</a></li>
+				<li><a href="log_out.php">Logout</a></li>
+			</ul> 
+			<div id="weeklySchedule">
+				<?php 
+		            echo returnWeeklySchedule();
+		        ?>
+			</div>
+		</div>
+	</body>
 </html>

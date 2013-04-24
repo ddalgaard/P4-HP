@@ -32,9 +32,9 @@ if($_SESSION['loggedin'] == TRUE){
 </head>
 <body>
 
-	<span id="hello_user">
-		<?php echo returnHelloUser(); ?>
-	</span>
+	<div id="hello_user" class="reveal_hidden">
+		<?php returnHelloUser(); ?>
+	</div>
 
 	<div id="container">
 		<ul id="menu">
