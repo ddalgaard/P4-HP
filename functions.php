@@ -3,7 +3,7 @@
 function checkLogin() {
     
     if(!isset($_SESSION['loggedin'])) {
-    header("location:index.php");
+    redirect('index.php');
     } else {    
             }
 }
