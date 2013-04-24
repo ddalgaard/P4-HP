@@ -74,7 +74,7 @@ a {
 }
 
 .shifts_table {
-      
+
     border-collapse:collapse;
     float:left;
     margin:5px 5px 0 5px;
@@ -93,6 +93,7 @@ a {
 }
  
 .shifts_table thead tr {
+    text-transform: uppercase;
     background:#eee;
     height:70px;
 }
