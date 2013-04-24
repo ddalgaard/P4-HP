@@ -50,7 +50,7 @@ checkLogin();
         <ul id="menu">
             <li><a href="main.php">Main</a></li>
             <li><a href="calendar.php">Calendar</a></li>
-            <li><a href="createUser.php">Settings</a></li>
+            <li><a href="createuser.php">Settings</a></li>
             <li><a href="log_out.php">Logout</a></li>
         </ul>
 <!-- Start Create new User form -->
@@ -75,7 +75,7 @@ checkLogin();
                 <label>Work function 3:</label><select name="selectWorkFunction3">
                     <option value="-1"> None </option>
                     <?php selectWorkfunction(); ?>
-                </select><br />
+                </select>
 
                 <label>Password:</label><input type="password" name="txtPassword" />
                 <input class="button" type="submit" name="create-submit" id="createUser" value="Create" />
