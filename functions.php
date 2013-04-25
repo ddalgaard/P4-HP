@@ -3,12 +3,13 @@
 function checkLogin() {
     
     if(!isset($_SESSION['loggedin'])) {
-    header("location:index.php");
+    redirect('index.php');
     } else {    
             }
 }
 
 function redirect($url){
+//Checks if headers are already sent, if not the function uses the good old header(Location: ) function, and if they are sent. The function first uses javascript to try and redirect, if javascript is disabled. The function uses meta refresh to redirect. 
 	if(!headers_sent()){
 		header('Location: '.$url);
 		exit;
@@ -261,25 +262,86 @@ function createCalendar($month, $year){
     
 }
 
+// Function to return a weekly calendar with each day's events. 
 function returnWeeklySchedule(){
 
+    // Get current year and month. Used to generate a timestamp below. 
+    $thisYear = date("Y");
+    $thisMonth = date("m");
+
+    // Get current day. Used to Generate a timestamp below. 
+    // Because Sunday is the first day of the english week we subtract the date with one to 'fake' that monday is the first day of the week. 
+    // E.g.: Sunday 7th will return monday 8th as the first monday of that week. By subtracting 1 we really get the monday for last week which is correct if monday is the first day of the week. 
+    $thisDay = date("d")-1;
+
+    // Generate timestamp for today. 
+    $timestamp = mktime(0,0,0,$thisMonth,$thisDay,$thisYear);
+
+    // Get monday in this week by using 'strtotime' and our timestamp. If we had not subtracted 1 from '$thisDay' this would have caused problems because the week would then start on sunday. 
+    $mondayThisWeek = date("Y-m-d", strtotime("Monday this week",$timestamp));
+
+    // Get the week start date (date for monday). 
+    // Used in the SQL query to extract events for each date. For each loop that extracts data, the date is added by 1 to get events for the next day.
+    $thisDate = $mondayThisWeek;
+
+    // Add heading.
+    $calendar = "<h2>Weekly schedule</h2>";
+
+    // Extracts data for each day of the week. The week has 7 days and thus the loop runs 7 times. 
+    for($day=1; $day<=7; $day++){
+
+        // Get the date and name of the day for each day in the week. Used as a header for each of the 7 lists that holds events for each day. 
+        $dayInWeek = date("l d/m", strtotime($thisDate));
+
+        // Create an unordered list for each day.
+        $calendar .= "<ul class='day_list'>";
+
+        // Add the date and name of the day as the first list item in each list. 
+        $calendar .= "<li>".$dayInWeek."</li>";
+
+        // SQL-query. Extracts data for each day by matching the shift start date with the date for each day in the week. 
+        $sql_query = "SELECT shift_start, shift_end, skill_name, CONCAT(first_name, ' ', last_name) AS emp_name 
+                    FROM shift, skill, emp 
+                    WHERE DATEDIFF(shift_start, '$thisDate') = 0 
+                    AND skill.skill_id = shift.skill_id AND shift.shift_emp_id = emp.emp_id
+                    ORDER BY shift_start";
+
+        // Execute query.
+        $query_result = executeQuery($sql_query); 
+
+        // Extract all entries in the DB for the corresponding day as items in the unordered list.
+        while($row = mysql_fetch_array($query_result)){
+            $calendar .= "<li><span>".returnFormattedWeeklyTime($row['shift_start'])."-".returnFormattedWeeklyTime($row['shift_end'])."</span><span>".$row['skill_name']."</span><span>".$row['emp_name']."</span></li>";
+        }
+
+        // Add 1 day to '$thisDate' to go to the next day in the week. 
+        // Should be last
+        $thisDate = date("Y-m-d",strtotime($thisDate."+ 1 days"));
+
+        // End the unordered list. 
+        $calendar .= "</ul>";
+    }
+
+    // Return the weekly calendar. 
+    return $calendar;
 } 
           
-
-
 function returnHelloUser(){
 
         $username = $_SESSION['username']; 
         $userid = mysql_query("SELECT first_name, last_name FROM login, emp WHERE username = '$username' and login.emp_id = emp.emp_id");
         while($row_id = mysql_fetch_array($userid)){
-        echo "<b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
-    }}
+
+            echo "Hello <b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
+            echo "<a id='logout_link' class='hidden' href='log_out.php'>Log out</a>";
+        }
+}
+
 
 
 
 // KOMMENTER FUNKTION!!!
 // Ændre navn til at afspejle funktionens funcktionbalitet
-
 function returnEventsOnID(){
 
         $username = $_SESSION['username']; 
@@ -313,6 +375,17 @@ function returnFormattedDateTime($dateTimeString){
 
     // Use newline-character (\n) to break line after month.
     $formattedDateTime = date("F j \n G:i", strtotime($dateTimeString));
+
+    // Use the nl2br php function to add a html linebreak(<br/>) before all newlines (\n) in a string
+    return nl2br($formattedDateTime);
+} 
+
+// Function to format a datetime-string from the database to a more readable format.
+// See PHP Manual for formatting options: http://php.net/manual/en/datetime.createfromformat.php
+function returnFormattedWeeklyTime($dateTimeString){
+
+    // Use newline-character (\n) to break line after month.
+    $formattedDateTime = date("G:i", strtotime($dateTimeString));
 
     // Use the nl2br php function to add a html linebreak(<br/>) before all newlines (\n) in a string
     return nl2br($formattedDateTime);

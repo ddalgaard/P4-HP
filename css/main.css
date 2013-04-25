@@ -164,11 +164,8 @@ width:490px;
     background:#CFDE5C;
     color:#fff;
     padding:7px 10px 9px 0;
-    display: inline-block;
     border-radius:3px;
     font-size:13px;
-    list-style:none;
-    
 }
 
 #hello_user:before {
@@ -185,49 +182,23 @@ width:490px;
     text-decoration:none;
 }
 
-/*minibox*/
-#hello_user ul li {
-    list-style:none;
-}
-
-/*ikke display minibox*/
-#hello_user ul {
-    display: none;
-    text-decoration:none;
-
-}
-/*minibox style*/
-/*
-#hello_user ul li a {
-    display: block;
-    text-decoration: none;
-    color: #fff;
-    padding: 5px 15px 5px 15px;
-    border-radius: 0px 0px 3px 3px;
-    background: #fff;
-    white-space: nowrap;
-}*/
-/* on hover show mini box */
-#hello_user a:hover ul {
-    display: block;
-    position: absolute;
-}
-
-#hidden {
-    display: none;
-}
-
-#hover:hover #hidden, #hover:hover #hidden a {
-    display: block;
-}
-
-
 /* baggrund on hover */
-#hello_user a:hover a { background: #CFDE5C; 
-}
-#hello_user a:hover li a:hover {background: #666;
+#hello_user a:hover { 
+    background: #CFDE5C; 
 }
 
+/* Hide and show elements*/
+.hidden {
+    display: none;
+}
+
+.reveal_hidden:hover .hidden {
+    display: inline;
+}
+
+#logout_link {
+    margin:15px 0 0 35px;
+}
 
 
 /* browseDate.php */
@@ -338,5 +309,61 @@ background:#666;
     margin-left: 145px;
     display:inline-block;
 }
+
+
+
+/* Weekly schedule */
+
+#weeklySchedule {
+    width:874px;   
+    margin:5px auto;
+    border:1px solid #ddd;
+    overflow: auto;
+}
+
+.day_list {  
+    float:left;
+    list-style:none;
+}
+
+#weeklySchedule h2 {
+    background: #eee;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.day_list li {
+    padding:10px;
+    border-bottom:1px dashed #ddd;
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+    font-size: 12px;
+}
+
+.day_list li:first-of-type {  
+    background:#F4F4F4;
+    font-weight: bold;
+    color:#555;
+    border-left:0;
+    border-right:0;
+    text-align: center;
+}
+
+.day_list li:nth-child(even){
+    background:#F8F8F8;
+}
+
+.day_list li:nth-child(odd){
+    background:#F4F4F4;
+}
+
+.day_list li span {
+    display: block;
+    margin:2px 0 2px 0;
+}
+
+
 
 
