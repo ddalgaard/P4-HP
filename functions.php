@@ -435,13 +435,9 @@ function addEmp($firstName, $lastName, $address, $zip_code, $email, $phone_no, $
         {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
         }
-        /*if($isAdmin == 1){
-            $isAdmin = 1;
-        }else {
-            $isAdmin = "NULL";
-        }*/
+       
 
-    
+        // if admin checkbox is not checked, assign NULL as value. 
         if(!$isAdmin){
             $isAdmin = "NULL";
         }
