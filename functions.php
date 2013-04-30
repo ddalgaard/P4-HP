@@ -4,8 +4,7 @@ function checkLogin() {
     
     if(!isset($_SESSION['loggedin'])) {
     redirect('index.php');
-    } else {    
-            }
+    }
 }
 
 function redirect($url){
