@@ -28,19 +28,28 @@ $password = hash('sha256', $password);
 
 
 // check login information from login window to database for verification
-$sql="SELECT * FROM $tbl_name WHERE username='$username' and password='$password'";
-$result=mysql_query($sql);
+$sql_query="SELECT * FROM $tbl_name WHERE username='$username' and password='$password'";
+$query_result=mysql_query($sql_query);
 
 // counts number of rows in the result to ensure that the inputdata is only one row
-$count=mysql_num_rows($result);
+$count=mysql_num_rows($query_result);
 if($count==1){
-// redirect if login is successfull
-$_SESSION['username'] = $username;
-$_SESSION['password'] = $password;
-$_SESSION['loggedin'] = TRUE;
+	// redirect if login is successfull
+	$_SESSION['username'] = $username;
+	$_SESSION['password'] = $password;
+	$_SESSION['loggedin'] = TRUE;
+	
+	// extract the value is_admin from login and send it with the session. 
+	// If NULL it is an employee, if 1 it is an admin.
+	// Used on pages to restrict access for normal users.
+	while($row = mysql_fetch_array($query_result)){
+	
+		$_SESSION['isadmin'] = $row['is_admin'];
+	}
+	
 
-redirect('main.php');
-//header("location:main.php");
+	redirect('main.php');
+	//header("location:main.php");
 }
 // post error message if the login data is wrong
 else {

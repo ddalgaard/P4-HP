@@ -2,7 +2,7 @@
 session_start();
 require_once "functions.php";
 checkLogin();
-if($_SESSION['loggedin'] == TRUE){
+if($_SESSION['loggedin'] == TRUE && $_SESSION['isadmin'] == 1){
 
 
 // Retrieve values in the URL parsed from the calendar dates link
@@ -68,17 +68,10 @@ if(isset($_GET['updateShift']) == 'yes'){
 
 <body>
 
-    <span id="hello_user">
-        <?php echo returnHelloUser(); ?>
-    </span>
+    <?php include("includes/helloUser.php");?>
 
     <div id="container">
-        <ul id="menu">
-            <li><a href="main.php">Main</a></li>
-            <li><a href="calendar.php">Calendar</a></li>
-            <li><a href="createUser.php">Settings</a></li>
-            <li><a href="log_out.php">Logout</a></li>
-        </ul> 
+      <?php include("includes/menu.php");?>
 
 <div id="overview">
              <table id="shifts_today" class="shifts_table">
@@ -179,5 +172,9 @@ if(isset($_GET['updateShift']) == 'yes'){
 
 
 <?php
-}
+}else {
+    echo "Du er ikke logget ind";
+    echo "<a href='index.php'></br> Klik her for at logge ind!</a>";
+        }
+
 ?>

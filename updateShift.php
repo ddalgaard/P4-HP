@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once "functions.php";
+if($_SESSION['loggedin'] == TRUE && $_SESSION['isadmin'] == 1){
 
 // Retrieve values in the URL parsed from the calendar dates link
 // These values are used when the shift is updated and the user is sent back to the browseDate.php page. Ensures that the user is sent back to the page with the date that he came from. 
@@ -39,19 +40,10 @@ $workfunction = $_GET['workfunction'];
 <body>
 
 
-	<span id="hello_user">
-		<?php echo returnHelloUser(); ?>
-	</span>
+	<?php include("includes/helloUser.php");?>
 
 	<div id="container">
-		<ul id="menu">
-			<li><a href="main.php">Main</a></li>
-			<li><a href="calendar.php">Calendar</a></li>
-			<li><a href="createUser.php">Settings</a></li>
-			<li><a href="log_out.php">Logout</a></li>
-		</ul> 
-
-	
+		<?php include("includes/menu.php");?> 
 		
 			<div id="create_shift_popup">
 				<div id="create">
@@ -120,3 +112,11 @@ $workfunction = $_GET['workfunction'];
 		
 	</body>
 </html>
+
+<?php
+}
+else {
+    echo "Du er ikke logget ind";
+    echo "<a href='index.php'></br> Klik her for at logge ind!</a>";
+}
+?>

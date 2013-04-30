@@ -13,14 +13,14 @@ checkLogin();
 <body>
     <?php
     //Tjekker om sessions username og loggedin er sat. Hvis de er, må man blive på siden med denne funktion, eller redirectes man tilbage til login.
-    if($_SESSION['loggedin'] == TRUE){
+    if($_SESSION['loggedin'] == TRUE && $_SESSION['isadmin'] == 1){
 
         if (!empty($_POST['create-submit'])) {
             if(isset($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3'],$_POST['txtPassword'])){
-            
+                           
             $password = hash('sha256', $_POST['txtPassword']);
 
-                addEmp($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3'],$password);
+                addEmp($_POST['txtFirstName'], $_POST['txtLastName'], $_POST['txtAddress'], $_POST['txtZip'], $_POST['txtEmail'], $_POST['txtPhone'], $_POST['selectWorkFunction1'],$_POST['selectWorkFunction2'],$_POST['selectWorkFunction3'],$_POST['isAdmin'], $password);
                 returnUserName();
             }
         }
@@ -35,24 +35,18 @@ checkLogin();
     <head>
         <title>CTRL-ALL-SHIFTS</title>
         <link href="css/main.css" rel="stylesheet" type="text/css" />
-        <link href="css/create_user.css" rel="stylesheet" type="text/css" />
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </head>
     <body>
 <!-- Echo out the name of the user logged in -->
-	<span id="hello_user">
-		<?php echo returnHelloUser(); ?>
-	</span>
+	<?php include("includes/helloUser.php");?>
 
     <div id="container">
     
 <!-- The html menu, made as an inline list -->
-        <ul id="menu">
-            <li><a href="main.php">Main</a></li>
-            <li><a href="calendar.php">Calendar</a></li>
-            <li><a href="createuser.php">Settings</a></li>
-            <li><a href="log_out.php">Logout</a></li>
-        </ul>
+        <?php include("includes/menu.php");?>
+
 <!-- Start Create new User form -->
         <form id="createForm" name="createForm" autocomplete="off" method="post">
             <fieldset class="createUser">
@@ -77,8 +71,16 @@ checkLogin();
                     <?php selectWorkfunction(); ?>
                 </select>
 
-                <label>Password:</label><input type="password" name="txtPassword" />
+                <label>Password:</label>
+                <input type="password" name="txtPassword" />
+
+                <label>Is admin?</label>
+                <input type="checkbox" name="isAdmin" value="1" />
+                
                 <input class="button" type="submit" name="create-submit" id="createUser" value="Create" />
+
+                
+                
 
             </fieldset>
         </form>

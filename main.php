@@ -12,6 +12,9 @@ if(!empty($_POST['takeShift-submit'])){
 
 	//Tjekker om sessions username og loggedin er sat. Hvis de er, må man blive på siden med denne funktion, eller redirectes man tilbage til login.
 if($_SESSION['loggedin'] == TRUE){
+
+
+
 ?>
 
 <html>
@@ -22,15 +25,9 @@ if($_SESSION['loggedin'] == TRUE){
 	</head>
 	<body>
 
-		<div id="hello_user" class="reveal_hidden">
-			<?php returnHelloUser(); ?>
-		</div>
+		<?php include("includes/helloUser.php");?>
 		<div id="container">
-			<ul id="menu">
-				<li><a href="main.php">Main</a></li>
-				<li><a href="calendar.php">Calendar</a></li>
-				<li><a href="createuser.php">Settings</a></li>
-			</ul> 
+			<?php include("includes/menu.php");?>
 			
 			<table id="my_shifts" class="shifts_table">
 				<thead>
@@ -73,6 +70,11 @@ if($_SESSION['loggedin'] == TRUE){
 		</div>
 	</body>
 </html>
+
+
+
+
+
 
 
 

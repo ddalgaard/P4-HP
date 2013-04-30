@@ -431,18 +431,33 @@ function returnFreeEvents(){
 
 
 // Function to create new employee
-function addEmp($firstName, $lastName, $email, $address, $zip_code, $phone_no, $workFunction1, $workFunction2, $workFunction3, $password){
+function addEmp($firstName, $lastName, $address, $zip_code, $email, $phone_no, $workFunction1, $workFunction2, $workFunction3, $isAdmin, $password){
     if (mysqli_connect_errno())
         {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
         }
+        /*if($isAdmin == 1){
+            $isAdmin = 1;
+        }else {
+            $isAdmin = "NULL";
+        }*/
+
+    
+        if(!$isAdmin){
+            $isAdmin = "NULL";
+        }
+
+
+       
+
+
     $sql_1="INSERT INTO `emp`(`first_name`, `last_name`, `email`) VALUES ('$firstName','$lastName','$email')";
     $sql_2="INSERT INTO `address`(`emp_id`, `street`, `zip_code`) VALUES (LAST_INSERT_ID(),'$address','$zip_code')";
     $sql_3="INSERT INTO `phone`(`emp_id`,`phone_no`) VALUES (LAST_INSERT_ID(),'$phone_no')";
     $sql_4="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction1')";
     $sql_5="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction2')";
     $sql_6="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction3')";
-    $sql_7="INSERT INTO `login`(`emp_id`, `username`, `password`) VALUES (LAST_INSERT_ID(), CONCAT('$firstName', LAST_INSERT_ID()),'$password')";
+    $sql_7="INSERT INTO `login`(`emp_id`, `username`, `password`, `is_admin`) VALUES (LAST_INSERT_ID(), CONCAT('$firstName', LAST_INSERT_ID()),'$password', $isAdmin)";
     
     
 

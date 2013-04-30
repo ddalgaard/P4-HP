@@ -18,12 +18,13 @@ $db_host="localhost";
 
 $db_username="root";
 
-$db_password="";
+$db_password="congobajer2013";
 
-$db_name="calendar";
+$db_name="final";
 
-$tbl_name="login";
-*/
+$tbl_name="login";*/
+
+
 
 // connect to mysql database
 
