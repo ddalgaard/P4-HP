@@ -1,4 +1,5 @@
-<?php require_once 'dbconnect.php';
+<?php 
+require_once 'dbconnect.php';
 
 function checkLogin() {
     
@@ -24,7 +25,7 @@ function redirect($url){
     }
 	
 }
-
+//basic query function to execute mysql queries.
 function executeQuery($sql_query){
 
     // Add query result to variable
@@ -142,7 +143,7 @@ function returnEventsOnDate($year, $month, $day){
 }
 
 // Function to display workfunctions
-function workfunction(){
+/*function workfunction(){
     $sql_query = "SELECT skill_name, skill_id FROM skill";
     $query_result = executeQuery($sql_query);
     while($row = mysql_fetch_array($query_result)){
@@ -151,9 +152,9 @@ function workfunction(){
                     <td>".$row['skill_name']."</td><br>
                   </tr>";
         }
-}
+}*/
 
-
+// function to display and select workfunctions. the value of each option is set to skill_id and the name of the value is the name of the skill.
 function selectWorkfunction(){
 
     $sql_query = "SELECT skill_id, skill_name FROM skill";
@@ -324,7 +325,7 @@ function returnWeeklySchedule(){
     // Return the weekly calendar. 
     return $calendar;
 } 
-          
+// function to display the real name of the user logged in.           
 function returnHelloUser(){
 
         $username = $_SESSION['username']; 
@@ -332,15 +333,12 @@ function returnHelloUser(){
         while($row_id = mysql_fetch_array($userid)){
 
             echo "Hello <b>".$row_id['first_name']." ".$row_id['last_name']."</b>";
-            echo "<a id='logout_link' class='hidden' href='log_out.php'>Log out</a>";
+            echo "<a id='logout_link' class='hidden' href='log_out.php'>Log out</a>"; // echo the logout button which is displayed when hovering the user name 
         }
 }
 
 
-
-
-// KOMMENTER FUNKTION!!!
-// Ændre navn til at afspejle funktionens funcktionbalitet
+// Function to return events based on which user (emp_id) is logged in 
 function returnEventsOnID(){
 
         $username = $_SESSION['username']; 
@@ -355,9 +353,8 @@ function returnEventsOnID(){
     $query_result = executeQuery($sql_query);
     
     // Extract information for each entry in the table
-    //echo"<tr>My Shifts</td><br>";
     while($row = mysql_fetch_array($query_result)){
-              //<tr> closes in function returnFreeEvents();
+              //<tr> closes in function returnFreeEvents();  Returnformatteddatetime function is described beneath this function.
         echo "<tr> 
                 <td>".returnFormattedDateTime($row['shift_start'])."</td>
                 <td>".returnFormattedDateTime($row['shift_end'])."</td>
@@ -390,7 +387,7 @@ function returnFormattedWeeklyTime($dateTimeString){
     return nl2br($formattedDateTime);
 } 
     
- 
+// function to display events which has not been assigned to a user yet. 
 function returnFreeEvents(){
 
     // Get username of current user from session
@@ -405,7 +402,7 @@ function returnFreeEvents(){
         // Assign the value from the db-field 'emp_id' to a variable $empID
         $empID = $row_id["emp_id"];
     }
-    //
+    //SKAL KOMMENTERES
     $sql_query ="SELECT shift.shift_id, shift.shift_start, shift.shift_end, skill.skill_name, shift.note, shift.skill_id
                  FROM (shift LEFT JOIN skill ON skill.skill_id = shift.skill_id)
                  WHERE shift_emp_id IS NULL
@@ -441,11 +438,7 @@ function addEmp($firstName, $lastName, $address, $zip_code, $email, $phone_no, $
         if(!$isAdmin){
             $isAdmin = "NULL";
         }
-
-
-       
-
-
+    //insert statements
     $sql_1="INSERT INTO `emp`(`first_name`, `last_name`, `email`) VALUES ('$firstName','$lastName','$email')";
     $sql_2="INSERT INTO `address`(`emp_id`, `street`, `zip_code`) VALUES (LAST_INSERT_ID(),'$address','$zip_code')";
     $sql_3="INSERT INTO `phone`(`emp_id`,`phone_no`) VALUES (LAST_INSERT_ID(),'$phone_no')";
@@ -454,8 +447,7 @@ function addEmp($firstName, $lastName, $address, $zip_code, $email, $phone_no, $
     $sql_6="INSERT INTO `emp_skill`(`emp_id`, `skill_id`) VALUES (LAST_INSERT_ID(), '$workFunction3')";
     $sql_7="INSERT INTO `login`(`emp_id`, `username`, `password`, `is_admin`) VALUES (LAST_INSERT_ID(), CONCAT('$firstName', LAST_INSERT_ID()),'$password', $isAdmin)";
     
-    
-
+    // KOMMENTER!!!!
     $checkWorkFunction2 = mysql_real_escape_string($workFunction2);
     $checkWorkFunction3 = mysql_real_escape_string($workFunction3);
 
@@ -484,6 +476,7 @@ function deleteEmp($emp_id){
     $sql_del5="DELETE FROM `emp` WHERE emp_id = $emp_id";
     $sql_del6="UPDATE `shift` SET shift_emp_id = NULL WHERE shift_emp_id = $emp_id";
 
+    //KOMMENTER!!!!
     $checkEmp = mysql_real_escape_string($emp_id);
 
     if ($checkEmp > 0)
@@ -519,6 +512,8 @@ function checkIfShiftsConflict($shiftId, $empId){
     executeQuery($sql_query);
     }
 }
+
+// function to display username of the created user. is displayed in an alert box.
 function returnUserName() {
 
 $sqlReturnUsername = "SELECT `username` FROM `login` WHERE `emp_id` = LAST_INSERT_ID()";

@@ -2,6 +2,7 @@
 session_start();
 require_once "functions.php";
 checkLogin();
+// checking if logged in AND if the user is an admin. Otherwise the user will not be able to view this page
 if($_SESSION['loggedin'] == TRUE && $_SESSION['isadmin'] == 1){
 
 
@@ -9,7 +10,6 @@ if($_SESSION['loggedin'] == TRUE && $_SESSION['isadmin'] == 1){
 $year = $_GET['year'];
 $month = $_GET['month'];
 $day = $_GET['day'];
-
 
 
 // If the below fields are set (and not null) and the URL contains 'addShift=yes', add the shift
@@ -24,6 +24,7 @@ if(isset($_GET['addShift']) == 'yes' && isset($_POST['shift_start_month'], $_POS
        $shiftEmp = "'".$_POST['shift_emp']."'";
     }
 
+    // execute the function to add a shift.
     addShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $shiftEmp, $_POST['shift_notes']);
 }
 
@@ -33,6 +34,7 @@ if(isset($_GET['deleteShift']) == 'yes'){
     // The shift id is recovered from the URL and is used to identify which shift to delete.
     $shiftId = $_GET['shift_id'];
     
+    //execture deleteshift function
     deleteShift($shiftId);
 }
 
@@ -73,32 +75,31 @@ if(isset($_GET['updateShift']) == 'yes'){
     <div id="container">
       <?php include("includes/menu.php");?>
 
-<div id="overview">
-             <table id="shifts_today" class="shifts_table">
-                        <thead>
-                            <tr>
-                                <th colspan="7"> Shifts of the day </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table_boldtext">
-                                <td>Start time</td>
-                                <td>End time</td>
-                                <td>Work function</td>
-                                <td>Employee</td>
-                                <td>Notes</td>
-                                <td>Delete</td>
-                                <td>Edit Shift</td>
-                            </tr>
-                            <?php // Return events for the specified date
-                                echo returnEventsOnDate($year,$month,$day);
-                            ?>
-                        </tbody>
-                        
-                    </table>
+        <div id="overview">
+                <table id="shifts_today" class="shifts_table">
+                    <thead>
+                        <tr>
+                             <th colspan="7"> Shifts of the day </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table_boldtext">
+                             <td>Start time</td>
+                            <td>End time</td>
+                            <td>Work function</td>
+                            <td>Employee</td>
+                            <td>Notes</td>
+                            <td>Delete</td>
+                            <td>Edit Shift</td>
+                        </tr>
+                        <?php // Return events for the specified date
+                               echo returnEventsOnDate($year,$month,$day);
+                        ?>
+                    </tbody>
+                </table>
                     
                     
-                </div>
+        </div>
 
 
 
@@ -162,14 +163,11 @@ if(isset($_GET['updateShift']) == 'yes'){
         				<input type="submit" value="Create shift" />
         			</form>
         		</div>
-        		
-        	</div>
+        </div>	
+    </div>
   
 </body>
 </html>
-
-
-
 
 <?php
 }else {

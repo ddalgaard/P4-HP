@@ -53,7 +53,8 @@ $month = $_POST['select_month'];
         
         <input type="submit" value="See month" />
     </form>
-	<?php 
+    
+    <?php 
         // If no value is selected the calendar will just display the current month and year
         if($month == "current") {
             $month = date('m');

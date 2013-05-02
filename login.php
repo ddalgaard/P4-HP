@@ -1,23 +1,21 @@
 <?php
+// start session. Always need to be set first!
 session_start();
 // load database login data
 require_once 'dbconnect.php';
 require_once 'functions.php';
 
-
-
 //Test basic sql connection
-
 $db_server = mysql_connect($db_host, $db_username, $db_password);
 if (!$db_server) {
-die("Kan ikke forbinde til MySQL: " . mysql_error());
+	die("Kan ikke forbinde til MySQL: " . mysql_error());
 }
 
-// define username and password as variables
+// define typed username and password as variables
 $username=$_POST['empUsername'];
 $password=$_POST['empPassword']; 
 
-// mysql security protection (injection cleaner)
+// mysql security protection (injection cleaner) + hashing of password.
 $username = stripslashes($username);
 $username = stripslashes($username);
 $password = stripslashes($password);
@@ -26,15 +24,14 @@ $password = mysql_real_escape_string($password);
 $password = hash('sha256', $password);
 
 
-
 // check login information from login window to database for verification
 $sql_query="SELECT * FROM $tbl_name WHERE username='$username' and password='$password'";
 $query_result=mysql_query($sql_query);
 
-// counts number of rows in the result to ensure that the inputdata is only one row
+// counts number of rows in the result to ensure that the inputdata is only one row (count ==1).
 $count=mysql_num_rows($query_result);
 if($count==1){
-	// redirect if login is successfull
+	// redirect if login is successful
 	$_SESSION['username'] = $username;
 	$_SESSION['password'] = $password;
 	$_SESSION['loggedin'] = TRUE;
@@ -47,19 +44,17 @@ if($count==1){
 		$_SESSION['isadmin'] = $row['is_admin'];
 	}
 	
-
+	// redirect to main page
 	redirect('main.php');
-	//header("location:main.php");
+	
 }
+
 // post error message if the login data is wrong
 else {
 
 redirect('index.php');
 
-//header("location:index.php");
 }
-
-
 
 ?>
 
