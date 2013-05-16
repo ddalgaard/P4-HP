@@ -17,7 +17,6 @@ $password=$_POST['empPassword'];
 
 // mysql security protection (injection cleaner) + hashing of password.
 $username = stripslashes($username);
-$username = stripslashes($username);
 $password = stripslashes($password);
 $username = mysql_real_escape_string($username);
 $password = mysql_real_escape_string($password);
