@@ -1,5 +1,5 @@
 ﻿<?php
-//Start sessions, require dbconnect and functions + checklogin.
+// Start sessions, require dbconnect and functions + checklogin.
 session_start();
 require_once 'dbconnect.php';
 require_once 'functions.php';
@@ -9,8 +9,7 @@ checkLogin();
 if(!empty($_POST['takeShift-submit'])){
     checkIfShiftsConflict($_POST['shiftId'], $_POST['empId']);
     }
-
-//Tjekker om sessions username og loggedin er sat. Hvis de er, må man blive på siden med denne funktion, eller redirectes man tilbage til login.
+// Check if session set to loggedin. If so, the page will be displayed if not the user is redirected to the login page.
 if($_SESSION['loggedin'] == TRUE){
 
 ?>
@@ -22,7 +21,8 @@ if($_SESSION['loggedin'] == TRUE){
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	</head>
 	<body>
-		<!--HelloUser is in a seperate file to make each page have the same "helloUser" CSS. i.e. logout display when hovering the username-->
+		<!-- HelloUser is in a separate file to make each page have the same "helloUser" CSS.
+		i.e. logout display when hovering the username. -->
 		<?php include("includes/helloUser.php");?>
 			<div id="container">
 				<?php include("includes/menu.php");?>
@@ -30,7 +30,7 @@ if($_SESSION['loggedin'] == TRUE){
 				<table id="my_shifts" class="shifts_table">
 					<thead>
 						<tr>
-							<th colspan="4"> My Shifts </th> <!--colums span 4 rows-->
+							<th colspan="4"> My Shifts </th> <!-- Columns span 4 rows. -->
 						</tr>
 					</thead>
 					<tbody>
@@ -41,7 +41,7 @@ if($_SESSION['loggedin'] == TRUE){
 							<td>Notes</td>
 						</tr>				
 		                    <?php 
-		                    	// spans 4 rows
+		                    	// Spans 4 rows.
 		                    	echo returnEventsOnID();
 		                    ?>
 					</tbody>
@@ -58,7 +58,8 @@ if($_SESSION['loggedin'] == TRUE){
 							<td>Start time</td>
 							<td>End time</td>
 							<td>Function</td>
-							<td colspan="2">Notes</td> <!--spans 2 columns, because "take shift" does not have a column title.-->
+							<td colspan="2">Notes</td>
+                            <!-- Spans 2 columns, because "take shift" does not have a column title. -->
 						</tr>
 		                    <?php 
 		                    	echo returnFreeEvents();

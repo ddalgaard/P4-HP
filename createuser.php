@@ -12,7 +12,7 @@ checkLogin();
 </head>
 <body>
     <?php
-    //Tjekker om sessions username og loggedin er sat. Hvis de er, må man blive på siden med denne funktion, eller redirectes man tilbage til login.
+// Check if session set to loggedin. If so, the page will be displayed if not the user is redirected to the login page.
     if($_SESSION['loggedin'] == TRUE && $_SESSION['isadmin'] == 1){
 
         if (!empty($_POST['create-submit'])) {
@@ -25,6 +25,7 @@ checkLogin();
             }
         }
 
+        // Check if the delete button is pushed then preform deleteEmp function.
         if (!empty($_POST['delete-submit'])) {
         $emp_id = $_POST['selectEmpToDelete'];
         deleteEmp($emp_id);
@@ -39,15 +40,15 @@ checkLogin();
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </head>
     <body>
-<!-- Echo out the name of the user logged in -->
+<!-- Echo out the name of the user logged in. -->
 	<?php include("includes/helloUser.php");?>
 
     <div id="container">
     
-<!-- The html menu, made as an inline list -->
+<!-- The html menu, made as an inline list. -->
         <?php include("includes/menu.php");?>
 
-<!-- Start Create new User form -->
+<!-- Start create new user form. -->
         <form id="createForm" name="createForm" autocomplete="off" method="post">
             <fieldset class="createUser">
                 <legend>Create employee</legend>

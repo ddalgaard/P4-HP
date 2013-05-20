@@ -12,14 +12,16 @@ $month = $_GET['month'];
 $day = $_GET['day'];
 
 
-// If the below fields are set (and not null) and the URL contains 'addShift=yes', add the shift
+// If the below fields are set (and not null) and the URL contains 'addShift=yes', add the shift.
 if(isset($_GET['addShift']) == 'yes' && isset($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'])){
 
-    // To check if an employee is assigned to the shift. If not, the value NULL should be sent for the employee ID in the addShift function
+    /* To check if an employee is assigned to the shift.
+    If not, the value NULL should be sent for the employee ID in the addShift function. */
     if($_POST['shift_emp'] == ""){
         $shiftEmp = 'NULL'; 
     } else {
-        // Note that quotes are added to the variable string. This is because the input should be added as a string (see addShift-function in functions.php for more explanation)
+        // Note that quotes are added to the variable string. This is because the input should be added as a string.
+        // (see addShift-function in functions.php for more explanation.)
         // Ref: http://stackoverflow.com/questions/8796707/is-it-possible-to-have-a-html-select-option-value-as-null-using-php (see last post)
        $shiftEmp = "'".$_POST['shift_emp']."'";
     }
@@ -28,20 +30,21 @@ if(isset($_GET['addShift']) == 'yes' && isset($_POST['shift_start_month'], $_POS
     addShift($_POST['shift_start_month'], $_POST['shift_end_month'], $_POST['shift_start_date'], $_POST['shift_end_date'], $_POST['shift_start_time'], $_POST['shift_end_time'], $_POST['shift_work_function'], $shiftEmp, $_POST['shift_notes']);
 }
 
-// If the URL contains 'deleteshift=yes', retreive its id from the url and delete it
+// If the URL contains 'deleteShift=yes', retrieve its id from the url and delete it.
 if(isset($_GET['deleteShift']) == 'yes'){
 	
     // The shift id is recovered from the URL and is used to identify which shift to delete.
     $shiftId = $_GET['shift_id'];
     
-    //execture deleteshift function
+    // Execute deleteShift function.
     deleteShift($shiftId);
 }
 
-// If the URL contains 'updateShift=yes', retreive its id from the url and update it
+// If the URL contains 'updateShift=yes', retrieve its id from the url and update it.
 if(isset($_GET['updateShift']) == 'yes'){
 
-        // To check if an employee is assigned to the shift. If not, the value NULL should be sent for the employee ID in the updateShift function
+        /* To check if an employee is assigned to the shift.
+        If not, the value NULL should be sent for the employee ID in the updateShift function */
         if($_POST['shift_emp'] == ""){
             $shiftEmp = 'NULL'; 
         } else {
@@ -107,8 +110,9 @@ if(isset($_GET['updateShift']) == 'yes'){
         <div id="create_shift_popup">
         		<div id="create">
                     
-                    <!-- When the form is submitted, the query in the URL gets cleared. Therefore, we insert them again on submit in order to make the shifts on the current day show -->
-                    <!-- The query 'addShift=yes' ensures that the shift is added when the form is submitted. -->
+                    <!-- When the form is submitted, the query in the URL gets cleared. Therefore,
+                    we insert them again on submit in order to make the shifts on the current day show.
+                    The query 'addShift=yes' ensures that the shift is added when the form is submitted. -->
         			<form action=<?php echo "'?year=$year&month=$month&day=$day&addShift=yes'"; ?> method="post">
         				<fieldset>
         					<legend>Shift start</legend>
