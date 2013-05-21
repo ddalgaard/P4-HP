@@ -2,10 +2,10 @@
 session_start();
 require_once "functions.php";
 checkLogin();
-/*
+
 checkLogin();
-if($_SESSION['loggedin'] == TRUE){
-*/
+if($_SESSION['loggedin'] == TRUE && $_SESSION['isadmin'] == 1){
+
 // Set default value of the $month variable to be the current month
 $month = "current";
 
@@ -27,21 +27,10 @@ $month = $_POST['select_month'];
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>	
 </head>
 <body>
-    <span id="hello_user">
-        <?php echo returnHelloUser(); ?>
-    </span>
+    <?php include("includes/helloUser.php");?>
 
     <div id="container">
-        <ul id="menu">
-            <li><a href="main.php">Main</a></li>
-            <li><a href="calendar.php">Calendar</a></li>
-            <li><a href="createuser.php">Settings</a></li>
-            <li><a href="log_out.php">Logout</a></li>
-        </ul> 
-
-
-
-
+        <?php include("includes/menu.php");?>
 
     <!-- Select element: allows user to chose what month the calendar should display -->
     <form id="form" action="" method="post">
@@ -64,7 +53,8 @@ $month = $_POST['select_month'];
         
         <input type="submit" value="See month" />
     </form>
-	<?php 
+    
+    <?php 
         // If no value is selected the calendar will just display the current month and year
         if($month == "current") {
             $month = date('m');
@@ -80,7 +70,10 @@ $month = $_POST['select_month'];
             echo createCalendar($month, $year);
         }
 
-        //}
+    } else {
+    echo "Du er ikke logget ind";
+    echo "<a href='index.php'></br> Klik her for at logge ind!</a>";
+        }
 
     ?>
 

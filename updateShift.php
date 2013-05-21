@@ -1,9 +1,11 @@
 <?php 
 session_start();
 require_once "functions.php";
+if($_SESSION['loggedin'] == TRUE && $_SESSION['isadmin'] == 1){
 
 // Retrieve values in the URL parsed from the calendar dates link
-// These values are used when the shift is updated and the user is sent back to the browseDate.php page. Ensures that the user is sent back to the page with the date that he came from. 
+// These values are used when the shift is updated and the user is sent back to the browseDate.php page.
+// Ensures that the user is sent back to the page with the date that he came from.
 $year = $_GET['year'];
 $month = $_GET['month'];
 $day = $_GET['day'];
@@ -23,8 +25,6 @@ $empID = $_GET['emp_id'];
 $empName = $_GET['empName'];
 $workfunction = $_GET['workfunction'];
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -39,24 +39,16 @@ $workfunction = $_GET['workfunction'];
 <body>
 
 
-	<span id="hello_user">
-		<?php echo returnHelloUser(); ?>
-	</span>
+	<?php include("includes/helloUser.php");?>
 
 	<div id="container">
-		<ul id="menu">
-			<li><a href="main.php">Main</a></li>
-			<li><a href="calendar.php">Calendar</a></li>
-			<li><a href="createUser.php">Settings</a></li>
-			<li><a href="log_out.php">Logout</a></li>
-		</ul> 
-
-	
+		<?php include("includes/menu.php");?> 
 		
 			<div id="create_shift_popup">
 				<div id="create">
 			            
-			        <!-- When the form is submitted, the query in the URL gets cleared. Therefore, we insert them again on submit in order to make the shifts on the current day show -->
+			        <!-- When the form is submitted, the query in the URL gets cleared. Therefore,
+			        we insert them again on submit in order to make the shifts on the current day show -->
 					<form action=<?php echo "'browseDate.php?year=$year&month=$month&day=$day&updateShift=yes&shiftID=$shiftID'"; ?> method="post">
 						<fieldset>
 							<legend>Shift start</legend>
@@ -92,14 +84,16 @@ $workfunction = $_GET['workfunction'];
 
 						<label for="select_work_function">Work function</label>
 						<select id="select_work_function" name="shift_work_function">
-							<!-- This first option-tag outputs the current assigned work function. The php code outputs the rest of the selectable functions -->
+							<!-- This first option-tag outputs the current assigned work function.
+							The php code outputs the rest of the selectable functions -->
 							<option value="<?php echo $skillID; ?>" class="selectedOption"><?php echo $workfunction; ?></option>
 							<?php selectWorkfunction(); ?>
 						</select>
 
         				<label for="select_emp">Employee</label>
         				<select id="select_emp" name="shift_emp">
-        					<!-- This first option-tag outputs the current assigned employee. The php code outputs the rest of the selectable functions -->
+        					<!-- This first option-tag outputs the current assigned employee.
+        					The php code outputs the rest of the selectable functions -->
         					<option value="<?php echo $empID; ?>" class="selectedOption"><?php echo $empName; ?></option>";
         					<option value="">Free</option>
         					<?php selectEmpfunction(); ?>
@@ -120,3 +114,11 @@ $workfunction = $_GET['workfunction'];
 		
 	</body>
 </html>
+
+<?php
+}
+else {
+    echo "Du er ikke logget ind";
+    echo "<a href='index.php'></br> Klik her for at logge ind!</a>";
+}
+?>

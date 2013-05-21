@@ -14,15 +14,9 @@ require_once 'functions.php';
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	</head>
 	<body>
-		<div id="hello_user" class="reveal_hidden">
-			<?php returnHelloUser(); ?>
-		</div>
+		<?php include("includes/helloUser.php");?>
 		<div id="container">
-			<ul id="menu">
-				<li><a href="main.php">Main</a></li>
-				<li><a href="calendar.php">Calendar</a></li>
-				<li><a href="createUser.php">Settings</a></li>
-			</ul> 
+			<?php include("includes/menu.php");?>
 			<div id="weeklySchedule">
 				<?php 
 		            echo returnWeeklySchedule();
