@@ -1,4 +1,4 @@
-<!--Menu. If session is = 1 (meaning that the user logged in is an admin,
+<!-- Menu. If session is = 1 (meaning that the user logged in is an admin,
 the user is able to see the buttons linking to calendar.php and createuser.php) -->
 <ul id="menu">
 				<li><a href="main.php">Main</a></li>

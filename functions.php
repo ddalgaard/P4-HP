@@ -120,7 +120,8 @@ function returnEventsOnDate($year, $month, $day){
                 LEFT JOIN emp
                 ON emp.emp_id = shift.shift_emp_id
                 WHERE DATEDIFF(shift_start, '$date')=0
-                OR DATEDIFF(shift_end, '$date')=0";
+                OR DATEDIFF(shift_end, '$date')=0
+                ORDER BY shift.shift_start ASC";
    
    // Use query function (executeQuery()) to return result of query.
    $query_result = executeQuery($sql_query);
