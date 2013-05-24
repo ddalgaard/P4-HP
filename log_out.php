@@ -18,6 +18,6 @@ if (ini_get("session.use_cookies")) {
 // Destroy the session.
 session_destroy();
 
-header("location:index.php"); //to redirect back to "index.html" after logging out
+header("location:index.php"); // Redirect back to "index.html" after logging out.
 
 ?>

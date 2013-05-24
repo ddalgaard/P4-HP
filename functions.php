@@ -294,16 +294,21 @@ function returnWeeklySchedule(){
     for($day=1; $day<=7; $day++){
 
         /* Get the date and name of the day for each day in the week.
-        Used as a header for each of the 7 lists that holds events for each day. */
+        Used as a header for each of the 7 lists that holds events for each day.
+        ‘strtotime’ is used because the date-function expects a timestamp as parameter (and the variable
+        ‘$thisDate’ is not a timestamp but a string).
+        The parameters in the date-function outputs the name of the day and the date and month separated by a slash. */
         $dayInWeek = date("l d/m", strtotime($thisDate));
 
-        // Create an unordered list for each day.
+        // Create an unordered list and add it to the ‘$calendar’ variable.
         $calendar .= "<ul class='day_list'>";
 
         // Add the date and name of the day as the first list item in each list. 
         $calendar .= "<li>".$dayInWeek."</li>";
 
-       // SQL-query. Extracts data for each day by matching the shift start date with the date for each day in the week.
+        /* SQL-query. Extracts data for each day by matching the shift start date with the date for each day in
+        the week. The variable ‘$thisDate’ changes with every loop iteration and thus ensures that data for a new day
+        is extracted. */
         $sql_query = "SELECT shift_start, shift_end, skill_name, CONCAT(first_name, ' ', last_name) AS emp_name 
                     FROM shift, skill, emp 
                     WHERE DATEDIFF(shift_start, '$thisDate') = 0 
